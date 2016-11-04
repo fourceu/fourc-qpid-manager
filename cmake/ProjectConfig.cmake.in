@@ -1,0 +1,31 @@
+# This file is part of fourc-qpid-manager.
+#
+# fourc-qpid-manager is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Lesser Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# fourc-qpid-manager is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Lesser Public License for more details.
+#
+# You should have received a copy of the GNU Lesser Public License
+# along with fourc-qpid-manager.  If not, see <http://www.gnu.org/licenses/>.
+ 
+# - Config file for the <PROJECT> package
+# It defines the following variables
+#  <PROJECT>_INCLUDE_DIRS - include directories for the package
+#  <PROJECT>_LIBRARIES    - libraries to link against
+
+# Compute paths
+get_filename_component(@PROJECT_NAME@_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+set(@APPLICATION_NAME@_INCLUDE_DIRS "@CONF_INCLUDE_DIRS@")
+
+# Our library dependencies (contains definitions for IMPORTED targets)
+if(NOT TARGET @APPLICATION_NAME@ AND NOT @APPLICATION_NAME@_BINARY_DIR)
+  include("${@APPLICATION_NAME@_CMAKE_DIR}/@APPLICATION_NAME@Targets.cmake")
+endif()
+
+# These are IMPORTED targets created by <PROJECT>Targets.cmake
+set(@APPLICATION_NAME@_LIBRARIES @PROJECT_NAME@)

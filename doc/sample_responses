@@ -1,0 +1,69 @@
+ACL:
+{_create_ts:1478282616024944651, _delete_ts:0,
+_object_id:{_agent_epoch:10, _object_name:org.apache.qpid.acl:acl:org.apache.qpid.broker:broker:amqp-broker},
+_schema_id:{_class_name:acl, _hash:4bd88d64-2f35-d894-435c-1f2ee8c47e69, _package_name:org.apache.qpid.acl, _type:_data},
+_update_ts:1478285285901458957,
+_values:{aclDenyCount:0, brokerRef:{_object_name:org.apache.qpid.broker:broker:amqp-broker}, connectionDenyCount:0, enforcingAcl:True, lastAclLoad:1478285282616215350, maxConnections:500, maxConnectionsPerIp:0, maxConnectionsPerUser:0, maxQueuesPerUser:0, policyFile:/home/chrisr/projects/git/messenger/system tests avec mellomrom/cs-broker/acl, queueQuotaDenyCount:0, transferAcl:False}}
+
+Binding:
+{_create_ts:1478284455823484752, _delete_ts:0,
+_object_id:{_agent_epoch:10, _object_name:org.apache.qpid.broker:binding:org.apache.qpid.broker:exchange:,org.apache.qpid.broker:queue:1c224ecd-f9f0-4339-9826-9d52124463e6,1c224ecd-f9f0-4339-9826-9d52124463e6},
+_schema_id:{_class_name:binding, _hash:79311b0b-4077-92c0-2001-79e75225daa3, _package_name:org.apache.qpid.broker, _type:_data},
+_update_ts:1478284455897396163,
+_values:{arguments:{}, bindingKey:1c224ecd-f9f0-4339-9826-9d52124463e6, exchangeRef:{_agent_epoch:10, _object_name:org.apache.qpid.broker:exchange:}, msgMatched:0, queueRef:{_agent_epoch:10, _object_name:org.apache.qpid.broker:queue:1c224ecd-f9f0-4339-9826-9d52124463e6}}}
+
+Broker:
+{_create_ts:1478282615897083963, _delete_ts:0,
+_object_id:{_object_name:org.apache.qpid.broker:broker:amqp-broker},
+_schema_id:{_class_name:broker, _hash:62510fab-6ec5-1011-15d1-3ba0a0d5a7c1, _package_name:org.apache.qpid.broker, _type:_data},
+_update_ts:1478286574441081811,
+_values:{abandoned:2052, abandonedViaAlt:0, acquires:2052, byteDepth:0, byteFtdDepth:0, byteFtdDequeues:0, byteFtdEnqueues:0, bytePersistDequeues:0, bytePersistEnqueues:0, byteTotalDequeues:3272353, byteTotalEnqueues:3272353, byteTxnDequeues:0, byteTxnEnqueues:0, connBacklog:10, dataDir:/home/chrisr/projects/git/messenger/system tests avec mellomrom/cs-broker/data, discardsLvq:0, discardsNoRoute:26180, discardsOverflow:0, discardsPurge:0, discardsRing:0, discardsSubscriber:0, discardsTtl:0, maxConns:500, mgmtPubInterval:10, mgmtPublish:True, msgDepth:0, msgFtdDepth:0, msgFtdDequeues:0, msgFtdEnqueues:0, msgPersistDequeues:0, msgPersistEnqueues:0, msgTotalDequeues:2052, msgTotalEnqueues:2052, msgTxnDequeues:0, msgTxnEnqueues:0, name:amqp-broker, port:5672, queueCount:13, releases:2052, reroutes:0, stagingThreshold:0, systemRef:{_object_name:org.apache.qpid.broker:system:6a98d5b1-1cd1-4200-8323-c88ac5502821}, uptime:3958545098459, version:1.35.0, workerThreads:9}}
+
+Cluster: N/A
+
+Connection:
+{_create_ts:1478286721158143225, _delete_ts:0,
+_object_id:{_agent_epoch:10, _object_name:org.apache.qpid.broker:connection:qpid.127.0.1.1:5671-127.0.0.1:48220},
+_schema_id:{_class_name:connection, _hash:99b81adb-2cf6-06a7-ac90-1cb42e67c2fc, _package_name:org.apache.qpid.broker, _type:_data},
+_update_ts:1478286721231336158,
+_values:{SystemConnection:False, address:qpid.127.0.1.1:5671-127.0.0.1:48220, authIdentity:octopussy.domain.local-client@QPID, bytesFromClient:965, bytesToClient:341, closing:False, federationLink:False, framesFromClient:15, framesToClient:12, incoming:True, msgsFromClient:1, msgsToClient:0, protocol:AMQP 0-10, remoteParentPid:24817, remotePid:24820, remoteProcessName:systemtests, remoteProperties:{qpid.client_pid:24820, qpid.client_ppid:24817, qpid.client_process:systemtests, qpid.session_flow:1}, saslMechanism:EXTERNAL, saslSsf:0, shadow:False, userProxyAuth:False, vhostRef:{_object_name:org.apache.qpid.broker:vhost:org.apache.qpid.broker:broker:amqp-broker,/}}}
+
+Exchange:
+{_create_ts:1478282616021003158, _delete_ts:0,
+_object_id:{_agent_epoch:10, _object_name:org.apache.qpid.broker:exchange:},
+_schema_id:{_class_name:exchange, _hash:b6e4444e-2ddd-c672-da22-86ef5c88f0eb, _package_name:org.apache.qpid.broker, _type:_data},
+_update_ts:1478286495692159115,
+_values:{arguments:{qpid.replicate:none}, autoDelete:False, bindingCount:215, bindingCountHigh:215, bindingCountLow:102, byteDrops:0, byteReceives:2891843, byteRoutes:2891843, durable:False, msgDrops:0, msgReceives:1845, msgRoutes:1845, name:, producerCount:0, producerCountHigh:0, producerCountLow:0, type:direct, vhostRef:{_object_name:org.apache.qpid.broker:vhost:org.apache.qpid.broker:broker:amqp-broker,/}}}
+
+HaBroker: N/A
+
+Link: N/A
+
+Memory:
+{_create_ts:1478282615895797454, _delete_ts:0,
+_object_id:{_agent_epoch:1, _object_name:amqp-broker},
+_schema_id:{_class_name:memory, _hash:4c4b0f36-08ca-dfd5-f301-903936598668, _package_name:org.apache.qpid.broker, _type:_data},
+_update_ts:1478287296828145438,
+_values:{malloc_arena:28565504, malloc_fordblks:26503824, malloc_hblkhd:5001216, malloc_hblks:1, malloc_keepcost:143728, malloc_ordblks:5388, malloc_uordblks:2061680, name:amqp-broker}}
+
+Queue:
+{_create_ts:1478286647998495993, _delete_ts:0,
+_object_id:{_agent_epoch:10, _object_name:org.apache.qpid.broker:queue:16e3a67b-3c5f-468d-90e0-d72af30b02a4},
+_schema_id:{_class_name:queue, _hash:84ce326e-2cbd-6899-80d7-6267d3327e0f, _package_name:org.apache.qpid.broker, _type:_data},
+_update_ts:1478286648118249163,
+_values:{acquires:0, arguments:{}, autoDelete:False, bindingCount:1, bindingCountHigh:1, bindingCountLow:1, byteDepth:0, byteFtdDepth:0, byteFtdDequeues:0, byteFtdEnqueues:0, bytePersistDequeues:0, bytePersistEnqueues:0, byteTotalDequeues:0, byteTotalEnqueues:0, byteTxnDequeues:0, byteTxnEnqueues:0, consumerCount:0, consumerCountHigh:0, consumerCountLow:0, creator:octopussy.domain.local-client@QPID, discardsLvq:0, discardsOverflow:0, discardsPurge:0, discardsRing:0, discardsSubscriber:0, discardsTtl:0, durable:False, exclusive:False, flowStopped:False, flowStoppedCount:0, messageLatencyAvg:0, messageLatencyCount:0, messageLatencyMax:0, messageLatencyMin:0, msgDepth:0, msgFtdDepth:0, msgFtdDequeues:0, msgFtdEnqueues:0, msgPersistDequeues:0, msgPersistEnqueues:0, msgTotalDequeues:0, msgTotalEnqueues:0, msgTxnDequeues:0, msgTxnEnqueues:0, name:16e3a67b-3c5f-468d-90e0-d72af30b02a4, redirectPeer:, redirectSource:False, releases:0, reroutes:0, unackedMessages:0, unackedMessagesHigh:0, unackedMessagesLow:0, vhostRef:{_object_name:org.apache.qpid.broker:vhost:org.apache.qpid.broker:broker:amqp-broker,/}}}
+
+Session:
+{_create_ts:1478287486159934989, _delete_ts:0,
+_object_id:{_agent_epoch:10, _object_name:org.apache.qpid.broker:session:octopussy.domain.local-client@QPID.e075ed45-c833-4ac1-aac7-2e095bd81e73},
+_schema_id:{_class_name:session, _hash:03382fcb-66f1-280a-d6cb-447340f63ea3, _package_name:org.apache.qpid.broker, _type:_data},
+_update_ts:1478287486204271567,
+_values:{TxnCommits:0, TxnCount:0, TxnRejects:0, TxnStarts:0, attached:True, channelId:1, clientCredit:0, connectionRef:{_agent_epoch:10, _object_name:org.apache.qpid.broker:connection:qpid.127.0.1.1:5671-127.0.0.1:48410}, detachedLifespan:0, framesOutstanding:0, fullName:octopussy.domain.local-client@QPID.e075ed45-c833-4ac1-aac7-2e095bd81e73, name:octopussy.domain.local-client@QPID.e075ed45-c833-4ac1-aac7-2e095bd81e73, unackedMessages:0, vhostRef:{_object_name:org.apache.qpid.broker:vhost:org.apache.qpid.broker:broker:amqp-broker,/}}}
+
+Subscription:
+{_create_ts:1478287568621070708, _delete_ts:0,
+_object_id:{_agent_epoch:10, _object_name:org.apache.qpid.broker:subscription:org.apache.qpid.broker:session:octopussy.domain.local-client@QPID.1c494587-a0a5-44dc-afbf-91dfef9d8991,org.apache.qpid.broker:queue:a974fa70-b5f3-48d9-9e97-9613aa07f603,a974fa70-b5f3-48d9-9e97-9613aa07f603},
+_schema_id:{_class_name:subscription, _hash:7cc0ee44-57d4-2ed7-1a4b-3156ed9a4343, _package_name:org.apache.qpid.broker, _type:_data},
+_update_ts:1478287568664368060,
+_values:{acknowledged:True, arguments:{}, browsing:False, creditMode:WINDOW, delivered:0, exclusive:False, name:a974fa70-b5f3-48d9-9e97-9613aa07f603, queueRef:{_agent_epoch:10, _object_name:org.apache.qpid.broker:queue:a974fa70-b5f3-48d9-9e97-9613aa07f603}, sessionRef:{_agent_epoch:10, _object_name:org.apache.qpid.broker:session:octopussy.domain.local-client@QPID.1c494587-a0a5-44dc-afbf-91dfef9d8991}}}
+

@@ -1,0 +1,103 @@
+#!/bin/bash
+
+#
+# General use: don't add tests to this script - put them in tests.d (and make them executable)
+#
+
+# Some variables useful for the test scripts
+if [ -z "$QPID_BROKER_HOST" ]; then
+  export QPID_BROKER_HOST="localhost"
+  echo "Using default broker host for C++ apps : $QPID_BROKER_HOST"
+fi
+if [ -z "$QPID_BROKER_PORT" ]; then
+  export QPID_BROKER_PORT=5671
+  echo "Using default broker port for C++ apps : $QPID_BROKER_PORT"
+fi
+if [ -z "$QPID_BROKER_USE_TLS" ]; then
+  export QPID_BROKER_USE_TLS=true
+  echo "Using default TLS connections"
+fi
+
+if [ -z "$QPID_SEND" ]; then
+  export QPID_SEND=$(which qpid-send)
+fi
+if [ -z "$QPID_RECV" ]; then
+  export QPID_RECV=$(which qpid-receive)
+fi
+
+export APP_NAME=bash-test-appId
+export BROKER_URL_CPP="$QPID_BROKER_HOST:$QPID_BROKER_PORT"
+export QPID_CONFIG="$(which qpid-config)"
+if [[ $QPID_BROKER_USE_TLS == true ]]; then
+  export RAW_CONN_OPTIONS="{transport:ssl,protocol:amqp1.0}"
+  QPID_CONFIG_SWITCHES=(
+    -b amqps://$PY_ADMIN_USER@$QPID_BROKER_HOST:$QPID_BROKER_PORT
+    --ssl-certificate
+    "$PY_ADMIN_CERT"
+    --ssl-key
+    "$PY_ADMIN_KEY")
+else
+  export RAW_CONN_OPTIONS="{transport:tcp,protocol:amqp1.0}"
+  QPID_CONFIG_SWITCHES=("-b amqp://$BROKER_URL_CPP")
+fi
+
+FRAMEWORK_ERROR="Scripting errors occurred - framework did NOT exit cleanly"
+
+echo "BROKER_URL_CPP            : $BROKER_URL_CPP"
+echo "QPID_SSL_CERT_DB          : $QPID_SSL_CERT_DB"
+echo "QPID_SSL_CERT_PASSWORD_FILE : $QPID_SSL_CERT_PASSWORD_FILE"
+echo "QPID_SSL_CERT_NAME        : $QPID_SSL_CERT_NAME"
+echo "QPID_SEND                 : $QPID_SEND"
+echo "QPID_RECV                 : $QPID_RECV"
+echo "QPID_CONFIG               : $QPID_CONFIG"
+echo "RAW_CONN_OPTIONS          : $RAW_CONN_OPTIONS"
+
+function fail_tests {
+  echo $FRAMEWORK_ERROR >&2
+  return 1
+}
+
+function finish {
+  if [ $SUCCESS ]; then
+    echo -e "\n**************** System test script execution complete ****************"
+  else
+    # We need to log a failed test otherwise a CI plan may evaluate the run as successful
+    juLog -name="Scripting Framework" fail_tests
+	echo "**************** $FRAMEWORK_ERROR ****************"
+  fi
+  echo
+}
+
+trap finish EXIT
+
+echo "Testing C++ library connections"
+$QPID_RECV -b $BROKER_URL_CPP --connection-options="$RAW_CONN_OPTIONS" -a amq.default
+if [ $? != 0 ]; then
+  echo "C++ library connection failed."
+  exit 1
+fi
+
+echo
+echo "**************** Executing system test scripts in '@CMAKE_CURRENT_SOURCE_DIR@/scripts/tests.d' ****************"
+echo
+
+. "@CMAKE_CURRENT_SOURCE_DIR@/scripts/shell2junit/sh2ju"
+
+# Clean up any existing test results
+juLogClean
+
+if [ ! -z "$BUILD_BASHTEST_FILTER" ]; then
+	echo "Note: Bash Test filter = $BUILD_BASHTEST_FILTER"
+fi
+
+for TEST in $(ls "@CMAKE_CURRENT_SOURCE_DIR@/scripts/tests.d/"); do
+    if [ -z "$BUILD_BASHTEST_FILTER" ] || [[ "$TEST" =~ $BUILD_BASHTEST_FILTER ]]; then
+        echo "START TEST: $TEST"
+    
+        juLog -name="$TEST" "@CMAKE_CURRENT_SOURCE_DIR@/scripts/tests.d/$TEST" || echo "juLog returned $?"
+
+        echo -e "END TEST: $TEST\n"
+    fi
+done
+
+SUCCESS=true # Indicate to exit trap that we got to the end of the script
