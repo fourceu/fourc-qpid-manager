@@ -60,6 +60,27 @@ public:
   }
 
   /**
+   * Gets a binding for the given exchange, queue and binding key.
+   * @param exchangeName
+   * @param queueName
+   * @param bindingKey
+   * @return null if a matching binding could not be found.
+   */
+  const std::shared_ptr<Binding> getBinding(const std::string& exchangeName, const std::string& queueName, const std::string& bindingKey) {
+    auto bindings = getBindings();
+    for (auto itr = bindings.begin(); itr != bindings.end(); ++itr) {
+      auto binding = *itr->get();
+      if (binding.getExchangeName() == exchangeName
+          && binding.getQueueName() == queueName
+          && binding.getBindingKey() == bindingKey) {
+        return *itr;
+      }
+    }
+
+    return std::shared_ptr<Binding>();
+  }
+
+  /**
    * \brief Gets a broker object
    *
    * @param name

@@ -66,7 +66,6 @@ TEST_F(BindingTestsIT, testBind) {
   uuid = uuid_generator();
   std::string binding_key = boost::uuids::to_string(uuid);
 
-
   brokerAgent.createExchange(Exchange::ExchangeType::TOPIC, exchange_name);
   ASSERT_TRUE(brokerAgent.getExchange(exchange_name));
   brokerAgent.createQueue(queue_name);
@@ -116,7 +115,6 @@ TEST_F(BindingTestsIT, testUnbind) {
   uuid = uuid_generator();
   std::string binding_key = boost::uuids::to_string(uuid);
 
-
   brokerAgent.createExchange(Exchange::ExchangeType::TOPIC, exchange_name);
   ASSERT_TRUE(brokerAgent.getExchange(exchange_name));
   brokerAgent.createQueue(queue_name);
@@ -124,10 +122,13 @@ TEST_F(BindingTestsIT, testUnbind) {
 
   brokerAgent.bind(exchange_name, queue_name, binding_key);
 
-  // Verify result here
+  // Verify result
+  EXPECT_TRUE(brokerAgent.getBinding(exchange_name, queue_name, binding_key));
 
   brokerAgent.unbind(exchange_name, queue_name, binding_key);
-  // Verify result here
+
+  // Verify result
+  EXPECT_FALSE(brokerAgent.getBinding(exchange_name, queue_name, binding_key));
 }
 
 TEST_F(BindingTestsIT, testUnbindNonexistentBinding) {

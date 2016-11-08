@@ -22,36 +22,32 @@ namespace fmf {
 
 const std::string Binding::OBJECT_TYPE_NAME = "binding";
 
-Binding::Binding() : durable(false) {
+Binding::Binding() : exchangeEpoch(0), queueEpoch(0), msgMatched(0) {
 
 }
 
-const std::string& Binding::getExchange() const {
-  return exchange;
+const std::string& Binding::getExchangeName() const {
+  return exchangeName;
 }
 
-const std::string& Binding::getQueue() const {
-  return queue;
+Binding& Binding::setExchangeName(const std::string& value) {
+  exchangeName = value;
+
+  return *this;
+}
+
+const std::string& Binding::getQueueName() const {
+  return queueName;
+}
+
+Binding& Binding::setQueueName(const std::string& value) {
+  queueName = value;
+
+  return *this;
 }
 
 const std::string& Binding::getBindingKey() const {
   return bindingKey;
-}
-
-bool Binding::isDurable() const {
-  return durable;
-}
-
-Binding& Binding::setExchange(const std::string& value) {
-  exchange = value;
-
-  return *this;
-}
-
-Binding& Binding::setQueue(const std::string& value) {
-  queue = value;
-
-  return *this;
 }
 
 Binding& Binding::setBindingKey(const std::string& value) {
@@ -60,8 +56,32 @@ Binding& Binding::setBindingKey(const std::string& value) {
   return *this;
 }
 
-Binding& Binding::setDurable(bool value) {
-  durable = value;
+int Binding::getExchangeEpoch() const {
+  return exchangeEpoch;
+}
+
+Binding& Binding::setExchangeEpoch(int value) {
+  exchangeEpoch = value;
+
+  return *this;
+}
+
+int Binding::getQueueEpoch() const {
+  return queueEpoch;
+}
+
+Binding& Binding::setQueueEpoch(int value) {
+  queueEpoch = value;
+
+  return *this;
+}
+
+int Binding::getMsgMatched() const {
+  return msgMatched;
+}
+
+Binding& Binding::setMsgMatched(int value) {
+  msgMatched = value;
 
   return *this;
 }

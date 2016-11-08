@@ -29,21 +29,31 @@ public:
 
   Binding();
 
-  const std::string& getExchange() const;
-  const std::string& getQueue() const;
+  const std::string& getExchangeName() const;
+  Binding& setExchangeName(const std::string&);
+
+  const std::string& getQueueName() const;
+  Binding& setQueueName(const std::string&);
+
   const std::string& getBindingKey() const;
-  bool isDurable() const;
-
-  Binding& setExchange(const std::string&);
-  Binding& setQueue(const std::string&);
   Binding& setBindingKey(const std::string&);
-  Binding& setDurable(bool );
 
-protected:
-  std::string exchange;
-  std::string queue;
+  int getExchangeEpoch() const;
+  Binding& setExchangeEpoch(int);
+
+  int getQueueEpoch() const;
+  Binding& setQueueEpoch(int);
+
+  int getMsgMatched() const;
+  Binding& setMsgMatched(int);
+
+private:
+  std::string exchangeName;
+  std::string queueName;
   std::string bindingKey;
-  bool durable;
+  int exchangeEpoch;
+  int queueEpoch;
+  int msgMatched;
 };
 
 }} // Namespaces

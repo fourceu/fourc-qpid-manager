@@ -21,9 +21,6 @@
 using namespace fourc::fmf;
 
 TEST(BindingTests, ctor) {
-  std::string exchange;
-  std::string queue;
-  std::string key;
   auto instance = new Binding();
 
   EXPECT_NE(nullptr, instance);
@@ -31,29 +28,86 @@ TEST(BindingTests, ctor) {
   delete instance;
 }
 
-TEST(BindingTests, ctorSetsDefaultDurableFalse) {
+TEST(BindingTests, ctorSetsExchangeName) {
   Binding binding;
 
-  EXPECT_FALSE(binding.isDurable());
+  EXPECT_TRUE(binding.getExchangeName().empty());
 }
 
-TEST(BindingTests, ctorSetsDurableFalse) {
+TEST(BindingTests, ctorSetsQueueName) {
   Binding binding;
 
-  EXPECT_FALSE(binding.isDurable());
+  EXPECT_TRUE(binding.getQueueName().empty());
 }
 
-TEST(BindingTests, testSetDurableFalse) {
+TEST(BindingTests, ctorSetsBindingKey) {
   Binding binding;
-  binding.setDurable(true);
-  binding.setDurable(false);
 
-  EXPECT_FALSE(binding.isDurable());
+  EXPECT_TRUE(binding.getBindingKey().empty());
 }
 
-TEST(BindingTests, testSetDurableTrue) {
+TEST(BindingTests, ctorSetsExchangeEpoch) {
   Binding binding;
-  binding.setDurable(true);
 
-  EXPECT_TRUE(binding.isDurable());
+  EXPECT_EQ(0, binding.getExchangeEpoch());
+}
+
+TEST(BindingTests, ctorSetsQueueEpoch) {
+  Binding binding;
+
+  EXPECT_EQ(0, binding.getQueueEpoch());
+}
+
+TEST(BindingTests, ctorSetsMsgMatched) {
+  Binding binding;
+
+  EXPECT_EQ(0, binding.getMsgMatched());
+}
+
+TEST(BindingTests, setExchangeName) {
+  std::string expected = "test value";
+  Binding binding;
+  binding.setExchangeName(expected);
+
+  EXPECT_EQ(expected, binding.getExchangeName());
+}
+
+TEST(BindingTests, setQueueName) {
+  std::string expected = "test value";
+  Binding binding;
+  binding.setQueueName(expected);
+
+  EXPECT_EQ(expected, binding.getQueueName());
+}
+
+TEST(BindingTests, setBindingKey) {
+  std::string expected = "test value";
+  Binding binding;
+  binding.setBindingKey(expected);
+
+  EXPECT_EQ(expected, binding.getBindingKey());
+}
+
+TEST(BindingTests, setExchangeEpoch) {
+  int expected = 42;
+  Binding binding;
+  binding.setExchangeEpoch(expected);
+
+  EXPECT_EQ(expected, binding.getExchangeEpoch());
+}
+
+TEST(BindingTests, setQueueEpoch) {
+  int expected = 42;
+  Binding binding;
+  binding.setQueueEpoch(expected);
+
+  EXPECT_EQ(expected, binding.getQueueEpoch());
+}
+
+TEST(BindingTests, setMsgMatched) {
+  int expected = 42;
+  Binding binding;
+  binding.setMsgMatched(expected);
+
+  EXPECT_EQ(expected, binding.getMsgMatched());
 }

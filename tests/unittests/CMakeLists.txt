@@ -26,6 +26,7 @@ include_directories(../../src ${CMAKE_CURRENT_SOURCE_DIR} ${GTEST_BOTH_INCLUDE_D
 set(test_SRCS
         main.cxx
         fourc/fmf/codec/AclDecoderTests.cxx
+        fourc/fmf/codec/BindingDecoderTests.cxx
         fourc/fmf/codec/DecodeExceptionTests.cxx
         fourc/fmf/codec/DecoderTests.cxx
         fourc/fmf/codec/ExchangeDecoderTests.cxx
