@@ -79,5 +79,15 @@ TEST_F(AclTestsIT, testAclLookupPublish) {
 }
 
 TEST_F(AclTestsIT, testReloadACL) {
-  brokerAgent.reloadACLFile();
+  // This operation can legitimately fail if the broker is not running with an ACL file - in this case,
+  // the API will throw an RCPException with the description "Unable to open ACL file "": eof=F; fail=T; bad=F"
+  try {
+    brokerAgent.reloadACLFile();
+  } catch (RPCException& ex) {
+    if (strcmp(ex.what(), "Unable to open ACL file \"\": eof=F; fail=T; bad=F") == 0) {
+      std::cout << "Note: Reload ACL operation failed because the broker is not configured with an ACL." << std::endl;
+    } else {
+      throw;
+    }
+  }
 }

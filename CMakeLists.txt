@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU Lesser Public License
 # along with fourc-qpid-manager.  If not, see <http://www.gnu.org/licenses/>.
 
-CMAKE_MINIMUM_REQUIRED (VERSION 3.0.0)
+CMAKE_MINIMUM_REQUIRED (VERSION 2.8.7)
 
 PROJECT (fourc-qpid-manager CXX)
 
@@ -54,10 +54,10 @@ IF (UNIX)
 ENDIF (UNIX)
 
 # We need Boost >=1.54, when the logging library was introduced.
-FIND_PACKAGE(Boost 1.54 COMPONENTS log regex REQUIRED)
+FIND_PACKAGE(Boost 1.54 COMPONENTS log REQUIRED)
 FIND_PACKAGE(Qpid REQUIRED)
 
-INCLUDE_DIRECTORIES(include ${PROJECT_BINARY_DIR} ${${APPLICATION_NAME}_INCLUDE_DIRS} SYSTEM ${Boost_INCLUDE_DIRS})
+INCLUDE_DIRECTORIES(include ${PROJECT_BINARY_DIR} ${${APPLICATION_NAME}_INCLUDE_DIRS} SYSTEM ${Boost_INCLUDE_DIRS} ${Qpid_INCLUDE_DIRS})
 
 SET(${PROJECT_NAME}_LIBS ${Boost_LIBRARIES} ${Qpid_LIBRARIES})
 
