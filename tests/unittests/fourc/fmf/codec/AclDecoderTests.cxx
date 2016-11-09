@@ -49,8 +49,7 @@ TEST(AclDecoderTests, dynamicCast) {
 }
 
 TEST(AclDecoderTests, decodeAcl) {
-  auto now_ts = std::chrono::system_clock::from_time_t(time(nullptr)); // Base on C time (which is lower resolution than system_clock::now())
-  auto zero_ts = std::chrono::system_clock::from_time_t(0);
+  auto now_tp = std::chrono::system_clock::now();
   std::string oid = "oid";
   int agent_epoch = 10;
 
@@ -104,9 +103,9 @@ TEST(AclDecoderTests, decodeAcl) {
   };
 
   qpid::types::Variant::Map objectProperties = {
-      { ResponsePropertyNames::CREATED, std::chrono::system_clock::to_time_t(now_ts) },
-      { ResponsePropertyNames::DELETED, std::chrono::system_clock::to_time_t(zero_ts) },
-      { ResponsePropertyNames::UPDATED, std::chrono::system_clock::to_time_t(zero_ts) },
+      { ResponsePropertyNames::CREATED, now_tp.time_since_epoch().count() },
+      { ResponsePropertyNames::DELETED, 0 },
+      { ResponsePropertyNames::UPDATED, 0 },
       { ResponsePropertyNames::OBJECT_ID, object_id },
       { ResponsePropertyNames::SCHEMA_ID, schema_id },
       { ResponsePropertyNames::VALUES, values }
@@ -118,9 +117,9 @@ TEST(AclDecoderTests, decodeAcl) {
 
   EXPECT_TRUE(acl);
 
-  EXPECT_EQ(now_ts, acl->getTimeCreated());
-  EXPECT_EQ(zero_ts, acl->getTimeDeleted());
-  EXPECT_EQ(zero_ts, acl->getTimeUpdated());
+  EXPECT_EQ(now_tp, acl->getTimeCreated());
+  EXPECT_EQ(0, acl->getTimeDeleted().time_since_epoch().count());
+  EXPECT_EQ(0, acl->getTimeUpdated().time_since_epoch().count());
 
   EXPECT_EQ(oid, acl->getObjectId().getName());
   EXPECT_EQ(agent_epoch, acl->getObjectId().getAgentEpoch());

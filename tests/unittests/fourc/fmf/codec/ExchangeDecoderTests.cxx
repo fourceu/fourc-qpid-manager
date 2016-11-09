@@ -182,8 +182,7 @@ TEST(ExchangeDecoderTests, decodeExchangeType_Other) {
 }
 
 TEST(ExchangeDecoderTests, decodeExchange) {
-  auto now_ts = std::chrono::system_clock::from_time_t(time(0)); // Base on C time (which is lower resolution than system_clock::now())
-  auto zero_ts = std::chrono::system_clock::from_time_t(0);
+  auto now_tp = std::chrono::system_clock::now();
   std::string oid = "oid";
   std::string name = "name";
   bool durable = true;
@@ -206,9 +205,9 @@ TEST(ExchangeDecoderTests, decodeExchange) {
   };
 
   qpid::types::Variant::Map objectProperties = {
-      { ResponsePropertyNames::CREATED, std::chrono::system_clock::to_time_t(now_ts) },
-      { ResponsePropertyNames::DELETED, std::chrono::system_clock::to_time_t(zero_ts) },
-      { ResponsePropertyNames::UPDATED, std::chrono::system_clock::to_time_t(zero_ts) },
+      { ResponsePropertyNames::CREATED, now_tp.time_since_epoch().count() },
+      { ResponsePropertyNames::DELETED, 0 },
+      { ResponsePropertyNames::UPDATED, 0 },
       { ResponsePropertyNames::OBJECT_ID, object_id },
       { ResponsePropertyNames::SCHEMA_ID, schema_id },
       { ResponsePropertyNames::VALUES, qpid::types::Variant(values) }
@@ -220,9 +219,9 @@ TEST(ExchangeDecoderTests, decodeExchange) {
 
   EXPECT_TRUE(exchange);
 
-  EXPECT_EQ(now_ts, exchange->getTimeCreated());
-  EXPECT_EQ(zero_ts, exchange->getTimeDeleted());
-  EXPECT_EQ(zero_ts, exchange->getTimeUpdated());
+  EXPECT_EQ(now_tp, exchange->getTimeCreated());
+  EXPECT_EQ(0, exchange->getTimeDeleted().time_since_epoch().count());
+  EXPECT_EQ(0, exchange->getTimeUpdated().time_since_epoch().count());
 
   EXPECT_EQ(oid, exchange->getObjectId().getName());
 

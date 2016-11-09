@@ -49,8 +49,7 @@ TEST(QueueDecoderTests, dynamicCast) {
 }
 
 TEST(QueueDecoderTests, decodeQueue) {
-  auto now_ts = std::chrono::system_clock::from_time_t(time(nullptr)); // Base on C time (which is lower resolution than system_clock::now())
-  auto zero_ts = std::chrono::system_clock::from_time_t(0);
+  auto now_tp = std::chrono::system_clock::now();
   std::string oid = "oid";
   std::string name = "name";
   bool durable = true;
@@ -69,9 +68,9 @@ TEST(QueueDecoderTests, decodeQueue) {
   };
 
   qpid::types::Variant::Map objectProperties = {
-      { ResponsePropertyNames::CREATED, std::chrono::system_clock::to_time_t(now_ts) },
-      { ResponsePropertyNames::DELETED, std::chrono::system_clock::to_time_t(zero_ts) },
-      { ResponsePropertyNames::UPDATED, std::chrono::system_clock::to_time_t(zero_ts) },
+      { ResponsePropertyNames::CREATED, now_tp.time_since_epoch().count() },
+      { ResponsePropertyNames::DELETED, 0 },
+      { ResponsePropertyNames::UPDATED, 0 },
       { ResponsePropertyNames::OBJECT_ID, object_id },
       { ResponsePropertyNames::SCHEMA_ID, schema_id },
       { ResponsePropertyNames::VALUES, values }
@@ -83,9 +82,9 @@ TEST(QueueDecoderTests, decodeQueue) {
 
   EXPECT_TRUE(queue);
 
-  EXPECT_EQ(now_ts, queue->getTimeCreated());
-  EXPECT_EQ(zero_ts, queue->getTimeDeleted());
-  EXPECT_EQ(zero_ts, queue->getTimeUpdated());
+  EXPECT_EQ(now_tp, queue->getTimeCreated());
+  EXPECT_EQ(0, queue->getTimeDeleted().time_since_epoch().count());
+  EXPECT_EQ(0, queue->getTimeUpdated().time_since_epoch().count());
 
   EXPECT_EQ(oid, queue->getObjectId().getName());
 

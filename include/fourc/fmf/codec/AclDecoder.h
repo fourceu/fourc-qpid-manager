@@ -55,6 +55,7 @@ public:
     auto decoded = this->createObject(objectProperties);
 
     auto values = this->getMapProperty(objectProperties, RPNs::VALUES, true).asMap();
+
     auto broker_ref_map = this->getMapProperty(values, PROPERTY_NAME_BROKER_REF).asMap();
     std::string broker_ref = this->getMapProperty(broker_ref_map, ResponsePropertyNames::OBJECT_NAME);
 

@@ -16,9 +16,11 @@
  */
 
 #include <gmock/gmock.h>
-#include <fourc/fmf/codec/Decoder.h>
 
-#include <subsystem/mocks/Variant.h>
+#include <fourc/fmf/codec/Decoder.h>
+#include <fourc/fmf/BrokerObject.h>
+
+#include <qpid/types/Variant.h>
 
 using namespace fourc::fmf::codec;
 
@@ -27,21 +29,25 @@ using ::testing::Exactly;
 using ::testing::Return;
 using ::testing::ReturnRef;
 
-class TestObjectType {};
+using BrokerObject = fourc::fmf::BrokerObject;
 
-class TestDecoder : public Decoder<TestObjectType, subsystem::mocks::Variant> {
+class TestDecoder : public Decoder<BrokerObject, qpid::types::Variant> {
 public:
   /**
    * \brief Implements this abstract method to allow instantiation of the class
    * @return
    */
-  virtual std::shared_ptr<TestObjectType> decode(const subsystem::mocks::Variant::Map& ) const {
+  virtual std::shared_ptr<BrokerObject> decode(const qpid::types::Variant::Map& ) const {
     throw std::runtime_error("This method doesn't need testing (it's a test method)");
   }
 
-  subsystem::mocks::Variant getMapProperty(subsystem::mocks::Variant::Map& v, const std::string& key, bool mandatory = false) const
+  qpid::types::Variant getMapProperty(qpid::types::Variant::Map& v, const std::string& key, bool mandatory = false) const
   throw(DecodeException) {
-    return Decoder<TestObjectType, subsystem::mocks::Variant>::getMapProperty(v, key, mandatory);
+    return Decoder<BrokerObject, qpid::types::Variant>::getMapProperty(v, key, mandatory);
+  }
+
+  void decodeTimestamps(std::shared_ptr<BrokerObject>& object, const MapT& objectProperties) const {
+    return Decoder<BrokerObject, qpid::types::Variant>::decodeTimestamps(object, objectProperties);
   }
 };
 
@@ -54,11 +60,10 @@ TEST(DecoderTests, ctor) {
 }
 
 TEST(DecoderTests, getMapProperty) {
-  subsystem::mocks::Variant expected;
-  subsystem::mocks::Variant::Map objectProperties;
-  objectProperties[ResponsePropertyNames::VALUES] = expected;
-
-  EXPECT_CALL(expected, equals(A<const subsystem::mocks::Variant&>())).Times(1).WillOnce(Return(true));
+  qpid::types::Variant expected;
+  qpid::types::Variant::Map objectProperties = {
+      {ResponsePropertyNames::VALUES, expected}
+  };
 
   TestDecoder decoder;
 
@@ -66,7 +71,7 @@ TEST(DecoderTests, getMapProperty) {
 }
 
 TEST(DecoderTests, getMapProperty_MissingOptionalValueThrowsDecodeException) {
-  subsystem::mocks::Variant::Map objectProperties;
+  qpid::types::Variant::Map objectProperties;
 
   TestDecoder decoder;
 
@@ -74,9 +79,28 @@ TEST(DecoderTests, getMapProperty_MissingOptionalValueThrowsDecodeException) {
 }
 
 TEST(DecoderTests, getMapProperty_MissingMandatoryValueThrowsDecodeException) {
-  subsystem::mocks::Variant::Map objectProperties;
+  qpid::types::Variant::Map objectProperties;
 
   TestDecoder decoder;
 
   EXPECT_THROW(decoder.getMapProperty(objectProperties, "test key", true), DecodeException);
+}
+
+TEST(DecoderTests, decodeTimestamps) {
+  // This test is written with a heavy heart as it's the first one I wrote after Trump got elected. We are doomed indeed!
+  auto timestamp_ns = 1478676600001000001; // Approximate time the dreadful news broke in nanoseconds since Unix epoch
+
+  qpid::types::Variant::Map objectProperties = {
+      { RPNs::CREATED, timestamp_ns }
+  };
+
+  TestDecoder decoder;
+  auto brokerObject = std::make_shared<BrokerObject>();
+  decoder.decodeTimestamps(brokerObject, objectProperties);
+
+  //std::cout << "Nanoseconds: " << std::chrono::duration_cast<std::chrono::nanoseconds>(brokerObject->getTimeCreated() - std::chrono::system_clock::from_time_t(0)).count() << std::endl;
+
+  EXPECT_EQ(timestamp_ns,
+            std::chrono::duration_cast<std::chrono::nanoseconds>(
+                brokerObject->getTimeCreated() - std::chrono::system_clock::from_time_t(0)).count()); // We want our ns back!
 }

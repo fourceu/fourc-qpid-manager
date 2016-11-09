@@ -27,6 +27,7 @@ set(test_SRCS
         main.cxx
         fourc/fmf/codec/AclDecoderTests.cxx
         fourc/fmf/codec/BindingDecoderTests.cxx
+        fourc/fmf/codec/BrokerDecoderTests.cxx
         fourc/fmf/codec/DecodeExceptionTests.cxx
         fourc/fmf/codec/DecoderTests.cxx
         fourc/fmf/codec/ExchangeDecoderTests.cxx

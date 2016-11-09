@@ -82,13 +82,14 @@ protected:
     return object;
   }
 
+  std::chrono::system_clock::time_point decodeTimestamp(const VariantT& value) const {
+    return std::chrono::system_clock::time_point(std::chrono::nanoseconds(value.asInt64()));
+  }
+
   void decodeTimestamps(std::shared_ptr<ObjectT>& object, const MapT& objectProperties) const {
-    auto created = std::chrono::system_clock::from_time_t(
-        getMapProperty(objectProperties, RPNs::CREATED).asInt64());
-    auto deleted = std::chrono::system_clock::from_time_t(
-        getMapProperty(objectProperties, RPNs::DELETED).asInt64());
-    auto updated = std::chrono::system_clock::from_time_t(
-        getMapProperty(objectProperties, RPNs::UPDATED).asInt64());
+    auto created = decodeTimestamp(getMapProperty(objectProperties, RPNs::CREATED));
+    auto deleted = decodeTimestamp(getMapProperty(objectProperties, RPNs::DELETED));
+    auto updated = decodeTimestamp(getMapProperty(objectProperties, RPNs::UPDATED));
 
     object->setTimeCreated(created)
         .setTimeDeleted(deleted)

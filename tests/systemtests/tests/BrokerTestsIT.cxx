@@ -51,7 +51,9 @@ protected:
 };
 
 TEST_F(BrokerTestsIT, testGetBroker) {
-auto broker = brokerAgent.getBroker();
+  auto broker = brokerAgent.getBroker();
 
-EXPECT_TRUE(broker);
+  EXPECT_TRUE(broker);
+
+  EXPECT_GT(broker->getUptime(), std::chrono::milliseconds(1)); // This should be a fair assumption
 }
