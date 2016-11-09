@@ -54,4 +54,11 @@ TEST_F(ConnectionTestsIT, testGetConnections) {
   auto connections = brokerAgent.getConnections();
 
   EXPECT_FALSE(connections.empty());
+
+  for (auto itr = connections.begin(); itr != connections.end(); ++itr) {
+    auto connection = *itr;
+
+    EXPECT_FALSE(connection->isFederationLink());
+
+  }
 }
