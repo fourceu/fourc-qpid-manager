@@ -81,19 +81,19 @@ TEST(ConnectionDecoderTests, decodeConnection) {
   std::string vhost_ref = "org.apache.qpid.broker:vhost:org.apache.qpid.broker:broker:amqp-broker";
 
   qpid::types::Variant::Map object_id = {
-      { ResponsePropertyNames::OBJECT_NAME, oid },
-      { ResponsePropertyNames::OBJECT_AGENT_EPOCH, agent_epoch }
+      { RPNs::OBJECT_NAME, oid },
+      { RPNs::OBJECT_AGENT_EPOCH, agent_epoch }
   };
 
   qpid::types::Variant::Map schema_id = {
-      { ResponsePropertyNames::SCHEMA_CLASS_NAME, schema_class },
-      { ResponsePropertyNames::SCHEMA_HASH, schema_hash },
-      { ResponsePropertyNames::SCHEMA_PACKAGE_NAME, schema_package_name },
-      { ResponsePropertyNames::SCHEMA_TYPE, schema_type },
+      { RPNs::SCHEMA_CLASS_NAME, schema_class },
+      { RPNs::SCHEMA_HASH, schema_hash },
+      { RPNs::SCHEMA_PACKAGE_NAME, schema_package_name },
+      { RPNs::SCHEMA_TYPE, schema_type },
   };
 
   qpid::types::Variant::Map vhost_ref_map = {
-      { ResponsePropertyNames::OBJECT_NAME, vhost_ref }
+      { RPNs::OBJECT_NAME, vhost_ref }
   };
 
   qpid::types::Variant::Map values = {
@@ -118,16 +118,16 @@ TEST(ConnectionDecoderTests, decodeConnection) {
       { ConnectionDecoder<qpid::types::Variant>::PROPERTY_NAME_SHADOW, shadow },
       { ConnectionDecoder<qpid::types::Variant>::PROPERTY_NAME_USER_PROXY_AUTH, userProxyAuth },
 
-      { ConnectionDecoder<qpid::types::Variant>::PROPERTY_NAME_VHOST_REF, vhost_ref_map }
+      { RPNs::VHOST_REF, vhost_ref_map }
   };
 
   qpid::types::Variant::Map objectProperties = {
-      { ResponsePropertyNames::CREATED, now_tp.time_since_epoch().count() },
-      { ResponsePropertyNames::DELETED, 0 },
-      { ResponsePropertyNames::UPDATED, 0 },
-      { ResponsePropertyNames::OBJECT_ID, object_id },
-      { ResponsePropertyNames::SCHEMA_ID, schema_id },
-      { ResponsePropertyNames::VALUES, values }
+      { RPNs::CREATED, now_tp.time_since_epoch().count() },
+      { RPNs::DELETED, 0 },
+      { RPNs::UPDATED, 0 },
+      { RPNs::OBJECT_ID, object_id },
+      { RPNs::SCHEMA_ID, schema_id },
+      { RPNs::VALUES, values }
   };
 
   ConnectionDecoder<qpid::types::Variant> decoder;

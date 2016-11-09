@@ -48,7 +48,6 @@ public:
   static const std::string PROPERTY_NAME_SASL_SSF;
   static const std::string PROPERTY_NAME_SHADOW;
   static const std::string PROPERTY_NAME_USER_PROXY_AUTH;
-  static const std::string PROPERTY_NAME_VHOST_REF;
   
   typedef typename VariantT::Map MapT;
 
@@ -58,8 +57,6 @@ public:
     auto decoded = this->createObject(objectProperties);
 
     auto values = this->getMapProperty(objectProperties, RPNs::VALUES, true).asMap();
-
-    auto vhost_ref_map = this->getMapProperty(values, PROPERTY_NAME_VHOST_REF, true).asMap();
 
     decoded->setSystemConnection(this->getMapProperty(values, PROPERTY_NAME_SYSTEM_CONNECTION))
       .setAddress(this->getMapProperty(values, PROPERTY_NAME_ADDRESS))
@@ -81,7 +78,7 @@ public:
       .setSaslSsf(this->getMapProperty(values, PROPERTY_NAME_SASL_SSF))
       .setIsShadow(this->getMapProperty(values, PROPERTY_NAME_SHADOW))
       .setIsUserProxyAuth(this->getMapProperty(values, PROPERTY_NAME_USER_PROXY_AUTH))
-      .setVhostRef(this->getMapProperty(vhost_ref_map, RPNs::OBJECT_NAME));
+      .setVhostRef(this->decodeVhostRef(values));
 
     return decoded;
   }
@@ -107,7 +104,6 @@ template <typename VariantT> const std::string ConnectionDecoder<VariantT>::PROP
 template <typename VariantT> const std::string ConnectionDecoder<VariantT>::PROPERTY_NAME_SASL_SSF = "saslSsf";
 template <typename VariantT> const std::string ConnectionDecoder<VariantT>::PROPERTY_NAME_SHADOW = "shadow";
 template <typename VariantT> const std::string ConnectionDecoder<VariantT>::PROPERTY_NAME_USER_PROXY_AUTH = "userProxyAuth";
-template <typename VariantT> const std::string ConnectionDecoder<VariantT>::PROPERTY_NAME_VHOST_REF = "vhostRef";
 
 }}} // Namespaces
 

@@ -35,5 +35,6 @@ const std::string ResponsePropertyNames::SCHEMA_CLASS_NAME = "_class_name";
 const std::string ResponsePropertyNames::SCHEMA_HASH = "_hash";
 const std::string ResponsePropertyNames::SCHEMA_PACKAGE_NAME = "_package_name";
 const std::string ResponsePropertyNames::SCHEMA_TYPE = "_type";
+const std::string ResponsePropertyNames::VHOST_REF = "vhostRef";
 
 }}} // Namespaces

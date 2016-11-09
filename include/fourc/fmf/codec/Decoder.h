@@ -82,10 +82,20 @@ protected:
     return object;
   }
 
+  /**
+   * \brief Converts a variant containing a 64 bit integer of nanoseconds to an std::chrono::time_point structure
+   * @param value
+   * @return
+   */
   std::chrono::system_clock::time_point decodeTimestamp(const VariantT& value) const {
     return std::chrono::system_clock::time_point(std::chrono::nanoseconds(value.asInt64()));
   }
 
+  /**
+   * \brief Decodes the object created, deleted and updated timestamps from a query response
+   * @param object
+   * @param objectProperties
+   */
   void decodeTimestamps(std::shared_ptr<ObjectT>& object, const MapT& objectProperties) const {
     auto created = decodeTimestamp(getMapProperty(objectProperties, RPNs::CREATED));
     auto deleted = decodeTimestamp(getMapProperty(objectProperties, RPNs::DELETED));
@@ -96,6 +106,11 @@ protected:
         .setTimeUpdated(updated);
   }
 
+  /**
+   * \brief Decodes an ObjectId structure from a query response
+   * @param object
+   * @param objectProperties
+   */
   void decodeObjectId(std::shared_ptr<ObjectT>& object, const MapT& objectProperties) const {
     auto object_id_map = getMapProperty(objectProperties, RPNs::OBJECT_ID).asMap();
     
@@ -109,6 +124,11 @@ protected:
     object->setObjectId(objectId);
   }
 
+  /**
+   * \brief Decodes a SchemaId structure from a query response
+   * @param object
+   * @param objectProperties
+   */
   void decodeSchemaId(std::shared_ptr<ObjectT>& object, const MapT& objectProperties) const {
     auto schema_id_map = getMapProperty(objectProperties, RPNs::SCHEMA_ID).asMap();
 
@@ -124,6 +144,17 @@ protected:
         .setType(type);
 
     object->setSchemaId(schema_id);
+  }
+
+  /**
+   * \brief Decodes the vhost ref from a values submap
+   * @param values
+   * @return
+   */
+  std::string decodeVhostRef(const MapT& values) const {
+    auto vhost_ref_map = this->getMapProperty(values, RPNs::VHOST_REF, true).asMap();
+
+    return this->getMapProperty(vhost_ref_map, RPNs::OBJECT_NAME);
   }
 };
 

@@ -40,6 +40,7 @@ public:
   static const std::string SCHEMA_HASH;
   static const std::string SCHEMA_PACKAGE_NAME;
   static const std::string SCHEMA_TYPE;
+  static const std::string VHOST_REF;
 };
 
 }}} // Namespaces
