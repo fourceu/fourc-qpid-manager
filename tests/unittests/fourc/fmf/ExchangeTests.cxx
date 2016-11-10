@@ -28,40 +28,232 @@ TEST(ExchangeTests, ctor) {
   delete instance;
 }
 
-TEST(ExchangeTests, ctorSetsDefaultDurableFalse) {
+TEST(ExchangeTests, ctorSetsAutoDelete) {
+  Exchange exchange;
+
+  EXPECT_FALSE(exchange.isAutoDelete());
+}
+
+TEST(ExchangeTests, ctorSetsBindingCount) {
+  Exchange exchange;
+
+  EXPECT_EQ(0u, exchange.getBindingCount());
+}
+
+TEST(ExchangeTests, ctorSetsBindingCountHigh) {
+  Exchange exchange;
+
+  EXPECT_EQ(0u, exchange.getBindingCountHigh());
+}
+
+TEST(ExchangeTests, ctorSetsBindingCountLow) {
+  Exchange exchange;
+
+  EXPECT_EQ(0u, exchange.getBindingCountLow());
+}
+
+TEST(ExchangeTests, ctorSetsByteDrops) {
+  Exchange exchange;
+
+  EXPECT_EQ(0u, exchange.getByteDrops());
+}
+
+TEST(ExchangeTests, ctorSetsByteReceives) {
+  Exchange exchange;
+
+  EXPECT_EQ(0u, exchange.getByteReceives());
+}
+
+TEST(ExchangeTests, ctorSetsByteRoutes) {
+  Exchange exchange;
+
+  EXPECT_EQ(0u, exchange.getByteRoutes());
+}
+
+TEST(ExchangeTests, ctorSetsDurable) {
   Exchange exchange;
 
   EXPECT_FALSE(exchange.isDurable());
 }
 
-TEST(ExchangeTests, ctorSetsDefaultExchangeTypeDirect) {
+TEST(ExchangeTests, ctorSetsMsgDrops) {
+  Exchange exchange;
+
+  EXPECT_EQ(0u, exchange.getMsgDrops());
+}
+
+TEST(ExchangeTests, ctorSetsMsgReceives) {
+  Exchange exchange;
+
+  EXPECT_EQ(0u, exchange.getMsgReceives());
+}
+
+TEST(ExchangeTests, ctorSetsMsgRoutes) {
+  Exchange exchange;
+
+  EXPECT_EQ(0u, exchange.getMsgRoutes());
+}
+
+TEST(ExchangeTests, ctorSetsName) {
+  Exchange exchange;
+  
+  EXPECT_TRUE(exchange.getName().empty());
+}
+
+TEST(ExchangeTests, ctorSetsProducerCount) {
+  Exchange exchange;
+
+  EXPECT_EQ(0u, exchange.getProducerCount());
+}
+
+TEST(ExchangeTests, ctorSetsProducerCountHigh) {
+  Exchange exchange;
+
+  EXPECT_EQ(0u, exchange.getProducerCountHigh());
+}
+
+TEST(ExchangeTests, ctorSetsProducerCountLow) {
+  Exchange exchange;
+
+  EXPECT_EQ(0u, exchange.getProducerCountLow());
+}
+
+TEST(ExchangeTests, ctorSetsExchangeType) {
   Exchange exchange;
 
   EXPECT_EQ(Exchange::ExchangeType::DIRECT, exchange.getExchangeType());
 }
 
+TEST(ExchangeTests, ctorSetsVhostRef) {
+  Exchange exchange;
+  
+  EXPECT_TRUE(exchange.getVhostRef().empty());
+}
+
+// ***********************
+
+TEST(ExchangeTests, setAutoDelete) {
+  bool expected = true;
+  Exchange exchange;
+
+  EXPECT_NE(expected, exchange.isAutoDelete());
+  exchange.setIsAutoDelete(expected);
+
+  EXPECT_EQ(expected, exchange.isAutoDelete());
+}
+
+TEST(ExchangeTests, setBindingCount) {
+  uint32_t expected = 5;
+  Exchange exchange;
+  exchange.setBindingCount(expected);
+
+  EXPECT_EQ(expected, exchange.getBindingCount());
+}
+
+TEST(ExchangeTests, setBindingCountHigh) {
+  uint32_t expected = 6;
+  Exchange exchange;
+  exchange.setBindingCountHigh(expected);
+
+  EXPECT_EQ(expected, exchange.getBindingCountHigh());
+}
+
+TEST(ExchangeTests, setBindingCountLow) {
+  uint32_t expected = 4;
+  Exchange exchange;
+  exchange.setBindingCountLow(expected);
+
+  EXPECT_EQ(expected, exchange.getBindingCountLow());
+}
+
+TEST(ExchangeTests, setByteDrops) {
+  uint64_t expected = 17;
+  Exchange exchange;
+  exchange.setByteDrops(expected);
+
+  EXPECT_EQ(expected, exchange.getByteDrops());
+}
+
+TEST(ExchangeTests, setByteReceives) {
+  uint64_t expected = 17;
+  Exchange exchange;
+  exchange.setByteReceives(expected);
+
+  EXPECT_EQ(expected, exchange.getByteReceives());
+}
+
+TEST(ExchangeTests, setByteRoutes) {
+  uint64_t expected = 17;
+  Exchange exchange;
+  exchange.setByteRoutes(expected);
+
+  EXPECT_EQ(expected, exchange.getByteRoutes());
+}
+
+TEST(ExchangeTests, setDurable) {
+  bool expected = true;
+  Exchange exchange;
+
+  EXPECT_NE(expected, exchange.isDurable());
+  exchange.setDurable(expected);
+
+  EXPECT_EQ(expected, exchange.isDurable());
+}
+
+TEST(ExchangeTests, setMsgDrops) {
+  uint64_t expected = 17;
+  Exchange exchange;
+  exchange.setMsgDrops(expected);
+
+  EXPECT_EQ(expected, exchange.getMsgDrops());
+}
+
+TEST(ExchangeTests, setMsgReceives) {
+  uint64_t expected = 17;
+  Exchange exchange;
+  exchange.setMsgReceives(expected);
+
+  EXPECT_EQ(expected, exchange.getMsgReceives());
+}
+
+TEST(ExchangeTests, setMsgRoutes) {
+  uint64_t expected = 17;
+  Exchange exchange;
+  exchange.setMsgRoutes(expected);
+
+  EXPECT_EQ(expected, exchange.getMsgRoutes());
+}
+
 TEST(ExchangeTests, setName) {
   std::string expected = "expected name";
-
   Exchange exchange;
   exchange.setName(expected);
 
   EXPECT_EQ(expected, exchange.getName());
 }
 
-TEST(ExchangeTests, setDurableFalse) {
+TEST(ExchangeTests, setProducerCount) {
+  uint64_t expected = 17;
   Exchange exchange;
-  exchange.setDurable(true);
-  exchange.setDurable(false);
+  exchange.setProducerCount(expected);
 
-  EXPECT_FALSE(exchange.isDurable());
+  EXPECT_EQ(expected, exchange.getProducerCount());
 }
 
-TEST(ExchangeTests, setDurableTrue) {
+TEST(ExchangeTests, setProducerCountHigh) {
+  uint64_t expected = 17;
   Exchange exchange;
-  exchange.setDurable(true);
+  exchange.setProducerCountHigh(expected);
 
-  EXPECT_TRUE(exchange.isDurable());
+  EXPECT_EQ(expected, exchange.getProducerCountHigh());
+}
+
+TEST(ExchangeTests, setProducerCountLow) {
+  uint64_t expected = 17;
+  Exchange exchange;
+  exchange.setProducerCountLow(expected);
+
+  EXPECT_EQ(expected, exchange.getProducerCountLow());
 }
 
 TEST(ExchangeTests, setExchangeType_Direct) {
@@ -116,6 +308,14 @@ TEST(ExchangeTests, setExchangeType_Other) {
   exchange.setExchangeType(expected);
 
   EXPECT_EQ(expected, exchange.getExchangeType());
+}
+
+TEST(ExchangeTests, setVhostRef) {
+  std::string expected = "test vhost";
+  Exchange exchange;
+  exchange.setVhostRef(expected);
+
+  EXPECT_EQ(expected, exchange.getVhostRef());
 }
 
 TEST(ExchangeTests, operatorEquals_SameInstance) {

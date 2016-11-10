@@ -36,7 +36,21 @@ class ExchangeDecoder : public Decoder<Exchange, VariantT> {
 public:
   typedef typename VariantT::Map MapT;
 
-  static const std::string PROPERTY_EXCHANGE_TYPE;
+  static const std::string PROPERTY_NAME_AUTODELETE;
+  static const std::string PROPERTY_NAME_BINDING_COUNT;
+  static const std::string PROPERTY_NAME_BINDING_COUNT_HIGH;
+  static const std::string PROPERTY_NAME_BINDING_COUNT_LOW;
+  static const std::string PROPERTY_NAME_BYTE_DROPS;
+  static const std::string PROPERTY_NAME_BYTE_RECEIVES;
+  static const std::string PROPERTY_NAME_BYTE_ROUTES;
+  static const std::string PROPERTY_NAME_MSG_DROPS;
+  static const std::string PROPERTY_NAME_MSG_RECEIVES;
+  static const std::string PROPERTY_NAME_MSG_ROUTES;
+  static const std::string PROPERTY_NAME_PRODUCER_COUNT;
+  static const std::string PROPERTY_NAME_PRODUCER_COUNT_HIGH;
+  static const std::string PROPERTY_NAME_PRODUCER_COUNT_LOW;
+  static const std::string PROPERTY_NAME_EXCHANGE_TYPE;
+  static const std::string PROPERTY_NAME_VHOSTREF;
 
   virtual ~ExchangeDecoder() = default;
 
@@ -45,9 +59,23 @@ public:
 
     auto values = this->getMapProperty(objectProperties, RPNs::VALUES, true).asMap();
 
-    decoded->setName(this->getMapProperty(values, RPNs::NAME))
-        .setDurable(this->getMapProperty(values, RPNs::DURABLE))
-        .setExchangeType(getExchangeType(values));
+    decoded->setIsAutoDelete(this->getMapProperty(values, PROPERTY_NAME_AUTODELETE))
+      .setBindingCount(this->getMapProperty(values, PROPERTY_NAME_BINDING_COUNT))
+      .setBindingCountHigh(this->getMapProperty(values, PROPERTY_NAME_BINDING_COUNT_HIGH))
+      .setBindingCountLow(this->getMapProperty(values, PROPERTY_NAME_BINDING_COUNT_LOW))
+      .setByteDrops(this->getMapProperty(values, PROPERTY_NAME_BYTE_DROPS))
+      .setByteReceives(this->getMapProperty(values, PROPERTY_NAME_BYTE_RECEIVES))
+      .setByteRoutes(this->getMapProperty(values, PROPERTY_NAME_BYTE_ROUTES))
+      .setDurable(this->getMapProperty(values, RPNs::DURABLE))
+      .setMsgDrops(this->getMapProperty(values, PROPERTY_NAME_MSG_DROPS))
+      .setMsgReceives(this->getMapProperty(values, PROPERTY_NAME_MSG_RECEIVES))
+      .setMsgRoutes(this->getMapProperty(values, PROPERTY_NAME_MSG_ROUTES))
+      .setName(this->getMapProperty(values, RPNs::NAME))
+      .setProducerCount(this->getMapProperty(values, PROPERTY_NAME_PRODUCER_COUNT))
+      .setProducerCountHigh(this->getMapProperty(values, PROPERTY_NAME_PRODUCER_COUNT_HIGH))
+      .setProducerCountLow(this->getMapProperty(values, PROPERTY_NAME_PRODUCER_COUNT_LOW))
+      .setExchangeType(getExchangeType(values))
+      .setVhostRef(this->decodeVhostRef(values));
 
     return decoded;
   }
@@ -60,7 +88,7 @@ protected:
    * @return
    */
   virtual std::string getExchangeTypeDesc(const MapT& values) const {
-    auto value = values.at(PROPERTY_EXCHANGE_TYPE).asString();
+    auto value = values.at(PROPERTY_NAME_EXCHANGE_TYPE).asString();
 
     return value;
   }
@@ -73,7 +101,21 @@ protected:
   }
 };
 
-template <typename VariantT> const std::string ExchangeDecoder<VariantT>::PROPERTY_EXCHANGE_TYPE = "type";
+template <typename VariantT> const std::string ExchangeDecoder<VariantT>::PROPERTY_NAME_AUTODELETE = "autoDelete";
+template <typename VariantT> const std::string ExchangeDecoder<VariantT>::PROPERTY_NAME_BINDING_COUNT = "bindingCount";
+template <typename VariantT> const std::string ExchangeDecoder<VariantT>::PROPERTY_NAME_BINDING_COUNT_HIGH = "bindingCountHigh";
+template <typename VariantT> const std::string ExchangeDecoder<VariantT>::PROPERTY_NAME_BINDING_COUNT_LOW = "bindingCountLow";
+template <typename VariantT> const std::string ExchangeDecoder<VariantT>::PROPERTY_NAME_BYTE_DROPS = "byteDrops";
+template <typename VariantT> const std::string ExchangeDecoder<VariantT>::PROPERTY_NAME_BYTE_RECEIVES = "byteReceives";
+template <typename VariantT> const std::string ExchangeDecoder<VariantT>::PROPERTY_NAME_BYTE_ROUTES = "byteRoutes";
+template <typename VariantT> const std::string ExchangeDecoder<VariantT>::PROPERTY_NAME_MSG_DROPS = "msgDrops";
+template <typename VariantT> const std::string ExchangeDecoder<VariantT>::PROPERTY_NAME_MSG_RECEIVES = "msgReceives";
+template <typename VariantT> const std::string ExchangeDecoder<VariantT>::PROPERTY_NAME_MSG_ROUTES = "msgRoutes";
+template <typename VariantT> const std::string ExchangeDecoder<VariantT>::PROPERTY_NAME_PRODUCER_COUNT = "producerCount";
+template <typename VariantT> const std::string ExchangeDecoder<VariantT>::PROPERTY_NAME_PRODUCER_COUNT_HIGH = "producerCountHigh";
+template <typename VariantT> const std::string ExchangeDecoder<VariantT>::PROPERTY_NAME_PRODUCER_COUNT_LOW = "producerCountLow";
+template <typename VariantT> const std::string ExchangeDecoder<VariantT>::PROPERTY_NAME_EXCHANGE_TYPE = "type";
+template <typename VariantT> const std::string ExchangeDecoder<VariantT>::PROPERTY_NAME_VHOSTREF = "vhostRef";
 
 }}} // Namespaces
 

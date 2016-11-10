@@ -34,21 +34,77 @@ public:
   Exchange();
   virtual ~Exchange() = default;
 
-  const std::string& getName() const;
-  Exchange& setName(const std::string&);
+  bool isAutoDelete() const;
+  Exchange& setIsAutoDelete(bool);
+
+  uint32_t getBindingCount() const;
+  Exchange& setBindingCount(uint32_t);
+
+  uint32_t getBindingCountHigh() const;
+  Exchange& setBindingCountHigh(uint32_t);
+
+  uint32_t getBindingCountLow() const;
+  Exchange& setBindingCountLow(uint32_t);
+
+  uint64_t getByteDrops() const;
+  Exchange& setByteDrops(uint64_t);
+
+  uint64_t getByteReceives() const;
+  Exchange& setByteReceives(uint64_t);
+
+  uint64_t getByteRoutes() const;
+  Exchange& setByteRoutes(uint64_t);
 
   bool isDurable() const;
   Exchange& setDurable(bool value);
 
+  uint64_t getMsgDrops() const;
+  Exchange& setMsgDrops(uint64_t);
+
+  uint64_t getMsgReceives() const;
+  Exchange& setMsgReceives(uint64_t);
+
+  uint64_t getMsgRoutes() const;
+  Exchange& setMsgRoutes(uint64_t);
+
+  const std::string& getName() const;
+  Exchange& setName(const std::string&);
+
+  uint32_t getProducerCount() const;
+  Exchange& setProducerCount(uint32_t);
+
+  uint32_t getProducerCountHigh() const;
+  Exchange& setProducerCountHigh(uint32_t);
+
+  uint32_t getProducerCountLow() const;
+  Exchange& setProducerCountLow(uint32_t);
+
   ExchangeType getExchangeType() const;
   Exchange& setExchangeType(const ExchangeType);
+
+  const std::string& getVhostRef() const;
+  Exchange& setVhostRef(const std::string&);
 
   bool operator==(const Exchange& other) const;
 
 protected:
-  std::string name;
+  bool autoDelete;
+  uint32_t bindingCount;
+  uint32_t bindingCountHigh;
+  uint32_t bindingCountLow;
+  uint64_t byteDrops;
+  uint64_t byteReceives;
+  uint64_t byteRoutes;
   bool durable;
+  uint64_t msgDrops;
+  uint64_t msgReceives;
+  uint64_t msgRoutes;
+  std::string name;
+  uint32_t producerCount;
+  uint32_t producerCountHigh;
+  uint32_t producerCountLow;
   ExchangeType exchangeType;
+  std::string vhostRef;
 };
 
 }} // Namespaces
