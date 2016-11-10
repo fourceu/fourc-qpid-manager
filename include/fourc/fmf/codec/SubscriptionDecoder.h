@@ -29,20 +29,47 @@ template<typename VariantT>
 class SubscriptionDecoder : public Decoder<Subscription, VariantT> {
 public:
   typedef typename VariantT::Map MapT;
+  
+  static const std::string PROPERTY_NAME_ACKNOWLEDGED;
+  static const std::string PROPERTY_NAME_BROWSING;
+  static const std::string PROPERTY_NAME_CREDIT_MODE;
+  static const std::string PROPERTY_NAME_DELIVERED;
+  static const std::string PROPERTY_NAME_EXCLUSIVE;
+  static const std::string PROPERTY_NAME_QUEUE_REF;
+  static const std::string PROPERTY_NAME_SESSION_REF;
+  
   virtual ~SubscriptionDecoder() = default;
 
   std::shared_ptr<Subscription> decode(const MapT &objectProperties) const {
     auto decoded = this->createObject(objectProperties);
 
-    auto &values = this->getMapProperty(objectProperties, RPNs::VALUES, true).asMap();
-    // Lots more properties we could apply here
+    auto values = this->getMapProperty(objectProperties, RPNs::VALUES, true).asMap();
 
-    int i = values.size();
-    i = i;
+    auto queue_ref_map = this->getMapProperty(values, PROPERTY_NAME_QUEUE_REF, true).asMap();
+    auto session_ref_map = this->getMapProperty(values, PROPERTY_NAME_SESSION_REF, true).asMap();
+
+    decoded->setAcknowledged(this->getMapProperty(values, PROPERTY_NAME_ACKNOWLEDGED))
+        .setBrowsing(this->getMapProperty(values, PROPERTY_NAME_BROWSING))
+        .setCreditMode(this->getMapProperty(values, PROPERTY_NAME_CREDIT_MODE))
+        .setDelivered(this->getMapProperty(values, PROPERTY_NAME_DELIVERED))
+        .setExclusive(this->getMapProperty(values, PROPERTY_NAME_EXCLUSIVE))
+        .setName(this->getMapProperty(values, RPNs::NAME))
+        .setQueueEpoch(this->getMapProperty(queue_ref_map, RPNs::OBJECT_AGENT_EPOCH))
+        .setQueueName(this->getMapProperty(queue_ref_map, RPNs::OBJECT_NAME))
+        .setSessionEpoch(this->getMapProperty(session_ref_map, RPNs::OBJECT_AGENT_EPOCH))
+        .setSessionName(this->getMapProperty(session_ref_map, RPNs::OBJECT_NAME));
 
     return decoded;
   }
 };
+
+template <typename VariantT> const std::string SubscriptionDecoder<VariantT>::PROPERTY_NAME_ACKNOWLEDGED = "acknowledged";
+template <typename VariantT> const std::string SubscriptionDecoder<VariantT>::PROPERTY_NAME_BROWSING = "browsing";
+template <typename VariantT> const std::string SubscriptionDecoder<VariantT>::PROPERTY_NAME_CREDIT_MODE = "creditMode";
+template <typename VariantT> const std::string SubscriptionDecoder<VariantT>::PROPERTY_NAME_DELIVERED = "delivered";
+template <typename VariantT> const std::string SubscriptionDecoder<VariantT>::PROPERTY_NAME_EXCLUSIVE = "exclusive";
+template <typename VariantT> const std::string SubscriptionDecoder<VariantT>::PROPERTY_NAME_QUEUE_REF = "queueRef";
+template <typename VariantT> const std::string SubscriptionDecoder<VariantT>::PROPERTY_NAME_SESSION_REF = "sessionRef";
 
 }}} // Namespaces
 

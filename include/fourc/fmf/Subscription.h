@@ -27,6 +27,49 @@ class Subscription : public BrokerObject {
 public:
   static const std::string OBJECT_TYPE_NAME;
 
+  Subscription();
+
+  bool isAcknowledged() const;
+  Subscription& setAcknowledged(bool);
+
+  bool isBrowsing() const;
+  Subscription& setBrowsing(bool);
+  
+  const std::string& getCreditMode() const;
+  Subscription& setCreditMode(const std::string&);
+  
+  uint64_t getDelivered() const;
+  Subscription& setDelivered(uint64_t);
+
+  bool isExclusive() const;
+  Subscription& setExclusive(bool);
+  
+  const std::string& getName() const;
+  Subscription& setName(const std::string&);
+
+  uint32_t getQueueEpoch() const;
+  Subscription& setQueueEpoch(uint32_t);
+
+  const std::string& getQueueName() const;
+  Subscription& setQueueName(const std::string&);
+
+  uint32_t getSessionEpoch() const;
+  Subscription& setSessionEpoch(uint32_t);
+
+  const std::string& getSessionName() const;
+  Subscription& setSessionName(const std::string&);
+  
+private:
+  bool acknowledged;
+  bool browsing;
+  std::string creditMode;
+  uint64_t delivered;
+  bool exclusive;
+  std::string name;
+  uint32_t queueEpoch;
+  std::string queueName;
+  uint32_t sessionEpoch;
+  std::string sessionName;
 };
 
 }} // Namespaces

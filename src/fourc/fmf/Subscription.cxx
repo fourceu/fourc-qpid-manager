@@ -22,4 +22,113 @@ namespace fmf {
 
 const std::string Subscription::OBJECT_TYPE_NAME = "subscription";
 
+Subscription::Subscription() :
+  acknowledged(false),
+  browsing(false),
+  delivered(0),
+  exclusive(false),
+  queueEpoch(0),
+  sessionEpoch(0) {
+}
+
+bool Subscription::isAcknowledged() const {
+  return acknowledged;
+}
+
+Subscription& Subscription::setAcknowledged(bool value) {
+  acknowledged = value;
+
+  return *this;
+}
+
+bool Subscription::isBrowsing() const {
+  return browsing;
+}
+
+Subscription& Subscription::setBrowsing(bool value) {
+  browsing = value;
+
+  return *this;
+}
+
+const std::string& Subscription::getCreditMode() const {
+  return creditMode;
+}
+
+Subscription& Subscription::setCreditMode(const std::string& value) {
+  creditMode = value;
+
+  return *this;
+}
+
+uint64_t Subscription::getDelivered() const {
+  return delivered;
+}
+
+Subscription& Subscription::setDelivered(uint64_t value) {
+  delivered = value;
+
+  return *this;
+}
+
+bool Subscription::isExclusive() const {
+  return exclusive;
+}
+
+Subscription& Subscription::setExclusive(bool value) {
+  exclusive = value;
+
+  return *this;
+}
+
+const std::string& Subscription::getName() const {
+  return name;
+}
+
+Subscription& Subscription::setName(const std::string& value) {
+  name = value;
+
+  return *this;
+}
+
+uint32_t Subscription::getQueueEpoch() const {
+  return queueEpoch;
+}
+
+Subscription& Subscription::setQueueEpoch(uint32_t value) {
+  queueEpoch = value;
+
+  return *this;
+}
+
+const std::string& Subscription::getQueueName() const {
+  return queueName;
+}
+
+Subscription& Subscription::setQueueName(const std::string& value) {
+  queueName = value;
+
+  return *this;
+}
+
+uint32_t Subscription::getSessionEpoch() const {
+  return sessionEpoch;
+}
+
+Subscription& Subscription::setSessionEpoch(uint32_t value) {
+  sessionEpoch = value;
+
+  return *this;
+}
+
+const std::string& Subscription::getSessionName() const {
+  return sessionName;
+}
+
+Subscription& Subscription::setSessionName(const std::string& value) {
+  sessionName = value;
+
+  return *this;
+}
+
 }} // Namespaces
