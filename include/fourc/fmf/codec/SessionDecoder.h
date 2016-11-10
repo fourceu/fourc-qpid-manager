@@ -29,20 +29,62 @@ template<typename VariantT>
 class SessionDecoder : public Decoder<Session, VariantT> {
 public:
   typedef typename VariantT::Map MapT;
+
+  static const std::string PROPERTY_NAME_TXN_COMMITS;
+  static const std::string PROPERTY_NAME_TXN_COUNT;
+  static const std::string PROPERTY_NAME_TXN_REJECTS;
+  static const std::string PROPERTY_NAME_TXN_STARTS;
+  static const std::string PROPERTY_NAME_ATTACHED;
+  static const std::string PROPERTY_NAME_CHANNEL_ID;
+  static const std::string PROPERTY_NAME_CLIENT_CREDIT;
+  static const std::string PROPERTY_NAME_CONNECTION_REF;
+  static const std::string PROPERTY_NAME_DETACHED_LIFESPAN;
+  static const std::string PROPERTY_NAME_FRAMES_OUTSTANDING;
+  static const std::string PROPERTY_NAME_FULL_NAME;
+  static const std::string PROPERTY_NAME_UNACKED_MESSAGES;
+
   virtual ~SessionDecoder() = default;
 
   std::shared_ptr<Session> decode(const MapT &objectProperties) const {
     auto decoded = this->createObject(objectProperties);
 
-    auto &values = this->getMapProperty(objectProperties, RPNs::VALUES, true).asMap();
-    // Lots more properties we could apply here
+    auto values = this->getMapProperty(objectProperties, RPNs::VALUES, true).asMap();
 
-    int i = values.size();
-    i = i;
+    // connection_ref_map used for setting connectionRefEpoch and connectionRefName on the decoded session
+    auto connection_ref_map = this->getMapProperty(values, PROPERTY_NAME_CONNECTION_REF, true).asMap();
+    
+    decoded->setTxnCommmits(this->getMapProperty(values, PROPERTY_NAME_TXN_COMMITS))
+        .setTxnCount(this->getMapProperty(values, PROPERTY_NAME_TXN_COUNT))
+        .setTxnRejects(this->getMapProperty(values, PROPERTY_NAME_TXN_REJECTS))
+        .setTxnStarts(this->getMapProperty(values, PROPERTY_NAME_TXN_STARTS))
+        .setAttached(this->getMapProperty(values, PROPERTY_NAME_ATTACHED))
+        .setChannelId(this->getMapProperty(values, PROPERTY_NAME_CHANNEL_ID))
+        .setClientCredit(this->getMapProperty(values, PROPERTY_NAME_CLIENT_CREDIT))
+        .setConnectionEpoch(this->getMapProperty(connection_ref_map, RPNs::OBJECT_AGENT_EPOCH))
+        .setConnectionName(this->getMapProperty(connection_ref_map, RPNs::OBJECT_NAME))
+        .setDetachedLifespan(this->getMapProperty(values, PROPERTY_NAME_DETACHED_LIFESPAN))
+        .setFramesOutstanding(this->getMapProperty(values, PROPERTY_NAME_FRAMES_OUTSTANDING))
+        .setFullName(this->getMapProperty(values, PROPERTY_NAME_FULL_NAME))
+        .setName(this->getMapProperty(values, RPNs::NAME))
+        .setUnackedMessages(this->getMapProperty(values, PROPERTY_NAME_UNACKED_MESSAGES))
+        .setVhostRef(this->decodeVhostRef(values));
 
     return decoded;
   }
 };
+
+template <typename VariantT> const std::string SessionDecoder<VariantT>::PROPERTY_NAME_TXN_COMMITS = "TxnCommits";
+template <typename VariantT> const std::string SessionDecoder<VariantT>::PROPERTY_NAME_TXN_COUNT = "TxnCount";
+template <typename VariantT> const std::string SessionDecoder<VariantT>::PROPERTY_NAME_TXN_REJECTS = "TxnRejects";
+template <typename VariantT> const std::string SessionDecoder<VariantT>::PROPERTY_NAME_TXN_STARTS = "TxnStarts";
+template <typename VariantT> const std::string SessionDecoder<VariantT>::PROPERTY_NAME_ATTACHED = "attached";
+template <typename VariantT> const std::string SessionDecoder<VariantT>::PROPERTY_NAME_CHANNEL_ID = "channelId";
+template <typename VariantT> const std::string SessionDecoder<VariantT>::PROPERTY_NAME_CLIENT_CREDIT = "clientCredit";
+template <typename VariantT> const std::string SessionDecoder<VariantT>::PROPERTY_NAME_CONNECTION_REF = "connectionRef";
+template <typename VariantT> const std::string SessionDecoder<VariantT>::PROPERTY_NAME_DETACHED_LIFESPAN = "detachedLifespan";
+template <typename VariantT> const std::string SessionDecoder<VariantT>::PROPERTY_NAME_FRAMES_OUTSTANDING = "framesOutstanding";
+template <typename VariantT> const std::string SessionDecoder<VariantT>::PROPERTY_NAME_FULL_NAME = "fullName";
+template <typename VariantT> const std::string SessionDecoder<VariantT>::PROPERTY_NAME_UNACKED_MESSAGES = "unackedMessages";
 
 }}} // Namespaces
 

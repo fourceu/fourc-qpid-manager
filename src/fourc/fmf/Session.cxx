@@ -22,4 +22,169 @@ namespace fmf {
 
 const std::string Session::OBJECT_TYPE_NAME = "session";
 
+Session::Session() :
+    txnCommits(0),
+    txnCount(0),
+    txnRejects(0),
+    txnStarts(0),
+    attached(false),
+    channelId(0),
+    clientCredit(0),
+    connectionEpoch(0),
+    detachedLifespan(0),
+    framesOutstanding(0),
+    unackedMessages(0) {
+
+}
+
+uint64_t Session::getTxnCommits() const {
+  return txnCommits;
+}
+
+Session& Session::setTxnCommmits(uint64_t value) {
+  txnCommits = value;
+
+  return *this;
+}
+
+uint32_t Session::getTxnCount() const {
+  return txnCount;
+}
+
+Session& Session::setTxnCount(uint32_t value) {
+  txnCount = value;
+
+  return *this;
+}
+
+uint64_t Session::getTxnRejects() const {
+  return txnRejects;
+}
+
+Session& Session::setTxnRejects(uint64_t value) {
+  txnRejects = value;
+
+  return *this;
+}
+
+uint64_t Session::getTxnStarts() const {
+  return txnStarts;
+}
+
+Session& Session::setTxnStarts(uint64_t value) {
+  txnStarts = value;
+
+  return *this;
+}
+
+bool Session::isAttached() const {
+  return attached;
+}
+
+Session& Session::setAttached(bool value) {
+  attached = value;
+
+  return *this;
+}
+
+uint16_t Session::getChannelId() const {
+  return channelId;
+}
+
+Session& Session::setChannelId(uint16_t value) {
+  channelId = value;
+
+  return *this;
+}
+
+uint32_t Session::getClientCredit() const {
+  return clientCredit;
+}
+
+Session& Session::setClientCredit(uint32_t value) {
+  clientCredit = value;
+
+  return *this;
+}
+
+uint32_t Session::getConnectionEpoch() const {
+  return connectionEpoch;
+}
+
+Session& Session::setConnectionEpoch(uint32_t value) {
+  connectionEpoch = value;
+
+  return *this;
+}
+
+const std::string& Session::getConnectionName() const {
+  return connectionName;
+}
+
+Session& Session::setConnectionName(const std::string& value) {
+  connectionName = value;
+
+  return *this;
+}
+
+uint32_t Session::getDetachedLifespan() const {
+  return detachedLifespan;
+}
+
+Session& Session::setDetachedLifespan(uint32_t value) {
+  detachedLifespan = value;
+
+  return *this;
+}
+
+uint32_t Session::getFramesOutstanding() const {
+  return framesOutstanding;
+}
+
+Session& Session::setFramesOutstanding(uint32_t value) {
+  framesOutstanding = value;
+
+  return *this;
+}
+
+const std::string& Session::getFullName() const {
+  return fullName;
+}
+
+Session& Session::setFullName(const std::string& value) {
+  fullName = value;
+
+  return *this;
+}
+
+const std::string& Session::getName() const {
+  return name;
+}
+
+Session& Session::setName(const std::string& value) {
+  name = value;
+
+  return *this;
+}
+
+uint64_t Session::getUnackedMessages() const {
+  return unackedMessages;
+}
+
+Session& Session::setUnackedMessages(uint64_t value) {
+  unackedMessages = value;
+
+  return *this;
+}
+
+const std::string& Session::getVhostRef() const {
+  return vhostRef;
+}
+
+Session& Session::setVhostRef(const std::string& value) {
+  vhostRef = value;
+
+  return *this;
+}
+
 }} // Namespaces

@@ -51,13 +51,20 @@ protected:
 };
 
 TEST_F(SessionTestsIT, testGetSession) {
-  std::string name;
-  auto session = brokerAgent.getSession(name);
+  // Since we don't know the name of an existing session, get a list of all sessions and then retrieve
+  // the first session again, this by name
+  auto sessions = brokerAgent.getSessions();
+  ASSERT_FALSE(sessions.empty()) << "No sessions found.";
 
-  //EXPECT_TRUE(session);
-  // Need to know the name of a session before we can query for an existing one...
+  auto session_name = sessions.front()->getName();
+
+  // Now we have a session name, start the actual test!
+  auto session = brokerAgent.getSession(session_name);
+
+  ASSERT_TRUE(session);
+
+  EXPECT_EQ(session_name, session->getName());
 }
-
 
 TEST_F(SessionTestsIT, testGetSessions) {
   auto sessions = brokerAgent.getSessions();

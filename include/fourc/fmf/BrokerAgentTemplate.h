@@ -153,10 +153,15 @@ public:
 
   /**
  * \brief Gets a session with the given name
- *
- * @param name
- * @return an existing session or null
- */
+   * NB: This may not behave as expected since a session created with session name "sessionName" will actually
+   * have a name such as "anonymous@QPID.sessionName" (depending on authentication details and configured broker realm).
+   * Since these values may not be known to the calling application (for instance when using client SSL auth)
+   * a more practical alternative might be to iterate over all sessions and match on session name ending in the
+   * required value.
+   *
+   * @param name
+   * @return an existing session or null
+   */
   const std::shared_ptr<Session> getSession(const std::string& name) {
     return getObject<Session>(name);
   }

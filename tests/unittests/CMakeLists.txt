@@ -35,6 +35,7 @@ set(test_SRCS
         fourc/fmf/codec/MemoryDecoderTests.cxx
         fourc/fmf/codec/QueueDecoderTests.cxx
         fourc/fmf/codec/ResponseDecoderTests.cxx
+        fourc/fmf/codec/SessionDecoderTests.cxx
         fourc/fmf/AclTests.cxx
         fourc/fmf/BrokerObjectTests.cxx
         fourc/fmf/BrokerTests.cxx
