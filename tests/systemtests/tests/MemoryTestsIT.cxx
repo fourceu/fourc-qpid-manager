@@ -53,4 +53,12 @@ protected:
 TEST_F(MemoryTestsIT, testGetMemory) {
   auto memory = brokerAgent.getMemory();
 
+  EXPECT_NE(0u, memory->getMallocArena());
+  EXPECT_NE(0u, memory->getMallocFordblks());
+//  EXPECT_NE(0u, memory->getMallocHblkhd()); // Seems this value is often zero
+//  EXPECT_NE(0u, memory->getMallocHblks()); // Seems this value is often zero
+  EXPECT_NE(0u, memory->getMallocKeepcost());
+  EXPECT_NE(0u, memory->getMallocOrdblks());
+  EXPECT_NE(0u, memory->getMallocUordblks());
+  EXPECT_FALSE(memory->getName().empty());
 }

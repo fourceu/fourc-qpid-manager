@@ -27,6 +27,41 @@ class Memory : public BrokerObject {
 public:
   static const std::string OBJECT_TYPE_NAME;
 
+  Memory();
+
+  uint64_t getMallocArena() const;
+  Memory& setMallocArena(uint64_t);
+
+  uint64_t getMallocFordblks() const;
+  Memory& setMallocFordblks(uint64_t);
+
+  uint64_t getMallocHblkhd() const;
+  Memory& setMallocHblkhd(uint64_t);
+
+  uint64_t getMallocHblks() const;
+  Memory& setMallocHblks(uint64_t);
+
+  uint64_t getMallocKeepcost() const;
+  Memory& setMallocKeepcost(uint64_t);
+
+  uint64_t getMallocOrdblks() const;
+  Memory& setMallocOrdblks(uint64_t);
+
+  uint64_t getMallocUordblks() const;
+  Memory& setMallocUordblks(uint64_t);
+
+  const std::string& getName() const;
+  Memory& setName(const std::string& );
+
+private:
+  uint64_t malloc_arena;
+  uint64_t malloc_fordblks;
+  uint64_t malloc_hblkhd;
+  uint64_t malloc_hblks;
+  uint64_t malloc_keepcost;
+  uint64_t malloc_ordblks;
+  uint64_t malloc_uordblks;
+  std::string name;
 };
 
 }} // Namespaces

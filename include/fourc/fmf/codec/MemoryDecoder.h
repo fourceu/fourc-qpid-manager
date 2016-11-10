@@ -29,20 +29,42 @@ template<typename VariantT>
 class MemoryDecoder : public Decoder<Memory, VariantT> {
 public:
   typedef typename VariantT::Map MapT;
+
+  static const std::string PROPERTY_NAME_MALLOC_ARENA;
+  static const std::string PROPERTY_NAME_MALLOC_FORDBLKS;
+  static const std::string PROPERTY_NAME_MALLOC_HBLKHD;
+  static const std::string PROPERTY_NAME_MALLOC_HBLKS;
+  static const std::string PROPERTY_NAME_MALLOC_KEEPCOST;
+  static const std::string PROPERTY_NAME_MALLOC_ORDBLKS;
+  static const std::string PROPERTY_NAME_MALLOC_UORDBLKS;
+
   virtual ~MemoryDecoder() = default;
 
   std::shared_ptr<Memory> decode(const MapT &objectProperties) const {
     auto decoded = this->createObject(objectProperties);
 
-    auto &values = this->getMapProperty(objectProperties, RPNs::VALUES, true).asMap();
-    // Lots more properties we could apply here
+    auto values = this->getMapProperty(objectProperties, RPNs::VALUES, true).asMap();
 
-    int i = values.size();
-    i = i;
+    decoded->setMallocArena(this->getMapProperty(values, PROPERTY_NAME_MALLOC_ARENA))
+        .setMallocFordblks(this->getMapProperty(values, PROPERTY_NAME_MALLOC_FORDBLKS))
+        .setMallocHblkhd(this->getMapProperty(values, PROPERTY_NAME_MALLOC_HBLKHD))
+        .setMallocHblks(this->getMapProperty(values, PROPERTY_NAME_MALLOC_HBLKS))
+        .setMallocKeepcost(this->getMapProperty(values, PROPERTY_NAME_MALLOC_KEEPCOST))
+        .setMallocOrdblks(this->getMapProperty(values, PROPERTY_NAME_MALLOC_ORDBLKS))
+        .setMallocUordblks(this->getMapProperty(values, PROPERTY_NAME_MALLOC_UORDBLKS))
+        .setName(this->getMapProperty(values, RPNs::NAME));
 
     return decoded;
   }
 };
+
+template<typename VariantT> const std::string MemoryDecoder<VariantT>::PROPERTY_NAME_MALLOC_ARENA = "malloc_arena";
+template<typename VariantT> const std::string MemoryDecoder<VariantT>::PROPERTY_NAME_MALLOC_FORDBLKS = "malloc_fordblks";
+template<typename VariantT> const std::string MemoryDecoder<VariantT>::PROPERTY_NAME_MALLOC_HBLKHD = "malloc_hblkhd";
+template<typename VariantT> const std::string MemoryDecoder<VariantT>::PROPERTY_NAME_MALLOC_HBLKS = "malloc_hblks";
+template<typename VariantT> const std::string MemoryDecoder<VariantT>::PROPERTY_NAME_MALLOC_KEEPCOST = "malloc_keepcost";
+template<typename VariantT> const std::string MemoryDecoder<VariantT>::PROPERTY_NAME_MALLOC_ORDBLKS = "malloc_ordblks";
+template<typename VariantT> const std::string MemoryDecoder<VariantT>::PROPERTY_NAME_MALLOC_UORDBLKS = "malloc_uordblks";
 
 }}} // Namespaces
 
