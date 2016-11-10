@@ -29,20 +29,44 @@ template<typename VariantT>
 class LinkDecoder : public Decoder<Link, VariantT> {
 public:
   typedef typename VariantT::Map MapT;
+
+  static const std::string PROPERTY_NAME_CONNECTION_REF;
+  static const std::string PROPERTY_NAME_HOST;
+  static const std::string PROPERTY_NAME_PORT;
+  static const std::string PROPERTY_NAME_LAST_ERROR;
+  static const std::string PROPERTY_NAME_STATE;
+  static const std::string PROPERTY_NAME_TRANSPORT;
+
   virtual ~LinkDecoder() = default;
 
   std::shared_ptr<Link> decode(const MapT &objectProperties) const {
     auto decoded = this->createObject(objectProperties);
 
-    auto &values = this->getMapProperty(objectProperties, RPNs::VALUES, true).asMap();
-    // Lots more properties we could apply here
+    auto values = this->getMapProperty(objectProperties, RPNs::VALUES, true).asMap();
 
-    int i = values.size();
-    i = i;
+    auto connection_ref_map = this->getMapProperty(values, PROPERTY_NAME_CONNECTION_REF, true).asMap();
+
+    decoded->setConnectionEpoch(this->getMapProperty(connection_ref_map, RPNs::OBJECT_AGENT_EPOCH))
+          .setConnectionName(this->getMapProperty(connection_ref_map, RPNs::OBJECT_NAME))
+          .setDurable(this->getMapProperty(values, RPNs::DURABLE))
+          .setHost(this->getMapProperty(values, PROPERTY_NAME_HOST))
+          .setPort(this->getMapProperty(values, PROPERTY_NAME_PORT))
+          .setLastError(this->getMapProperty(values, PROPERTY_NAME_LAST_ERROR))
+          .setName(this->getMapProperty(values, RPNs::NAME))
+          .setState(this->getMapProperty(values, PROPERTY_NAME_STATE))
+          .setTransport(this->getMapProperty(values, PROPERTY_NAME_TRANSPORT))
+          .setVhostRef(this->decodeVhostRef(values));
 
     return decoded;
   }
 };
+
+template <typename VariantT> const std::string LinkDecoder<VariantT>::PROPERTY_NAME_CONNECTION_REF = "connectionRef";
+template <typename VariantT> const std::string LinkDecoder<VariantT>::PROPERTY_NAME_HOST = "host";
+template <typename VariantT> const std::string LinkDecoder<VariantT>::PROPERTY_NAME_PORT = "port";
+template <typename VariantT> const std::string LinkDecoder<VariantT>::PROPERTY_NAME_LAST_ERROR = "lastError";
+template <typename VariantT> const std::string LinkDecoder<VariantT>::PROPERTY_NAME_STATE = "state";
+template <typename VariantT> const std::string LinkDecoder<VariantT>::PROPERTY_NAME_TRANSPORT = "transport";
 
 }}} // Namespaces
 

@@ -26,7 +26,50 @@ namespace fmf {
 class Link : public BrokerObject {
 public:
   static const std::string OBJECT_TYPE_NAME;
+  
+  Link();
+  
+  uint32_t getConnectionEpoch() const;
+  Link& setConnectionEpoch(uint32_t);
+  
+  const std::string& getConnectionName() const;
+  Link& setConnectionName(const std::string&);
+  
+  bool isDurable() const;
+  Link& setDurable(bool);
+  
+  const std::string& getHost() const;
+  Link& setHost(const std::string&);
+  
+  uint16_t getPort() const;
+  Link& setPort(uint16_t);
+  
+  const std::string& getLastError() const;
+  Link& setLastError(const std::string&);
 
+  const std::string& getName() const;
+  Link& setName(const std::string&);
+  
+  const std::string& getState() const;
+  Link& setState(const std::string&);
+
+  const std::string& getTransport() const;
+  Link& setTransport(const std::string&);
+
+  const std::string& getVhostRef() const;
+  Link& setVhostRef(const std::string&);
+  
+private:
+  uint32_t connectionEpoch;
+  std::string connectionName;
+  bool durable;
+  std::string host;
+  uint16_t port;
+  std::string lastError;
+  std::string name;
+  std::string state;
+  std::string transport;
+  std::string vhostRef;  
 };
 
 }} // Namespaces

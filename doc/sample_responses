@@ -37,7 +37,13 @@ _values:{arguments:{qpid.replicate:none}, autoDelete:False, bindingCount:215, bi
 
 HaBroker: N/A
 
-Link: N/A
+Link:
+{_create_ts:1478813198508155447, _delete_ts:0,
+_object_id:{_agent_epoch:7, _object_name:org.apache.qpid.broker:link:qpid.tcp:localhost:5671},
+_schema_id:{_class_name:link, _hash:56738205-ac48-998d-c053-a871fb2764fd, _package_name:org.apache.qpid.broker, _type:_data},
+_update_ts:1478813198572060252,
+_values:{connectionRef:{_agent_epoch:7, _object_name:org.apache.qpid.broker:connection:qpid.tcp:localhost:5671}, durable:False, host:localhost, lastError:, name:qpid.tcp:localhost:5671, port:5671, state:Operational, transport:tcp, vhostRef:{_object_name:org.apache.qpid.broker:vhost:org.apache.qpid.broker:broker:amqp-broker,/}}}
+
 
 Memory:
 {_create_ts:1478282615895797454, _delete_ts:0,

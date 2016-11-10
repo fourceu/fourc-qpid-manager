@@ -23,4 +23,110 @@ namespace fmf {
 const std::string Link::OBJECT_TYPE_NAME = "link";
 
 
+Link::Link() :
+  connectionEpoch(0),
+  durable(false),
+  port(0) {
+}
+
+uint32_t Link::getConnectionEpoch() const {
+  return connectionEpoch;
+}
+
+Link& Link::setConnectionEpoch(uint32_t value) {
+  connectionEpoch = value;
+
+  return *this;
+}
+
+const std::string& Link::getConnectionName() const {
+  return connectionName;
+}
+
+Link& Link::setConnectionName(const std::string& value) {
+  connectionName = value;
+
+  return *this;
+}
+
+bool Link::isDurable() const {
+  return durable;
+}
+
+Link& Link::setDurable(bool value) {
+  durable = value;
+
+  return *this;
+}
+
+const std::string& Link::getHost() const {
+  return host;
+}
+
+Link& Link::setHost(const std::string& value) {
+  host = value;
+
+  return *this;
+}
+
+uint16_t Link::getPort() const {
+  return port;
+}
+
+Link& Link::setPort(uint16_t value) {
+  port = value;
+
+  return *this;
+}
+
+const std::string& Link::getLastError() const {
+  return lastError;
+}
+
+Link& Link::setLastError(const std::string& value) {
+  lastError = value;
+
+  return *this;
+}
+
+const std::string& Link::getName() const {
+  return name;
+}
+
+Link& Link::setName(const std::string& value) {
+  name = value;
+
+  return *this;
+}
+
+const std::string& Link::getState() const {
+  return state;
+}
+
+Link& Link::setState(const std::string& value) {
+  state = value;
+
+  return *this;
+}
+
+const std::string& Link::getTransport() const {
+  return transport;
+}
+
+Link& Link::setTransport(const std::string& value) {
+  transport = value;
+
+  return *this;
+}
+
+const std::string& Link::getVhostRef() const {
+  return vhostRef;
+}
+
+Link& Link::setVhostRef(const std::string& value) {
+  vhostRef = value;
+
+  return *this;
+}
+
 }} // Namespaces

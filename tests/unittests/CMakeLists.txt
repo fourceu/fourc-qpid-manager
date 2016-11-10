@@ -32,6 +32,7 @@ set(test_SRCS
         fourc/fmf/codec/DecodeExceptionTests.cxx
         fourc/fmf/codec/DecoderTests.cxx
         fourc/fmf/codec/ExchangeDecoderTests.cxx
+        fourc/fmf/codec/LinkDecoderTests.cxx
         fourc/fmf/codec/MemoryDecoderTests.cxx
         fourc/fmf/codec/QueueDecoderTests.cxx
         fourc/fmf/codec/ResponseDecoderTests.cxx
