@@ -58,16 +58,16 @@ TEST_F(QueueTestsIT, testGetQueues) {
 }
 
 TEST_F(QueueTestsIT, testCreateQueue) {
-boost::uuids::uuid uuid = uuid_generator();
-std::string uuid_str = boost::uuids::to_string(uuid);
-auto type = Exchange::ExchangeType::DIRECT;
+  boost::uuids::uuid uuid = uuid_generator();
+  std::string uuid_str = boost::uuids::to_string(uuid);
+  auto type = Exchange::ExchangeType::DIRECT;
 
-brokerAgent.createExchange(type, uuid_str);
+  brokerAgent.createExchange(type, uuid_str);
 
-auto exchange = brokerAgent.getExchange(uuid_str);
+  auto exchange = brokerAgent.getExchange(uuid_str);
 
-ASSERT_TRUE(exchange);
-EXPECT_EQ(type, exchange->getExchangeType());
+  ASSERT_TRUE(exchange);
+  EXPECT_EQ(type, exchange->getExchangeType());
 }
 
 TEST_F(QueueTestsIT, testGetQueue) {
@@ -75,34 +75,34 @@ TEST_F(QueueTestsIT, testGetQueue) {
 }
 
 TEST_F(QueueTestsIT, testDeleteQueue) {
-// Create an queue then delete it, verifying existence at all stages
-boost::uuids::uuid uuid = uuid_generator();
-std::string uuid_str = boost::uuids::to_string(uuid);
+  // Create an queue then delete it, verifying existence at all stages
+  boost::uuids::uuid uuid = uuid_generator();
+  std::string uuid_str = boost::uuids::to_string(uuid);
 
-// Check no queue
-ASSERT_FALSE(brokerAgent.getQueue(uuid_str));
+  // Check no queue
+  ASSERT_FALSE(brokerAgent.getQueue(uuid_str));
 
-brokerAgent.createQueue(uuid_str);
+  brokerAgent.createQueue(uuid_str);
 
-// Check queue
-ASSERT_TRUE(brokerAgent.getQueue(uuid_str));
+  // Check queue
+  ASSERT_TRUE(brokerAgent.getQueue(uuid_str));
 
-brokerAgent.deleteQueue(uuid_str, true, true);
+  brokerAgent.deleteQueue(uuid_str, true, true);
 
-// Check no queue
-ASSERT_FALSE(brokerAgent.getQueue(uuid_str));
+  // Check no queue
+  ASSERT_FALSE(brokerAgent.getQueue(uuid_str));
 }
 
 TEST_F(QueueTestsIT, testDeleteNonexistentQueue) {
-// Verify a queue does not exist, then try to delete it
-boost::uuids::uuid uuid = uuid_generator();
-std::string uuid_str = boost::uuids::to_string(uuid);
+  // Verify a queue does not exist, then try to delete it
+  boost::uuids::uuid uuid = uuid_generator();
+  std::string uuid_str = boost::uuids::to_string(uuid);
 
-// Check no queue
-ASSERT_FALSE(brokerAgent.getQueue(uuid_str));
+  // Check no queue
+  ASSERT_FALSE(brokerAgent.getQueue(uuid_str));
 
-EXPECT_THROW(brokerAgent.deleteQueue(uuid_str, true, true), BrokerAgentException);
+  EXPECT_THROW(brokerAgent.deleteQueue(uuid_str, true, true), BrokerAgentException);
 
-// Check no queue
-ASSERT_FALSE(brokerAgent.getQueue(uuid_str));
+  // Check no queue
+  ASSERT_FALSE(brokerAgent.getQueue(uuid_str));
 }
