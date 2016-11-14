@@ -29,11 +29,11 @@ Link::Link() :
   port(0) {
 }
 
-uint32_t Link::getConnectionEpoch() const {
+uint64_t Link::getConnectionEpoch() const {
   return connectionEpoch;
 }
 
-Link& Link::setConnectionEpoch(uint32_t value) {
+Link& Link::setConnectionEpoch(uint64_t value) {
   connectionEpoch = value;
 
   return *this;

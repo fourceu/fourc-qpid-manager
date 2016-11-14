@@ -50,8 +50,8 @@ public:
   uint32_t getClientCredit() const;
   Session& setClientCredit(uint32_t);
 
-  uint32_t getConnectionEpoch() const;
-  Session& setConnectionEpoch(uint32_t);
+  uint64_t getConnectionEpoch() const;
+  Session& setConnectionEpoch(uint64_t);
 
   const std::string& getConnectionName() const;
   Session& setConnectionName(const std::string&);
@@ -82,7 +82,7 @@ private:
   bool attached;
   uint16_t channelId;
   uint32_t clientCredit;
-  uint32_t connectionEpoch; // TODO check int size
+  uint64_t connectionEpoch;
   std::string connectionName;
   uint32_t detachedLifespan;
   uint32_t framesOutstanding;

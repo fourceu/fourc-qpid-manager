@@ -309,7 +309,7 @@ TEST(ConnectionTests, setVhostRef) {
 }
 
 TEST(ConnectionTests, setSaslSsf) {
-  uint64_t expected = 3;
+  uint16_t expected = 3;
   Connection connection;
   connection.setSaslSsf(expected);
 

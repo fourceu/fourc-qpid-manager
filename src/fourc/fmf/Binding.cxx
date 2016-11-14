@@ -56,31 +56,31 @@ Binding& Binding::setBindingKey(const std::string& value) {
   return *this;
 }
 
-int Binding::getExchangeEpoch() const {
+uint64_t Binding::getExchangeEpoch() const {
   return exchangeEpoch;
 }
 
-Binding& Binding::setExchangeEpoch(int value) {
+Binding& Binding::setExchangeEpoch(uint64_t value) {
   exchangeEpoch = value;
 
   return *this;
 }
 
-int Binding::getQueueEpoch() const {
+uint64_t Binding::getQueueEpoch() const {
   return queueEpoch;
 }
 
-Binding& Binding::setQueueEpoch(int value) {
+Binding& Binding::setQueueEpoch(uint64_t value) {
   queueEpoch = value;
 
   return *this;
 }
 
-int Binding::getMsgMatched() const {
+uint64_t Binding::getMsgMatched() const {
   return msgMatched;
 }
 
-Binding& Binding::setMsgMatched(int value) {
+Binding& Binding::setMsgMatched(uint64_t value) {
   msgMatched = value;
 
   return *this;

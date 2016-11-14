@@ -17,113 +17,113 @@ public:
 
   Broker();
 
-  uint32_t getAbandoned() const;
-  Broker& setAbandoned(const uint32_t);
+  uint64_t getAbandoned() const;
+  Broker& setAbandoned(const uint64_t);
 
-  uint32_t getAbandonedViaAlt() const;
-  Broker& setAbandonedViaAlt(const uint32_t);
+  uint64_t getAbandonedViaAlt() const;
+  Broker& setAbandonedViaAlt(const uint64_t);
 
-  uint32_t getAcquires() const;
-  Broker& setAcquires(const uint32_t);
+  uint64_t getAcquires() const;
+  Broker& setAcquires(const uint64_t);
 
-  uint32_t getByteDepth() const;
-  Broker& setByteDepth(const uint32_t);
+  uint64_t getByteDepth() const;
+  Broker& setByteDepth(const uint64_t);
 
-  uint32_t getByteFtdDepth() const;
-  Broker& setByteFtdDepth(const uint32_t);
+  uint64_t getByteFtdDepth() const;
+  Broker& setByteFtdDepth(const uint64_t);
 
-  uint32_t getByteFtdDequeues() const;
-  Broker& setByteFtdDequeues(const uint32_t);
+  uint64_t getByteFtdDequeues() const;
+  Broker& setByteFtdDequeues(const uint64_t);
 
-  uint32_t getByteFtdEnqueues() const;
-  Broker& setByteFtdEnqueues(const uint32_t);
+  uint64_t getByteFtdEnqueues() const;
+  Broker& setByteFtdEnqueues(const uint64_t);
 
-  uint32_t getBytePersistDequeues() const;
-  Broker& setBytePersistDequeues(const uint32_t);
+  uint64_t getBytePersistDequeues() const;
+  Broker& setBytePersistDequeues(const uint64_t);
 
-  uint32_t getBytePersistEnqueues() const;
-  Broker& setBytePersistEnqueues(const uint32_t);
+  uint64_t getBytePersistEnqueues() const;
+  Broker& setBytePersistEnqueues(const uint64_t);
 
-  uint32_t getByteTotalDequeues() const;
-  Broker& setByteTotalDequeues(const uint32_t);
+  uint64_t getByteTotalDequeues() const;
+  Broker& setByteTotalDequeues(const uint64_t);
 
-  uint32_t getByteTotalEnqueues() const;
-  Broker& setByteTotalEnqueues(const uint32_t);
+  uint64_t getByteTotalEnqueues() const;
+  Broker& setByteTotalEnqueues(const uint64_t);
 
-  uint32_t getByteTxnDequeues() const;
-  Broker& setByteTxnDequeues(const uint32_t);
+  uint64_t getByteTxnDequeues() const;
+  Broker& setByteTxnDequeues(const uint64_t);
 
-  uint32_t getByteTxnEnqueues() const;
-  Broker& setByteTxnEnqueues(const uint32_t);
+  uint64_t getByteTxnEnqueues() const;
+  Broker& setByteTxnEnqueues(const uint64_t);
 
-  uint32_t getConnBacklog() const;
-  Broker& setConnBacklog(const uint32_t);
+  uint16_t getConnBacklog() const;
+  Broker& setConnBacklog(const uint16_t);
 
-  uint32_t getDiscardsLvq() const;
-  Broker& setDiscardsLvq(const uint32_t);
+  uint64_t getDiscardsLvq() const;
+  Broker& setDiscardsLvq(const uint64_t);
 
-  uint32_t getDiscardsNoRoute() const;
-  Broker& setDiscardsNoRoute(const uint32_t);
+  uint64_t getDiscardsNoRoute() const;
+  Broker& setDiscardsNoRoute(const uint64_t);
 
-  uint32_t getDiscardsOverflow() const;
-  Broker& setDiscardsOverflow(const uint32_t);
+  uint64_t getDiscardsOverflow() const;
+  Broker& setDiscardsOverflow(const uint64_t);
 
-  uint32_t getDiscardsPurge() const;
-  Broker& setDiscardsPurge(const uint32_t);
+  uint64_t getDiscardsPurge() const;
+  Broker& setDiscardsPurge(const uint64_t);
 
-  uint32_t getDiscardsRing() const;
-  Broker& setDiscardsRing(const uint32_t);
+  uint64_t getDiscardsRing() const;
+  Broker& setDiscardsRing(const uint64_t);
 
-  uint32_t getDiscardsSubscriber() const;
-  Broker& setDiscardsSubscriber(const uint32_t);
+  uint64_t getDiscardsSubscriber() const;
+  Broker& setDiscardsSubscriber(const uint64_t);
 
-  uint32_t getDiscardsTtl() const;
-  Broker& setDiscardsTtl(const uint32_t);
+  uint64_t getDiscardsTtl() const;
+  Broker& setDiscardsTtl(const uint64_t);
 
-  uint32_t getMaxConns() const;
-  Broker& setMaxConns(const uint32_t);
+  uint16_t getMaxConns() const;
+  Broker& setMaxConns(const uint16_t);
 
-  uint32_t getMgmtPubInterval() const;
-  Broker& setMgmtPubInterval(const uint32_t);
+  uint16_t getMgmtPubInterval() const;
+  Broker& setMgmtPubInterval(const uint16_t);
 
-  uint32_t getMsgDepth() const;
-  Broker& setMsgDepth(const uint32_t);
+  uint64_t getMsgDepth() const;
+  Broker& setMsgDepth(const uint64_t);
 
-  uint32_t getMsgFtdDepth() const;
-  Broker& setMsgFtdDepth(const uint32_t);
+  uint64_t getMsgFtdDepth() const;
+  Broker& setMsgFtdDepth(const uint64_t);
 
-  uint32_t getMsgFtdDequeues() const;
-  Broker& setMsgFtdDequeues(const uint32_t);
+  uint64_t getMsgFtdDequeues() const;
+  Broker& setMsgFtdDequeues(const uint64_t);
 
-  uint32_t getMsgFtdEnqueues() const;
-  Broker& setMsgFtdEnqueues(const uint32_t);
+  uint64_t getMsgFtdEnqueues() const;
+  Broker& setMsgFtdEnqueues(const uint64_t);
 
-  uint32_t getMsgPersistDequeues() const;
-  Broker& setMsgPersistDequeues(const uint32_t);
+  uint64_t getMsgPersistDequeues() const;
+  Broker& setMsgPersistDequeues(const uint64_t);
 
-  uint32_t getMsgPersistEnqueues() const;
-  Broker& setMsgPersistEnqueues(const uint32_t);
+  uint64_t getMsgPersistEnqueues() const;
+  Broker& setMsgPersistEnqueues(const uint64_t);
 
-  uint32_t getMsgTotalDequeues() const;
-  Broker& setMsgTotalDequeues(const uint32_t);
+  uint64_t getMsgTotalDequeues() const;
+  Broker& setMsgTotalDequeues(const uint64_t);
 
-  uint32_t getMsgTotalEnqueues() const;
-  Broker& setMsgTotalEnqueues(const uint32_t);
+  uint64_t getMsgTotalEnqueues() const;
+  Broker& setMsgTotalEnqueues(const uint64_t);
 
-  uint32_t getMsgTxnDequeues() const;
-  Broker& setMsgTxnDequeues(const uint32_t);
+  uint64_t getMsgTxnDequeues() const;
+  Broker& setMsgTxnDequeues(const uint64_t);
 
-  uint32_t getMsgTxnEnqueues() const;
-  Broker& setMsgTxnEnqueues(const uint32_t);
+  uint64_t getMsgTxnEnqueues() const;
+  Broker& setMsgTxnEnqueues(const uint64_t);
 
-  uint32_t getQueueCount() const;
-  Broker& setQueueCount(const uint32_t);
+  uint64_t getQueueCount() const;
+  Broker& setQueueCount(const uint64_t);
 
-  uint32_t getReleases() const;
-  Broker& setReleases(const uint32_t);
+  uint64_t getReleases() const;
+  Broker& setReleases(const uint64_t);
 
-  uint32_t getReroutes() const;
-  Broker& setReroutes(const uint32_t);
+  uint64_t getReroutes() const;
+  Broker& setReroutes(const uint64_t);
 
   uint32_t getStagingThreshold() const;
   Broker& setStagingThreshold(const uint32_t);
@@ -153,42 +153,42 @@ public:
   Broker& setUptime(const std::chrono::nanoseconds&);
 
 private:
-  uint32_t abandoned;
-  uint32_t abandonedViaAlt;
-  uint32_t acquires;
-  uint32_t byteDepth;
-  uint32_t byteFtdDepth;
-  uint32_t byteFtdDequeues;
-  uint32_t byteFtdEnqueues;
-  uint32_t bytePersistDequeues;
-  uint32_t bytePersistEnqueues;
-  uint32_t byteTotalDequeues;
-  uint32_t byteTotalEnqueues;
-  uint32_t byteTxnDequeues;
-  uint32_t byteTxnEnqueues;
-  uint32_t connBacklog;
-  uint32_t discardsLvq;
-  uint32_t discardsNoRoute;
-  uint32_t discardsOverflow;
-  uint32_t discardsPurge;
-  uint32_t discardsRing;
-  uint32_t discardsSubscriber;
-  uint32_t discardsTtl;
-  uint32_t maxConns;
-  uint32_t mgmtPubInterval;
-  uint32_t msgDepth;
-  uint32_t msgFtdDepth;
-  uint32_t msgFtdDequeues;
-  uint32_t msgFtdEnqueues;
-  uint32_t msgPersistDequeues;
-  uint32_t msgPersistEnqueues;
-  uint32_t msgTotalDequeues;
-  uint32_t msgTotalEnqueues;
-  uint32_t msgTxnDequeues;
-  uint32_t msgTxnEnqueues;
-  uint32_t queueCount;
-  uint32_t releases;
-  uint32_t reroutes;
+  uint64_t abandoned;
+  uint64_t abandonedViaAlt;
+  uint64_t acquires;
+  uint64_t byteDepth;
+  uint64_t byteFtdDepth;
+  uint64_t byteFtdDequeues;
+  uint64_t byteFtdEnqueues;
+  uint64_t bytePersistDequeues;
+  uint64_t bytePersistEnqueues;
+  uint64_t byteTotalDequeues;
+  uint64_t byteTotalEnqueues;
+  uint64_t byteTxnDequeues;
+  uint64_t byteTxnEnqueues;
+  uint16_t connBacklog;
+  uint64_t discardsLvq;
+  uint64_t discardsNoRoute;
+  uint64_t discardsOverflow;
+  uint64_t discardsPurge;
+  uint64_t discardsRing;
+  uint64_t discardsSubscriber;
+  uint64_t discardsTtl;
+  uint16_t maxConns;
+  uint16_t mgmtPubInterval;
+  uint64_t msgDepth;
+  uint64_t msgFtdDepth;
+  uint64_t msgFtdDequeues;
+  uint64_t msgFtdEnqueues;
+  uint64_t msgPersistDequeues;
+  uint64_t msgPersistEnqueues;
+  uint64_t msgTotalDequeues;
+  uint64_t msgTotalEnqueues;
+  uint64_t msgTxnDequeues;
+  uint64_t msgTxnEnqueues;
+  uint64_t queueCount;
+  uint64_t releases;
+  uint64_t reroutes;
   uint32_t stagingThreshold;
 
   uint16_t port;

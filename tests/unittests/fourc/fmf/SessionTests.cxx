@@ -179,7 +179,7 @@ TEST(SessionTests, setClientCredit) {
 }
 
 TEST(SessionTests, setConnectionEpoch) {
-  uint32_t expected = 23;
+  uint64_t expected = 23;
   Session session;
   session.setConnectionEpoch(expected);
 

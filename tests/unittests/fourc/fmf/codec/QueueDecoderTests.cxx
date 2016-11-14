@@ -51,7 +51,7 @@ TEST(QueueDecoderTests, dynamicCast) {
 TEST(QueueDecoderTests, decodeQueue) {
   auto now_tp = std::chrono::system_clock::now();
   std::string oid = "oid";
-  int agent_epoch = 10;
+  uint64_t agent_epoch = 10;
 
   std::string schema_class = "queue";
   std::string schema_hash = "12345";
@@ -86,11 +86,11 @@ TEST(QueueDecoderTests, decodeQueue) {
   bool durable = true;
   bool exclusive = true;
   bool flow_stopped = true;
-  uint64_t flow_stopped_count = 24;
-  uint64_t message_latency_avg = 25;
+  uint32_t flow_stopped_count = 24;
+  uint32_t message_latency_avg = 25;
   uint64_t message_latency_count = 26;
   uint64_t message_latency_max = 28;
-  uint64_t message_latency_min = 29;
+  uint32_t message_latency_min = 29;
   uint64_t msg_depth = 30;
   uint64_t msg_ftd_depth = 31;
   uint64_t msg_ftd_dequeues = 32;
@@ -106,9 +106,9 @@ TEST(QueueDecoderTests, decodeQueue) {
   bool redirect_source = true;
   uint64_t releases = 40;
   uint64_t reroutes = 41;
-  uint64_t unacked_messages = 42;
-  uint64_t unacked_messages_high = 43;
-  uint64_t unacked_messages_low = 44;
+  uint32_t unacked_messages = 42;
+  uint32_t unacked_messages_high = 43;
+  uint32_t unacked_messages_low = 44;
   std::string vhost_ref = "test vhost ref";
 
   qpid::types::Variant::Map object_id = {

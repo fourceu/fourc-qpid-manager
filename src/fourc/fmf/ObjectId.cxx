@@ -34,11 +34,11 @@ ObjectId& ObjectId::setName(const std::string& value) {
   return *this;
 }
 
-int ObjectId::getAgentEpoch() const {
+uint64_t ObjectId::getAgentEpoch() const {
   return agentEpoch;
 }
 
-ObjectId& ObjectId::setAgentEpoch(int value) {
+ObjectId& ObjectId::setAgentEpoch(uint64_t value) {
   agentEpoch = value;
 
   return *this;

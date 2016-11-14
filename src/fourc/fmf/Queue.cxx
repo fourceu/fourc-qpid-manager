@@ -353,21 +353,21 @@ Queue& Queue::setFlowStopped(bool value) {
   return *this;
 }
 
-uint64_t Queue::getFlowStoppedCount() const {
+uint32_t Queue::getFlowStoppedCount() const {
   return flowStoppedCount;
 }
 
-Queue& Queue::setFlowStoppedCount(uint64_t value) {
+Queue& Queue::setFlowStoppedCount(uint32_t value) {
   flowStoppedCount = value;
 
   return *this;
 }
 
-uint64_t Queue::getMessageLatencyAvg() const {
+uint32_t Queue::getMessageLatencyAvg() const {
   return messageLatencyAvg;
 }
 
-Queue& Queue::setMessageLatencyAvg(uint64_t value) {
+Queue& Queue::setMessageLatencyAvg(uint32_t value) {
   messageLatencyAvg = value;
 
   return *this;
@@ -393,11 +393,11 @@ Queue& Queue::setMessageLatencyMax(uint64_t value) {
   return *this;
 }
 
-uint64_t Queue::getMessageLatencyMin() const {
+uint32_t Queue::getMessageLatencyMin() const {
   return messageLatencyMin;
 }
 
-Queue& Queue::setMessageLatencyMin(uint64_t value) {
+Queue& Queue::setMessageLatencyMin(uint32_t value) {
   messageLatencyMin = value;
 
   return *this;
@@ -553,31 +553,31 @@ Queue& Queue::setReroutes(uint64_t value) {
   return *this;
 }
 
-uint64_t Queue::getUnackedMessages() const {
+uint32_t Queue::getUnackedMessages() const {
   return unackedMessages;
 }
 
-Queue& Queue::setUnackedMessages(uint64_t value) {
+Queue& Queue::setUnackedMessages(uint32_t value) {
   unackedMessages = value;
 
   return *this;
 }
 
-uint64_t Queue::getUnackedMessagesHigh() const {
+uint32_t Queue::getUnackedMessagesHigh() const {
   return unackedMessagesHigh;
 }
 
-Queue& Queue::setUnackedMessagesHigh(uint64_t value) {
+Queue& Queue::setUnackedMessagesHigh(uint32_t value) {
   unackedMessagesHigh = value;
 
   return *this;
 }
 
-uint64_t Queue::getUnackedMessagesLow() const {
+uint32_t Queue::getUnackedMessagesLow() const {
   return unackedMessagesLow;
 }
 
-Queue& Queue::setUnackedMessagesLow(uint64_t value) {
+Queue& Queue::setUnackedMessagesLow(uint32_t value) {
   unackedMessagesLow = value;
 
   return *this;

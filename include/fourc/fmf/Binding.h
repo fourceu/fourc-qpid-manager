@@ -38,21 +38,21 @@ public:
   const std::string& getBindingKey() const;
   Binding& setBindingKey(const std::string&);
 
-  int getExchangeEpoch() const;
-  Binding& setExchangeEpoch(int);
+  uint64_t getExchangeEpoch() const;
+  Binding& setExchangeEpoch(uint64_t);
 
-  int getQueueEpoch() const;
-  Binding& setQueueEpoch(int);
+  uint64_t getQueueEpoch() const;
+  Binding& setQueueEpoch(uint64_t);
 
-  int getMsgMatched() const;
-  Binding& setMsgMatched(int);
+  uint64_t getMsgMatched() const;
+  Binding& setMsgMatched(uint64_t);
 
 private:
   std::string exchangeName;
   std::string queueName;
   std::string bindingKey;
-  int exchangeEpoch;
-  int queueEpoch;
+  uint64_t exchangeEpoch;
+  uint64_t queueEpoch;
   int msgMatched;
 };
 

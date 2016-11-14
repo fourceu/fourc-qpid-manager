@@ -145,7 +145,7 @@ TEST(SubscriptionTests, setName) {
 }
 
 TEST(SubscriptionTests, setQueueEpoch) {
-  uint32_t expected = 29;
+  uint64_t expected = 29;
   Subscription subscription;
   subscription.setQueueEpoch(expected);
 

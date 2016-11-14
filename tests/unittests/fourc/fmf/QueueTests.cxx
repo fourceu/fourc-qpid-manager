@@ -561,7 +561,7 @@ TEST(QueueTests, setFlowStopped) {
 }
 
 TEST(QueueTests, setFlowStoppedCount) {
-  uint64_t expected = 7;
+  uint32_t expected = 7;
   Queue queue;
   queue.setFlowStoppedCount(expected);
 
@@ -569,7 +569,7 @@ TEST(QueueTests, setFlowStoppedCount) {
 }
 
 TEST(QueueTests, setMessageLatencyAvg) {
-  uint64_t expected = 7;
+  uint32_t expected = 7;
   Queue queue;
   queue.setMessageLatencyAvg(expected);
 
@@ -593,7 +593,7 @@ TEST(QueueTests, setMessageLatencyMax) {
 }
 
 TEST(QueueTests, setMessageLatencyMin) {
-  uint64_t expected = 7;
+  uint32_t expected = 7;
   Queue queue;
   queue.setMessageLatencyMin(expected);
 
@@ -723,7 +723,7 @@ TEST(QueueTests, setReroutes) {
 }
 
 TEST(QueueTests, setUnackedMessages) {
-  uint64_t expected = 7;
+  uint32_t expected = 7;
   Queue queue;
   queue.setUnackedMessages(expected);
 
@@ -731,7 +731,7 @@ TEST(QueueTests, setUnackedMessages) {
 }
 
 TEST(QueueTests, setUnackedMessagesHigh) {
-  uint64_t expected = 7;
+  uint32_t expected = 7;
   Queue queue;
   queue.setUnackedMessagesHigh(expected);
 
@@ -739,7 +739,7 @@ TEST(QueueTests, setUnackedMessagesHigh) {
 }
 
 TEST(QueueTests, setUnackedMessagesLow) {
-  uint64_t expected = 7;
+  uint32_t expected = 7;
   Queue queue;
   queue.setUnackedMessagesLow(expected);
 

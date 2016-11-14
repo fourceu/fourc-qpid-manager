@@ -29,26 +29,26 @@ public:
 
   Acl();
 
-  uint32_t getAclDenyCount() const;
-  Acl& setAclDenyCount(const uint32_t);
+  uint64_t getAclDenyCount() const;
+  Acl& setAclDenyCount(const uint64_t);
 
-  uint32_t getConnectionDenyCount() const;
-  Acl& setConnectionDenyCount(const uint32_t);
+  uint64_t getConnectionDenyCount() const;
+  Acl& setConnectionDenyCount(const uint64_t);
 
-  uint32_t getMaxConnections() const;
-  Acl& setMaxConnections(const uint32_t);
+  uint64_t getQueueQuotaDenyCount() const;
+  Acl& setQueueQuotaDenyCount(const uint64_t);
 
-  uint32_t getMaxConnectionsPerIp() const;
-  Acl& setMaxConnectionsPerIp(const uint32_t);
+  uint16_t getMaxConnections() const;
+  Acl& setMaxConnections(const uint16_t);
 
-  uint32_t getMaxConnectionsPerUser() const;
-  Acl& setMaxConnectionsPerUser(const uint32_t);
+  uint16_t getMaxConnectionsPerIp() const;
+  Acl& setMaxConnectionsPerIp(const uint16_t);
 
-  uint32_t getMaxQueuesPerUser() const;
-  Acl& setMaxQueuesPerUser(const uint32_t);
+  uint16_t getMaxConnectionsPerUser() const;
+  Acl& setMaxConnectionsPerUser(const uint16_t);
 
-  uint32_t getQueueQuotaDenyCount() const;
-  Acl& setQueueQuotaDenyCount(const uint32_t);
+  uint16_t getMaxQueuesPerUser() const;
+  Acl& setMaxQueuesPerUser(const uint16_t);
 
   bool isEnforcingAcl() const;
   Acl& setIsEnforcingAcl(const bool);
@@ -66,13 +66,13 @@ public:
   Acl& setPolicyFile(const std::string&);
 
 private:
-  uint32_t aclDenyCount;
-  uint32_t connectionDenyCount;
-  uint32_t maxConnections;
-  uint32_t maxConnectionsPerIp;
-  uint32_t maxConnectionsPerUser;
-  uint32_t maxQueuesPerUser;
-  uint32_t queueQuotaDenyCount;
+  uint64_t aclDenyCount;
+  uint64_t connectionDenyCount;
+  uint64_t queueQuotaDenyCount;
+  uint16_t maxConnections;
+  uint16_t maxConnectionsPerIp;
+  uint16_t maxConnectionsPerUser;
+  uint16_t maxQueuesPerUser;
   bool enforcingAcl;
   bool transferAcl;
   std::chrono::system_clock::time_point lastAclLoad;

@@ -29,8 +29,8 @@ public:
   
   Link();
   
-  uint32_t getConnectionEpoch() const;
-  Link& setConnectionEpoch(uint32_t);
+  uint64_t getConnectionEpoch() const;
+  Link& setConnectionEpoch(uint64_t);
   
   const std::string& getConnectionName() const;
   Link& setConnectionName(const std::string&);
@@ -60,7 +60,7 @@ public:
   Link& setVhostRef(const std::string&);
   
 private:
-  uint32_t connectionEpoch;
+  uint64_t connectionEpoch;
   std::string connectionName;
   bool durable;
   std::string host;

@@ -86,8 +86,8 @@ public:
   const std::string& getSaslMechanism() const;
   Connection& setSaslMechanism(const std::string&);
 
-  uint64_t getSaslSsf() const;
-  Connection& setSaslSsf(uint64_t);
+  uint16_t getSaslSsf() const;
+  Connection& setSaslSsf(uint16_t);
 
   bool isShadow() const;
   Connection& setIsShadow(bool);
@@ -116,7 +116,7 @@ private:
   uint32_t remotePid;
   std::string remoteProcessName;
   std::string saslMechanism;
-  uint64_t saslSsf;
+  uint16_t saslSsf;
   bool shadow;
   bool userProxyAuth;
   std::string vhostRef;

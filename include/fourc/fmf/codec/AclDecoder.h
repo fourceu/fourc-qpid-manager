@@ -36,11 +36,11 @@ class AclDecoder : public Decoder<Acl, VariantT> {
 public:
   static const std::string PROPERTY_NAME_ACL_DENY_COUNT;
   static const std::string PROPERTY_NAME_CONNECTION_DENY_COUNT;
+  static const std::string PROPERTY_NAME_QUEUE_QUOTA_DENY_COUNT;
   static const std::string PROPERTY_NAME_MAX_CONNECTIONS;
   static const std::string PROPERTY_NAME_MAX_CONNECTIONS_IP;
   static const std::string PROPERTY_NAME_MAX_CONNECTIONS_USER;
   static const std::string PROPERTY_NAME_MAX_QUEUES_USER;
-  static const std::string PROPERTY_NAME_QUEUE_QUOTA_DENY_COUNT;
   static const std::string PROPERTY_NAME_ENFORCING_ACL;
   static const std::string PROPERTY_NAME_TRANSFER_ACL;
   static const std::string PROPERTY_NAME_BROKER_REF;
@@ -61,11 +61,11 @@ public:
 
     decoded->setAclDenyCount(this->getMapProperty(values, PROPERTY_NAME_ACL_DENY_COUNT))
         .setConnectionDenyCount(this->getMapProperty(values, PROPERTY_NAME_CONNECTION_DENY_COUNT))
+        .setQueueQuotaDenyCount(this->getMapProperty(values, PROPERTY_NAME_QUEUE_QUOTA_DENY_COUNT))
         .setMaxConnections(this->getMapProperty(values, PROPERTY_NAME_MAX_CONNECTIONS))
         .setMaxConnectionsPerIp(this->getMapProperty(values, PROPERTY_NAME_MAX_CONNECTIONS_IP))
         .setMaxConnectionsPerUser(this->getMapProperty(values, PROPERTY_NAME_MAX_CONNECTIONS_USER))
         .setMaxQueuesPerUser(this->getMapProperty(values, PROPERTY_NAME_MAX_QUEUES_USER))
-        .setQueueQuotaDenyCount(this->getMapProperty(values, PROPERTY_NAME_QUEUE_QUOTA_DENY_COUNT))
         .setIsEnforcingAcl(this->getMapProperty(values, PROPERTY_NAME_ENFORCING_ACL))
         .setIsTransferAcl(this->getMapProperty(values, PROPERTY_NAME_TRANSFER_ACL))
         .setLastAclLoad(std::chrono::system_clock::time_point(std::chrono::nanoseconds(this->getMapProperty(values, PROPERTY_NAME_LAST_ACL_LOAD))))
@@ -78,11 +78,11 @@ public:
 
 template <typename VariantT> const std::string AclDecoder<VariantT>::PROPERTY_NAME_ACL_DENY_COUNT = "aclDenyCount";
 template <typename VariantT> const std::string AclDecoder<VariantT>::PROPERTY_NAME_CONNECTION_DENY_COUNT = "connectionDenyCount";
+template <typename VariantT> const std::string AclDecoder<VariantT>::PROPERTY_NAME_QUEUE_QUOTA_DENY_COUNT = "queueQuotaDenyCount";
 template <typename VariantT> const std::string AclDecoder<VariantT>::PROPERTY_NAME_MAX_CONNECTIONS = "maxConnections";
 template <typename VariantT> const std::string AclDecoder<VariantT>::PROPERTY_NAME_MAX_CONNECTIONS_IP = "maxConnectionsPerIp";
 template <typename VariantT> const std::string AclDecoder<VariantT>::PROPERTY_NAME_MAX_CONNECTIONS_USER = "maxConnectionsPerUser";
 template <typename VariantT> const std::string AclDecoder<VariantT>::PROPERTY_NAME_MAX_QUEUES_USER = "maxQueuesPerUser";
-template <typename VariantT> const std::string AclDecoder<VariantT>::PROPERTY_NAME_QUEUE_QUOTA_DENY_COUNT = "queueQuotaDenyCount";
 template <typename VariantT> const std::string AclDecoder<VariantT>::PROPERTY_NAME_ENFORCING_ACL = "enforcingAcl";
 template <typename VariantT> const std::string AclDecoder<VariantT>::PROPERTY_NAME_TRANSFER_ACL = "transferAcl";
 template <typename VariantT> const std::string AclDecoder<VariantT>::PROPERTY_NAME_BROKER_REF = "brokerRef";

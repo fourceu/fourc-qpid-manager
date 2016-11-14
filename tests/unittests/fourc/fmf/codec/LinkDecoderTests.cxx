@@ -51,14 +51,14 @@ TEST(LinkDecoderTests, dynamicCast) {
 TEST(LinkDecoderTests, decodeLink) {
   auto now_tp = std::chrono::system_clock::now();
   std::string oid = "oid";
-  int agent_epoch = 10;
+  uint64_t agent_epoch = 10;
 
   std::string schema_class = "link";
   std::string schema_hash = "12345";
   std::string schema_package_name = "org.apache.qpid.link";
   std::string schema_type = "_data";
 
-  uint32_t connection_epoch = 1;
+  uint64_t connection_epoch = 1;
   std::string connection_name = "connection name";
   bool durable = true;
   std::string host = "host";

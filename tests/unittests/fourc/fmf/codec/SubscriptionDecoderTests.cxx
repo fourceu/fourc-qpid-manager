@@ -51,13 +51,12 @@ TEST(SubscriptionDecoderTests, dynamicCast) {
 TEST(SubscriptionDecoderTests, decodeSubscription) {
   auto now_tp = std::chrono::system_clock::now();
   std::string oid = "oid";
-  int agent_epoch = 10;
+  uint64_t agent_epoch = 10;
 
   std::string schema_class = "subscription";
   std::string schema_hash = "12345";
   std::string schema_package_name = "org.apache.qpid.subscription";
   std::string schema_type = "_data";
-
   
   bool acknowledged = true;
   bool browsing = true;
@@ -65,11 +64,10 @@ TEST(SubscriptionDecoderTests, decodeSubscription) {
   uint64_t delivered = 1;
   bool exclusive = true;
   std::string name = "test name";
-  uint32_t queue_epoch = 2;
+  uint64_t queue_epoch = 2;
   std::string queue_name = "test queue name";
-  uint32_t session_epoch = 3;
+  uint64_t session_epoch = 3;
   std::string session_name = "test session name";
-
 
   qpid::types::Variant::Map object_id = {
       { ResponsePropertyNames::OBJECT_NAME, oid },

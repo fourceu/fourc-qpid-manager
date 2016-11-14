@@ -49,19 +49,19 @@ TEST(BindingTests, ctorSetsBindingKey) {
 TEST(BindingTests, ctorSetsExchangeEpoch) {
   Binding binding;
 
-  EXPECT_EQ(0, binding.getExchangeEpoch());
+  EXPECT_EQ(0u, binding.getExchangeEpoch());
 }
 
 TEST(BindingTests, ctorSetsQueueEpoch) {
   Binding binding;
 
-  EXPECT_EQ(0, binding.getQueueEpoch());
+  EXPECT_EQ(0u, binding.getQueueEpoch());
 }
 
 TEST(BindingTests, ctorSetsMsgMatched) {
   Binding binding;
 
-  EXPECT_EQ(0, binding.getMsgMatched());
+  EXPECT_EQ(0u, binding.getMsgMatched());
 }
 
 TEST(BindingTests, setExchangeName) {
@@ -89,7 +89,7 @@ TEST(BindingTests, setBindingKey) {
 }
 
 TEST(BindingTests, setExchangeEpoch) {
-  int expected = 42;
+  uint64_t expected = 42;
   Binding binding;
   binding.setExchangeEpoch(expected);
 
@@ -97,7 +97,7 @@ TEST(BindingTests, setExchangeEpoch) {
 }
 
 TEST(BindingTests, setQueueEpoch) {
-  int expected = 42;
+  uint64_t expected = 42;
   Binding binding;
   binding.setQueueEpoch(expected);
 
@@ -105,7 +105,7 @@ TEST(BindingTests, setQueueEpoch) {
 }
 
 TEST(BindingTests, setMsgMatched) {
-  int expected = 42;
+  uint64_t expected = 42;
   Binding binding;
   binding.setMsgMatched(expected);
 

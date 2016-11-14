@@ -103,7 +103,7 @@ TEST(AclTests, ctorSetsPolicyFile) {
 }
 
 TEST(AclTests, setAclDenyCount) {
-  uint32_t expected = 3;
+  uint64_t expected = 3;
   Acl acl;
   acl.setAclDenyCount(expected);
 
@@ -111,15 +111,23 @@ TEST(AclTests, setAclDenyCount) {
 }
 
 TEST(AclTests, setConnectionDenyCount) {
-  uint32_t expected = 3;
+  uint64_t expected = 3;
   Acl acl;
   acl.setConnectionDenyCount(expected);
 
   EXPECT_EQ(expected, acl.getConnectionDenyCount());
 }
 
+TEST(AclTests, setQueueQuotaDenyCount) {
+  uint64_t expected = 3;
+  Acl acl;
+  acl.setQueueQuotaDenyCount(expected);
+
+  EXPECT_EQ(expected, acl.getQueueQuotaDenyCount());
+}
+
 TEST(AclTests, setMaxConnections) {
-  uint32_t expected = 3;
+  uint16_t expected = 3;
   Acl acl;
   acl.setMaxConnections(expected);
 
@@ -127,7 +135,7 @@ TEST(AclTests, setMaxConnections) {
 }
 
 TEST(AclTests, setMaxConnectionsPerIp) {
-  uint32_t expected = 3;
+  uint16_t expected = 3;
   Acl acl;
   acl.setMaxConnectionsPerIp(expected);
 
@@ -135,7 +143,7 @@ TEST(AclTests, setMaxConnectionsPerIp) {
 }
 
 TEST(AclTests, setMaxConnectionsPerUser) {
-  uint32_t expected = 3;
+  uint16_t expected = 3;
   Acl acl;
   acl.setMaxConnectionsPerUser(expected);
 
@@ -143,19 +151,11 @@ TEST(AclTests, setMaxConnectionsPerUser) {
 }
 
 TEST(AclTests, setMaxQueuesPerUser) {
-  uint32_t expected = 3;
+  uint16_t expected = 3;
   Acl acl;
   acl.setMaxQueuesPerUser(expected);
 
   EXPECT_EQ(expected, acl.getMaxQueuesPerUser());
-}
-
-TEST(AclTests, setQueueQuotaDenyCount) {
-  uint32_t expected = 3;
-  Acl acl;
-  acl.setQueueQuotaDenyCount(expected);
-
-  EXPECT_EQ(expected, acl.getQueueQuotaDenyCount());
 }
 
 TEST(AclTests, setEnforcingAcl) {

@@ -92,7 +92,7 @@ TEST(LinkTests, ctorSetsVhostRef) {
 
 
 TEST(LinkTests, setConnectionEpoch) {
-  uint32_t expected;
+  uint64_t expected;
   Link link;
   link.setConnectionEpoch(expected);
 

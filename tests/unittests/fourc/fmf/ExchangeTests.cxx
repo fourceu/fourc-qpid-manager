@@ -233,7 +233,7 @@ TEST(ExchangeTests, setName) {
 }
 
 TEST(ExchangeTests, setProducerCount) {
-  uint64_t expected = 17;
+  uint32_t expected = 17;
   Exchange exchange;
   exchange.setProducerCount(expected);
 
@@ -241,7 +241,7 @@ TEST(ExchangeTests, setProducerCount) {
 }
 
 TEST(ExchangeTests, setProducerCountHigh) {
-  uint64_t expected = 17;
+  uint32_t expected = 17;
   Exchange exchange;
   exchange.setProducerCountHigh(expected);
 
@@ -249,7 +249,7 @@ TEST(ExchangeTests, setProducerCountHigh) {
 }
 
 TEST(ExchangeTests, setProducerCountLow) {
-  uint64_t expected = 17;
+  uint32_t expected = 17;
   Exchange exchange;
   exchange.setProducerCountLow(expected);
 

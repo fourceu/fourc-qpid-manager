@@ -31,11 +31,11 @@ TEST(ObjectIdTests, ctor) {
 TEST(ObjectIdTests, ctorSetsAgentEpoch) {
   ObjectId objectId;
 
-  EXPECT_EQ(0, objectId.getAgentEpoch());
+  EXPECT_EQ(0u, objectId.getAgentEpoch());
 }
 
 TEST(ObjectIdTests, setAgentEpoch) {
-  int expected = 42;
+  uint64_t expected = 42;
   ObjectId objectId;
 
   objectId.setAgentEpoch(expected);

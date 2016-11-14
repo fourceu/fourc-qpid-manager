@@ -47,14 +47,14 @@ public:
   const std::string& getName() const;
   Subscription& setName(const std::string&);
 
-  uint32_t getQueueEpoch() const;
-  Subscription& setQueueEpoch(uint32_t);
+  uint64_t getQueueEpoch() const;
+  Subscription& setQueueEpoch(uint64_t);
 
   const std::string& getQueueName() const;
   Subscription& setQueueName(const std::string&);
 
-  uint32_t getSessionEpoch() const;
-  Subscription& setSessionEpoch(uint32_t);
+  uint64_t getSessionEpoch() const;
+  Subscription& setSessionEpoch(uint64_t);
 
   const std::string& getSessionName() const;
   Subscription& setSessionName(const std::string&);
@@ -66,9 +66,9 @@ private:
   uint64_t delivered;
   bool exclusive;
   std::string name;
-  uint32_t queueEpoch;
+  uint64_t queueEpoch;
   std::string queueName;
-  uint32_t sessionEpoch;
+  uint64_t sessionEpoch;
   std::string sessionName;
 };
 

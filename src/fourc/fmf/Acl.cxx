@@ -22,80 +22,81 @@ namespace fmf {
 
 const std::string Acl::OBJECT_TYPE_NAME = "acl";
 
-Acl::Acl() : aclDenyCount(0), connectionDenyCount(0), maxConnections(0), maxConnectionsPerIp(0), maxConnectionsPerUser(0),
-             maxQueuesPerUser(0), queueQuotaDenyCount(0), enforcingAcl(true), transferAcl(true),
+Acl::Acl() : aclDenyCount(0), connectionDenyCount(0), queueQuotaDenyCount(0), maxConnections(0), maxConnectionsPerIp(0), maxConnectionsPerUser(0),
+             maxQueuesPerUser(0), enforcingAcl(true), transferAcl(true),
              lastAclLoad(std::chrono::system_clock::time_point::min()) {
 }
 
-uint32_t Acl::getAclDenyCount() const {
+uint64_t Acl::getAclDenyCount() const {
   return aclDenyCount;
 }
 
-Acl& Acl::setAclDenyCount(const uint32_t value) {
+Acl& Acl::setAclDenyCount(const uint64_t value) {
   aclDenyCount = value;
 
   return *this;
 }
 
-uint32_t Acl::getConnectionDenyCount() const {
+uint64_t Acl::getConnectionDenyCount() const {
   return connectionDenyCount;
 }
 
-Acl& Acl::setConnectionDenyCount(const uint32_t value) {
+Acl& Acl::setConnectionDenyCount(const uint64_t value) {
   connectionDenyCount = value;
 
   return *this;
 }
 
-uint32_t Acl::getMaxConnections() const {
+uint64_t Acl::getQueueQuotaDenyCount() const {
+  return queueQuotaDenyCount;
+}
+
+Acl& Acl::setQueueQuotaDenyCount(const uint64_t value) {
+  queueQuotaDenyCount = value;
+
+  return *this;
+}
+
+uint16_t Acl::getMaxConnections() const {
   return maxConnections;
 }
 
-Acl& Acl::setMaxConnections(const uint32_t value) {
+Acl& Acl::setMaxConnections(const uint16_t value) {
   maxConnections = value;
 
   return *this;
 }
 
-uint32_t Acl::getMaxConnectionsPerIp() const {
+uint16_t Acl::getMaxConnectionsPerIp() const {
   return maxConnectionsPerIp;
 }
 
-Acl& Acl::setMaxConnectionsPerIp(const uint32_t value) {
+Acl& Acl::setMaxConnectionsPerIp(const uint16_t value) {
   maxConnectionsPerIp = value;
 
   return *this;
 }
 
-uint32_t Acl::getMaxConnectionsPerUser() const {
+uint16_t Acl::getMaxConnectionsPerUser() const {
   return maxConnectionsPerUser;
 }
 
-Acl& Acl::setMaxConnectionsPerUser(const uint32_t value) {
+Acl& Acl::setMaxConnectionsPerUser(const uint16_t value) {
   maxConnectionsPerUser = value;
 
   return *this;
 }
 
-uint32_t Acl::getMaxQueuesPerUser() const {
+uint16_t Acl::getMaxQueuesPerUser() const {
   return maxQueuesPerUser;
 }
 
-Acl& Acl::setMaxQueuesPerUser(const uint32_t value) {
+Acl& Acl::setMaxQueuesPerUser(const uint16_t value) {
   maxQueuesPerUser = value;
 
   return *this;
 }
 
-uint32_t Acl::getQueueQuotaDenyCount() const {
-  return queueQuotaDenyCount;
-}
-
-Acl& Acl::setQueueQuotaDenyCount(const uint32_t value) {
-  queueQuotaDenyCount = value;
-
-  return *this;
-}
 bool Acl::isEnforcingAcl() const {
   return enforcingAcl;
 }

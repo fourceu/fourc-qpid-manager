@@ -51,20 +51,20 @@ TEST(AclDecoderTests, dynamicCast) {
 TEST(AclDecoderTests, decodeAcl) {
   auto now_tp = std::chrono::system_clock::now();
   std::string oid = "oid";
-  int agent_epoch = 10;
+  uint64_t agent_epoch = 10;
 
   std::string schema_class = "acl";
   std::string schema_hash = "12345";
   std::string schema_package_name = "org.apache.qpid.acl";
   std::string schema_type = "_data";
 
-  uint32_t acl_deny = 1;
-  uint32_t conn_deny = 2;
-  uint32_t max_conn = 3;
-  uint32_t max_conn_ip = 4;
-  uint32_t max_conn_user = 5;
-  uint32_t max_queue_user = 6;
-  uint32_t queue_quota_deny = 7;
+  uint64_t acl_deny = 1;
+  uint64_t conn_deny = 2;
+  uint64_t queue_quota_deny = 3;
+  uint16_t max_conn = 4;
+  uint16_t max_conn_ip = 5;
+  uint16_t max_conn_user = 6;
+  uint16_t max_queue_user = 7;
   bool enforcing = false;
   bool transfer = false;
   auto last_load = std::chrono::system_clock::now();
@@ -90,11 +90,11 @@ TEST(AclDecoderTests, decodeAcl) {
   qpid::types::Variant::Map values = {
       { AclDecoder<qpid::types::Variant>::PROPERTY_NAME_ACL_DENY_COUNT, acl_deny },
       { AclDecoder<qpid::types::Variant>::PROPERTY_NAME_CONNECTION_DENY_COUNT, conn_deny },
+      { AclDecoder<qpid::types::Variant>::PROPERTY_NAME_QUEUE_QUOTA_DENY_COUNT, queue_quota_deny },
       { AclDecoder<qpid::types::Variant>::PROPERTY_NAME_MAX_CONNECTIONS, max_conn },
       { AclDecoder<qpid::types::Variant>::PROPERTY_NAME_MAX_CONNECTIONS_IP, max_conn_ip },
       { AclDecoder<qpid::types::Variant>::PROPERTY_NAME_MAX_CONNECTIONS_USER, max_conn_user },
       { AclDecoder<qpid::types::Variant>::PROPERTY_NAME_MAX_QUEUES_USER, max_queue_user },
-      { AclDecoder<qpid::types::Variant>::PROPERTY_NAME_QUEUE_QUOTA_DENY_COUNT, queue_quota_deny },
       { AclDecoder<qpid::types::Variant>::PROPERTY_NAME_ENFORCING_ACL, enforcing },
       { AclDecoder<qpid::types::Variant>::PROPERTY_NAME_TRANSFER_ACL, transfer },
       { AclDecoder<qpid::types::Variant>::PROPERTY_NAME_LAST_ACL_LOAD, last_load.time_since_epoch().count() },
@@ -131,11 +131,11 @@ TEST(AclDecoderTests, decodeAcl) {
 
   EXPECT_EQ(acl_deny, acl->getAclDenyCount());
   EXPECT_EQ(conn_deny, acl->getConnectionDenyCount());
+  EXPECT_EQ(queue_quota_deny, acl->getQueueQuotaDenyCount());
   EXPECT_EQ(max_conn, acl->getMaxConnections());
   EXPECT_EQ(max_conn_ip, acl->getMaxConnectionsPerIp());
   EXPECT_EQ(max_conn_user, acl->getMaxConnectionsPerUser());
   EXPECT_EQ(max_queue_user, acl->getMaxQueuesPerUser());
-  EXPECT_EQ(queue_quota_deny, acl->getQueueQuotaDenyCount());
   EXPECT_EQ(enforcing, acl->isEnforcingAcl());
   EXPECT_EQ(transfer, acl->isTransferAcl());
   EXPECT_EQ(last_load, acl->getLastAclLoad());

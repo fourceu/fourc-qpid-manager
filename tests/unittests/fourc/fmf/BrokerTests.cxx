@@ -301,7 +301,7 @@ TEST(BrokerTests, ctorSetsUptime) {
 // ***************************************
 
 TEST(BrokerTests, setAbandoned) {
-  uint32_t expected = 1;
+  uint64_t expected = 1;
   Broker broker;
   broker.setAbandoned(expected);
 
@@ -309,7 +309,7 @@ TEST(BrokerTests, setAbandoned) {
 }
 
 TEST(BrokerTests, setAbandonedViaAlt) {
-  uint32_t expected = 2;
+  uint64_t expected = 2;
   Broker broker;
   broker.setAbandonedViaAlt(expected);
 
@@ -317,7 +317,7 @@ TEST(BrokerTests, setAbandonedViaAlt) {
 }
 
 TEST(BrokerTests, setAcquires) {
-  uint32_t expected = 3;
+  uint64_t expected = 3;
   Broker broker;
   broker.setAcquires(expected);
 
@@ -325,7 +325,7 @@ TEST(BrokerTests, setAcquires) {
 }
 
 TEST(BrokerTests, setByteDepth) {
-  uint32_t expected = 4;
+  uint64_t expected = 4;
   Broker broker;
   broker.setByteDepth(expected);
 
@@ -333,7 +333,7 @@ TEST(BrokerTests, setByteDepth) {
 }
 
 TEST(BrokerTests, setByteFtdDepth) {
-  uint32_t expected = 5;
+  uint64_t expected = 5;
   Broker broker;
   broker.setByteFtdDepth(expected);
 
@@ -341,7 +341,7 @@ TEST(BrokerTests, setByteFtdDepth) {
 }
 
 TEST(BrokerTests, setByteFtdDequeues) {
-  uint32_t expected = 6;
+  uint64_t expected = 6;
   Broker broker;
   broker.setByteFtdDequeues(expected);
 
@@ -349,7 +349,7 @@ TEST(BrokerTests, setByteFtdDequeues) {
 }
 
 TEST(BrokerTests, setByteFtdEnqueues) {
-  uint32_t expected = 7;
+  uint64_t expected = 7;
   Broker broker;
   broker.setByteFtdEnqueues(expected);
 
@@ -357,7 +357,7 @@ TEST(BrokerTests, setByteFtdEnqueues) {
 }
 
 TEST(BrokerTests, setBytePersistDequeues) {
-  uint32_t expected = 8;
+  uint64_t expected = 8;
   Broker broker;
   broker.setBytePersistDequeues(expected);
 
@@ -365,7 +365,7 @@ TEST(BrokerTests, setBytePersistDequeues) {
 }
 
 TEST(BrokerTests, setBytePersistEnqueues) {
-  uint32_t expected = 9;
+  uint64_t expected = 9;
   Broker broker;
   broker.setBytePersistEnqueues(expected);
 
@@ -373,7 +373,7 @@ TEST(BrokerTests, setBytePersistEnqueues) {
 }
 
 TEST(BrokerTests, setByteTotalDequeues) {
-  uint32_t expected = 10;
+  uint64_t expected = 10;
   Broker broker;
   broker.setByteTotalDequeues(expected);
 
@@ -381,7 +381,7 @@ TEST(BrokerTests, setByteTotalDequeues) {
 }
 
 TEST(BrokerTests, setByteTotalEnqueues) {
-  uint32_t expected = 11;
+  uint64_t expected = 11;
   Broker broker;
   broker.setByteTotalEnqueues(expected);
 
@@ -389,7 +389,7 @@ TEST(BrokerTests, setByteTotalEnqueues) {
 }
 
 TEST(BrokerTests, setByteTxnDequeues) {
-  uint32_t expected = 12;
+  uint64_t expected = 12;
   Broker broker;
   broker.setByteTxnDequeues(expected);
 
@@ -397,7 +397,7 @@ TEST(BrokerTests, setByteTxnDequeues) {
 }
 
 TEST(BrokerTests, setByteTxnEnqueues) {
-  uint32_t expected = 13;
+  uint64_t expected = 13;
   Broker broker;
   broker.setByteTxnEnqueues(expected);
 
@@ -405,7 +405,7 @@ TEST(BrokerTests, setByteTxnEnqueues) {
 }
 
 TEST(BrokerTests, setConnBacklog) {
-  uint32_t expected = 14;
+  uint16_t expected = 14;
   Broker broker;
   broker.setConnBacklog(expected);
 
@@ -413,7 +413,7 @@ TEST(BrokerTests, setConnBacklog) {
 }
 
 TEST(BrokerTests, setDiscardsLvq) {
-  uint32_t expected = 15;
+  uint64_t expected = 15;
   Broker broker;
   broker.setDiscardsLvq(expected);
 
@@ -421,7 +421,7 @@ TEST(BrokerTests, setDiscardsLvq) {
 }
 
 TEST(BrokerTests, setDiscardsNoRoute) {
-  uint32_t expected = 16;
+  uint64_t expected = 16;
   Broker broker;
   broker.setDiscardsNoRoute(expected);
 
@@ -429,7 +429,7 @@ TEST(BrokerTests, setDiscardsNoRoute) {
 }
 
 TEST(BrokerTests, setDiscardsOverflow) {
-  uint32_t expected = 17;
+  uint64_t expected = 17;
   Broker broker;
   broker.setDiscardsOverflow(expected);
 
@@ -437,7 +437,7 @@ TEST(BrokerTests, setDiscardsOverflow) {
 }
 
 TEST(BrokerTests, setDiscardsPurge) {
-  uint32_t expected = 18;
+  uint64_t expected = 18;
   Broker broker;
   broker.setDiscardsPurge(expected);
 
@@ -445,7 +445,7 @@ TEST(BrokerTests, setDiscardsPurge) {
 }
 
 TEST(BrokerTests, setDiscardsRing) {
-  uint32_t expected = 19;
+  uint64_t expected = 19;
   Broker broker;
   broker.setDiscardsRing(expected);
 
@@ -453,7 +453,7 @@ TEST(BrokerTests, setDiscardsRing) {
 }
 
 TEST(BrokerTests, setDiscardsSubscriber) {
-  uint32_t expected = 20;
+  uint64_t expected = 20;
   Broker broker;
   broker.setDiscardsSubscriber(expected);
 
@@ -461,7 +461,7 @@ TEST(BrokerTests, setDiscardsSubscriber) {
 }
 
 TEST(BrokerTests, setDiscardsTtl) {
-  uint32_t expected = 21;
+  uint64_t expected = 21;
   Broker broker;
   broker.setDiscardsTtl(expected);
 
@@ -469,7 +469,7 @@ TEST(BrokerTests, setDiscardsTtl) {
 }
 
 TEST(BrokerTests, setMaxConns) {
-  uint32_t expected = 22;
+  uint16_t expected = 22;
   Broker broker;
   broker.setMaxConns(expected);
 
@@ -477,7 +477,7 @@ TEST(BrokerTests, setMaxConns) {
 }
 
 TEST(BrokerTests, setMgmtPubInterval) {
-  uint32_t expected = 23;
+  uint16_t expected = 23;
   Broker broker;
   broker.setMgmtPubInterval(expected);
 
@@ -485,7 +485,7 @@ TEST(BrokerTests, setMgmtPubInterval) {
 }
 
 TEST(BrokerTests, setMsgDepth) {
-  uint32_t expected = 24;
+  uint64_t expected = 24;
   Broker broker;
   broker.setMsgDepth(expected);
 
@@ -493,7 +493,7 @@ TEST(BrokerTests, setMsgDepth) {
 }
 
 TEST(BrokerTests, setMsgFtdDepth) {
-  uint32_t expected = 25;
+  uint64_t expected = 25;
   Broker broker;
   broker.setMsgFtdDepth(expected);
 
@@ -501,7 +501,7 @@ TEST(BrokerTests, setMsgFtdDepth) {
 }
 
 TEST(BrokerTests, setMsgFtdDequeues) {
-  uint32_t expected = 26;
+  uint64_t expected = 26;
   Broker broker;
   broker.setMsgFtdDequeues(expected);
 
@@ -509,7 +509,7 @@ TEST(BrokerTests, setMsgFtdDequeues) {
 }
 
 TEST(BrokerTests, setMsgFtdEnqueues) {
-  uint32_t expected = 27;
+  uint64_t expected = 27;
   Broker broker;
   broker.setMsgFtdEnqueues(expected);
 
@@ -517,7 +517,7 @@ TEST(BrokerTests, setMsgFtdEnqueues) {
 }
 
 TEST(BrokerTests, setMsgPersistDequeues) {
-  uint32_t expected = 28;
+  uint64_t expected = 28;
   Broker broker;
   broker.setMsgPersistDequeues(expected);
 
@@ -525,7 +525,7 @@ TEST(BrokerTests, setMsgPersistDequeues) {
 }
 
 TEST(BrokerTests, setMsgPersistEnqueues) {
-  uint32_t expected = 29;
+  uint64_t expected = 29;
   Broker broker;
   broker.setMsgPersistEnqueues(expected);
 
@@ -533,7 +533,7 @@ TEST(BrokerTests, setMsgPersistEnqueues) {
 }
 
 TEST(BrokerTests, setMsgTotalDequeues) {
-  uint32_t expected = 30;
+  uint64_t expected = 30;
   Broker broker;
   broker.setMsgTotalDequeues(expected);
 
@@ -541,7 +541,7 @@ TEST(BrokerTests, setMsgTotalDequeues) {
 }
 
 TEST(BrokerTests, setMsgTotalEnqueues) {
-  uint32_t expected = 31;
+  uint64_t expected = 31;
   Broker broker;
   broker.setMsgTotalEnqueues(expected);
 
@@ -549,7 +549,7 @@ TEST(BrokerTests, setMsgTotalEnqueues) {
 }
 
 TEST(BrokerTests, setMsgTxnDequeues) {
-  uint32_t expected = 32;
+  uint64_t expected = 32;
   Broker broker;
   broker.setMsgTxnDequeues(expected);
 
@@ -557,7 +557,7 @@ TEST(BrokerTests, setMsgTxnDequeues) {
 }
 
 TEST(BrokerTests, setMsgTxnEnqueues) {
-  uint32_t expected = 33;
+  uint64_t expected = 33;
   Broker broker;
   broker.setMsgTxnEnqueues(expected);
 
@@ -565,7 +565,7 @@ TEST(BrokerTests, setMsgTxnEnqueues) {
 }
 
 TEST(BrokerTests, setQueueCount) {
-  uint32_t expected = 34;
+  uint64_t expected = 34;
   Broker broker;
   broker.setQueueCount(expected);
 
@@ -573,7 +573,7 @@ TEST(BrokerTests, setQueueCount) {
 }
 
 TEST(BrokerTests, setReleases) {
-  uint32_t expected = 35;
+  uint64_t expected = 35;
   Broker broker;
   broker.setReleases(expected);
 
@@ -581,7 +581,7 @@ TEST(BrokerTests, setReleases) {
 }
 
 TEST(BrokerTests, setReroutes) {
-  uint32_t expected = 36;
+  uint64_t expected = 36;
   Broker broker;
   broker.setReroutes(expected);
 
@@ -589,7 +589,7 @@ TEST(BrokerTests, setReroutes) {
 }
 
 TEST(BrokerTests, setStagingThreshold) {
-  uint32_t expected = 37;
+  uint16_t expected = 37;
   Broker broker;
   broker.setStagingThreshold(expected);
 
@@ -597,7 +597,7 @@ TEST(BrokerTests, setStagingThreshold) {
 }
 
 TEST(BrokerTests, setPort) {
-  uint32_t expected = 38;
+  uint16_t expected = 38;
   Broker broker;
   broker.setPort(expected);
 
@@ -605,7 +605,7 @@ TEST(BrokerTests, setPort) {
 }
 
 TEST(BrokerTests, setWorkerThreads) {
-  uint32_t expected = 39;
+  uint16_t expected = 39;
   Broker broker;
   broker.setWorkerThreads(expected);
 

@@ -209,11 +209,11 @@ Connection& Connection::setSaslMechanism(const std::string& value) {
   return *this;
 }
 
-uint64_t Connection::getSaslSsf() const {
+uint16_t Connection::getSaslSsf() const {
   return saslSsf;
 }
 
-Connection& Connection::setSaslSsf(uint64_t value) {
+Connection& Connection::setSaslSsf(uint16_t value) {
   saslSsf = value;
 
   return *this;

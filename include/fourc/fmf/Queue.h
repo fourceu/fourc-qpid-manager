@@ -114,11 +114,11 @@ public:
   bool isFlowStopped() const;
   Queue& setFlowStopped(bool value);
   
-  uint64_t getFlowStoppedCount() const;
-  Queue& setFlowStoppedCount(uint64_t);
+  uint32_t getFlowStoppedCount() const;
+  Queue& setFlowStoppedCount(uint32_t);
   
-  uint64_t getMessageLatencyAvg() const;
-  Queue& setMessageLatencyAvg(uint64_t);
+  uint32_t getMessageLatencyAvg() const;
+  Queue& setMessageLatencyAvg(uint32_t);
 
   uint64_t getMessageLatencyCount() const;
   Queue& setMessageLatencyCount(uint64_t);
@@ -126,8 +126,8 @@ public:
   uint64_t getMessageLatencyMax() const;
   Queue& setMessageLatencyMax(uint64_t);
 
-  uint64_t getMessageLatencyMin() const;
-  Queue& setMessageLatencyMin(uint64_t);
+  uint32_t getMessageLatencyMin() const;
+  Queue& setMessageLatencyMin(uint32_t);
   
   uint64_t getMsgDepth() const;
   Queue& setMsgDepth(uint64_t);
@@ -174,14 +174,14 @@ public:
   uint64_t getReroutes() const;
   Queue& setReroutes(uint64_t);
 
-  uint64_t getUnackedMessages() const;
-  Queue& setUnackedMessages(uint64_t);
+  uint32_t getUnackedMessages() const;
+  Queue& setUnackedMessages(uint32_t);
 
-  uint64_t getUnackedMessagesHigh() const;
-  Queue& setUnackedMessagesHigh(uint64_t);
+  uint32_t getUnackedMessagesHigh() const;
+  Queue& setUnackedMessagesHigh(uint32_t);
 
-  uint64_t getUnackedMessagesLow() const;
-  Queue& setUnackedMessagesLow(uint64_t);
+  uint32_t getUnackedMessagesLow() const;
+  Queue& setUnackedMessagesLow(uint32_t);
 
   const std::string& getVhostRef() const;
   Queue& setVhostRef(const std::string&);
@@ -217,11 +217,11 @@ private:
   bool durable;
   bool exclusive;
   bool flowStopped;
-  uint64_t flowStoppedCount;
-  uint64_t messageLatencyAvg;
+  uint32_t flowStoppedCount;
+  uint32_t messageLatencyAvg;
   uint64_t messageLatencyCount;
   uint64_t messageLatencyMax;
-  uint64_t messageLatencyMin;
+  uint32_t messageLatencyMin;
   uint64_t msgDepth;
   uint64_t msgFtdDepth;
   uint64_t msgFtdDequeues;
@@ -237,9 +237,9 @@ private:
   bool redirectSource;
   uint64_t releases;
   uint64_t reroutes;
-  uint64_t unackedMessages;
-  uint64_t unackedMessagesHigh;
-  uint64_t unackedMessagesLow;
+  uint32_t unackedMessages;
+  uint32_t unackedMessagesHigh;
+  uint32_t unackedMessagesLow;
   std::string vhostRef;
 };
 

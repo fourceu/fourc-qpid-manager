@@ -18,13 +18,13 @@ public:
   const std::string& getName() const;
   ObjectId& setName(const std::string&);
 
-  int getAgentEpoch() const;
-  ObjectId& setAgentEpoch(int);
+  uint64_t getAgentEpoch() const;
+  ObjectId& setAgentEpoch(uint64_t);
 
   bool operator==(const ObjectId&) const;
 private:
   std::string name;
-  int agentEpoch;
+  uint64_t agentEpoch;
 };
 
 }} // Namespaces

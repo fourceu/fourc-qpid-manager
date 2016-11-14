@@ -51,7 +51,7 @@ TEST(SessionDecoderTests, dynamicCast) {
 TEST(SessionDecoderTests, decodeSession) {
   auto now_tp = std::chrono::system_clock::now();
   std::string oid = "oid";
-  int agent_epoch = 10;
+  uint64_t agent_epoch = 10;
 
   std::string schema_class = "session";
   std::string schema_hash = "12345";
@@ -65,7 +65,7 @@ TEST(SessionDecoderTests, decodeSession) {
   bool attached = true;
   uint16_t channel_id = 5;
   uint32_t client_credit = 6;
-  uint32_t connection_epoch = 7;
+  uint64_t connection_epoch = 7;
   std::string connection_name = "test connection name";
   uint32_t detached_lifespan = 9;
   uint32_t frames_outstanding = 10;

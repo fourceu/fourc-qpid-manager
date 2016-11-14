@@ -90,7 +90,7 @@ protected:
    * @param ref_key
    * @return
    */
-  int getObjectRefEpoc(const MapT& values, const std::string& ref_key) const {
+  uint64_t getObjectRefEpoc(const MapT& values, const std::string& ref_key) const {
     auto ref_map = this->getMapProperty(values, ref_key);
 
     return this->getMapProperty(ref_map.asMap(), RPNs::OBJECT_AGENT_EPOCH);

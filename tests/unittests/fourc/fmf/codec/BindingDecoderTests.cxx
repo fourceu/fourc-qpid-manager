@@ -119,7 +119,7 @@ TEST(BindingDecoderTests, getObjectRefName_parses_colons) {
 TEST(BindingDecoderTests, decodeBinding) {
   auto now_tp = std::chrono::system_clock::now();
   std::string oid = "oid";
-  int agent_epoch = 10;
+  uint64_t agent_epoch = 10;
 
   std::string schema_class = "binding";
   std::string schema_hash = "12345";
@@ -129,9 +129,9 @@ TEST(BindingDecoderTests, decodeBinding) {
   std::string exchange_name = "exc name";
   std::string queue_name = "queue name";
   std::string binding_key = "binding key";
-  int exchange_epoch = 3;
-  int queue_epoch = 4;
-  int msg_matched = 9;
+  uint64_t exchange_epoch = 3;
+  uint64_t queue_epoch = 4;
+  uint64_t msg_matched = 9;
 
   qpid::types::Variant::Map object_id = {
       { ResponsePropertyNames::OBJECT_NAME, oid },

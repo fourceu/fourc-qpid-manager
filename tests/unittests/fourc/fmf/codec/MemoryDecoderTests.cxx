@@ -51,7 +51,7 @@ TEST(MemoryDecoderTests, dynamicCast) {
 TEST(MemoryDecoderTests, decodeMemory) {
   auto now_tp = std::chrono::system_clock::now();
   std::string oid = "oid";
-  int agent_epoch = 10;
+  uint64_t agent_epoch = 10;
 
   std::string schema_class = "memory";
   std::string schema_hash = "12345";

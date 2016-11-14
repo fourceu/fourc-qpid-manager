@@ -107,11 +107,11 @@ Session& Session::setClientCredit(uint32_t value) {
   return *this;
 }
 
-uint32_t Session::getConnectionEpoch() const {
+uint64_t Session::getConnectionEpoch() const {
   return connectionEpoch;
 }
 
-Session& Session::setConnectionEpoch(uint32_t value) {
+Session& Session::setConnectionEpoch(uint64_t value) {
   connectionEpoch = value;
 
   return *this;

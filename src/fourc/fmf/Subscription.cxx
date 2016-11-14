@@ -91,11 +91,11 @@ Subscription& Subscription::setName(const std::string& value) {
   return *this;
 }
 
-uint32_t Subscription::getQueueEpoch() const {
+uint64_t Subscription::getQueueEpoch() const {
   return queueEpoch;
 }
 
-Subscription& Subscription::setQueueEpoch(uint32_t value) {
+Subscription& Subscription::setQueueEpoch(uint64_t value) {
   queueEpoch = value;
 
   return *this;
@@ -111,11 +111,11 @@ Subscription& Subscription::setQueueName(const std::string& value) {
   return *this;
 }
 
-uint32_t Subscription::getSessionEpoch() const {
+uint64_t Subscription::getSessionEpoch() const {
   return sessionEpoch;
 }
 
-Subscription& Subscription::setSessionEpoch(uint32_t value) {
+Subscription& Subscription::setSessionEpoch(uint64_t value) {
   sessionEpoch = value;
 
   return *this;
