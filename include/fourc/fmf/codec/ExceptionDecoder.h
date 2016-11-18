@@ -20,6 +20,8 @@
 
 #include "../RPCException.h"
 
+#include <sstream>
+
 namespace fourc {
 namespace fmf {
 namespace codec {
