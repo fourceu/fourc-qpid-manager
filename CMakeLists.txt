@@ -27,6 +27,9 @@ SET (APPLICATION_VENDOR_NAME "FourC AS")
 SET (APPLICATION_VENDOR_URL "fourc.eu")
 SET (APPLICATION_ID "${APPLICATION_VENDOR_ID}.${PROJECT_NAME}")
 
+# Get an upper case version of the application name (for use in build variables)
+string(TOUPPER ${APPLICATION_NAME} APP_NAME_UPPER)
+
 option(BUILD_UNIT_TESTS "Include unit tests" ON)
 option(BUILD_SYSTEM_TESTS "Include system tests" OFF)
 option(BUILD_DOCUMENTATION "Generate the project documentation" OFF)
@@ -57,11 +60,11 @@ ENDIF (UNIX)
 FIND_PACKAGE(Boost 1.54 COMPONENTS log REQUIRED)
 FIND_PACKAGE(Qpid REQUIRED)
 
-INCLUDE_DIRECTORIES(include ${PROJECT_BINARY_DIR} ${${APPLICATION_NAME}_INCLUDE_DIRS} SYSTEM ${Boost_INCLUDE_DIRS} ${Qpid_INCLUDE_DIRS})
+INCLUDE_DIRECTORIES(include ${PROJECT_BINARY_DIR} SYSTEM ${Boost_INCLUDE_DIRS} ${Qpid_INCLUDE_DIRS})
 
-SET(${PROJECT_NAME}_LIBS ${Boost_LIBRARIES} ${Qpid_LIBRARIES})
+SET(${APP_NAME_UPPER}_LIBS ${Boost_LIBRARIES} ${Qpid_LIBRARIES})
 
-SET(${PROJECT_NAME}_SRCS
+SET(${APP_NAME_UPPER}_SRCS
         src/fourc/fmf/codec/DecodeException.cxx
         src/fourc/fmf/codec/ResponsePropertyNames.cxx
         src/fourc/fmf/Acl.cxx
@@ -84,60 +87,14 @@ SET(${PROJECT_NAME}_SRCS
         src/fourc/fmf/Subscription.cxx
 )
 
-ADD_LIBRARY(${PROJECT_NAME} SHARED ${${PROJECT_NAME}_SRCS})
-TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${${PROJECT_NAME}_LIBS})
+ADD_LIBRARY(${PROJECT_NAME} SHARED ${${APP_NAME_UPPER}_SRCS})
+TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${${APP_NAME_UPPER}_LIBS})
 SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES
 	VERSION "${APPLICATION_VERSION_MAJOR}.${APPLICATION_VERSION_MINOR}.${APPLICATION_VERSION_PATCH}"
 	OUTPUT_NAME ${PROJECT_NAME}
 	CLEAN_DIRECT_OUTPUT 1)
-INSTALL(TARGETS ${PROJECT_NAME}
-    EXPORT ${PROJECT_NAME}Targets
-    LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
-    )
-INSTALL(DIRECTORY include/fourc DESTINATION include)
 
-# Offer the user the choice of overriding the installation directories
-set(INSTALL_LIB_DIR lib CACHE PATH "Installation directory for libraries")
-set(INSTALL_BIN_DIR bin CACHE PATH "Installation directory for executables")
-set(INSTALL_INCLUDE_DIR include CACHE PATH "Installation directory for header files")
-set(INSTALL_CMAKE_DIR lib/cmake/${PROJECT_NAME} CACHE PATH "Installation directory for CMake files")
-
-# Make relative paths absolute
-foreach(p LIB BIN INCLUDE CMAKE)
-  set(var INSTALL_${p}_DIR)
-  if(NOT IS_ABSOLUTE "${${var}}")
-    set(${var} "${CMAKE_INSTALL_PREFIX}/${${var}}")
-  endif()
-endforeach()
-
-# Add all targets to the build-tree export set
-export(TARGETS ${PROJECT_NAME} FILE "${PROJECT_BINARY_DIR}/${APPLICATION_NAME}Targets.cmake")
-
-# Export the package for use from the build-tree
-# (this registers the build-tree with a global CMake-registry)
-export(PACKAGE ${PROJECT_NAME})
-
-# Create the MessengerConfig.cmake and MessengerConfigVersion files
-file(RELATIVE_PATH REL_INCLUDE_DIR "${INSTALL_CMAKE_DIR}" "${INSTALL_INCLUDE_DIR}")
-# ... for the build tree
-set(CONF_INCLUDE_DIRS "${PROJECT_SOURCE_DIR}/include" "${PROJECT_BINARY_DIR}")
-configure_file(cmake/ProjectConfig.cmake.in "${PROJECT_BINARY_DIR}/${APPLICATION_NAME}Config.cmake" @ONLY)
-
-# ... for the install tree
-set(CONF_INCLUDE_DIRS "\${${APPLICATION_NAME}_CMAKE_DIR}/${REL_INCLUDE_DIR}")
-configure_file(cmake/ProjectConfig.cmake.in "${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${APPLICATION_NAME}Config.cmake" @ONLY)
-
-# ... for both
-configure_file(cmake/ProjectConfigVersion.cmake.in "${PROJECT_BINARY_DIR}/${APPLICATION_NAME}ConfigVersion.cmake" @ONLY)
-
-# Install the <Project>Config.cmake and <Project>ConfigVersion.cmake
-install(FILES
-  "${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${APPLICATION_NAME}Config.cmake"
-  "${PROJECT_BINARY_DIR}/${APPLICATION_NAME}ConfigVersion.cmake"
-  DESTINATION "${INSTALL_CMAKE_DIR}" COMPONENT dev)
-
-# Install the export set for use with the install-tree
-install(EXPORT ${PROJECT_NAME}Targets DESTINATION "${INSTALL_CMAKE_DIR}" COMPONENT dev)
+include(cmake/install_targets.cmake)
 
 if (BUILD_DOCUMENTATION)
     ADD_SUBDIRECTORY(doc)

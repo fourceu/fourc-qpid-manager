@@ -19,13 +19,13 @@
 #  <PROJECT>_LIBRARIES    - libraries to link against
 
 # Compute paths
-get_filename_component(@PROJECT_NAME@_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
-set(@APPLICATION_NAME@_INCLUDE_DIRS "@CONF_INCLUDE_DIRS@")
+get_filename_component(@APP_NAME_UPPER@_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+set(@APP_NAME_UPPER@_INCLUDE_DIRS "@CONF_INCLUDE_DIRS@")
 
 # Our library dependencies (contains definitions for IMPORTED targets)
-if(NOT TARGET @APPLICATION_NAME@ AND NOT @APPLICATION_NAME@_BINARY_DIR)
-  include("${@APPLICATION_NAME@_CMAKE_DIR}/@APPLICATION_NAME@Targets.cmake")
+if(NOT TARGET @APP_NAME_UPPER@ AND NOT @APP_NAME_UPPER@_BINARY_DIR)
+  include("${@APP_NAME_UPPER@_CMAKE_DIR}/@APPLICATION_NAME@Targets.cmake")
 endif()
 
 # These are IMPORTED targets created by <PROJECT>Targets.cmake
-set(@APPLICATION_NAME@_LIBRARIES @PROJECT_NAME@)
+set(@APP_NAME_UPPER@_LIBRARIES @PROJECT_NAME@)
