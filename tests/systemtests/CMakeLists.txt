@@ -15,7 +15,7 @@
 
 project(systemtests CXX)
 
-include_directories(../../src ${CMAKE_CURRENT_SOURCE_DIR} ${GTEST_BOTH_INCLUDE_DIRS})
+include_directories(../../src "${CMAKE_CURRENT_SOURCE_DIR}" "${GTEST_BOTH_INCLUDE_DIRS}")
 
 SET(test_SRCS
         main.cxx
@@ -36,6 +36,7 @@ SET(test_SRCS
 )
 
 ADD_EXECUTABLE(${PROJECT_NAME} ${test_SRCS})
+ADD_DEPENDENCIES(${PROJECT_NAME} googlemock)
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${CMAKE_PROJECT_NAME} ${GMOCK_LIBRARY} pthread)
 
 if (BUILD_GTEST_FILTER)
