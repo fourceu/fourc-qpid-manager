@@ -20,10 +20,15 @@
 
 #include <stdexcept>
 
+namespace fourc {
+namespace fmf {
+
 class BrokerAgentException : public std::runtime_error {
 public:
-  BrokerAgentException(const std::string&);
+  BrokerAgentException(const std::string &);
 
 };
+
+}} // Namespaces
 
 #endif //FOURC_FMF_BROKERAGENTEXCEPTION_H

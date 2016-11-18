@@ -17,6 +17,11 @@
 
 #include <fourc/fmf/BrokerAgentException.h>
 
-BrokerAgentException::BrokerAgentException(const std::string& what) : std::runtime_error(what) {
+namespace fourc {
+namespace fmf {
+
+BrokerAgentException::BrokerAgentException(const std::string &what) : std::runtime_error(what) {
 
 }
+
+}} // Namespaces
