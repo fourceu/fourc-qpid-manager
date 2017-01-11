@@ -53,5 +53,7 @@ protected:
 TEST_F(SubscriptionTestsIT, testGetSubscriptions) {
   auto subscriptions = brokerAgent.getSubscriptions();
 
-  EXPECT_FALSE(subscriptions.empty());
+  // If this is an amqp1.0 connection, the subscriptions collection could be empty so we can't reasonably make
+  // assumptions about the size of the collection here
+  // EXPECT_FALSE(subscriptions.empty());
 }
