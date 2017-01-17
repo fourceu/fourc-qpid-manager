@@ -85,7 +85,8 @@ if (BUILD_COVERAGE)
                                         # NOTE! This should always have a ZERO as exit code
                                         # otherwise the coverage generation will not complete.
         unit_test_coverage              # Name of output directory.
-    )   
+    )
+    ADD_DEPENDENCIES(coverage test)
     SETUP_TARGET_FOR_COVERAGE_COBERTURA(
 	    coverage_cobertura              # Name for custom target.
         "${UNIT_TEST_BINARY}"           # Name of the test driver executable that runs the tests.
