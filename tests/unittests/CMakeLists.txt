@@ -76,8 +76,6 @@ ADD_CUSTOM_TARGET(test "${UNIT_TEST_BINARY}"
     COMMENT "Executing unit tests..."
     VERBATIM SOURCES ${test_SRCS})
 
-ADD_DEPENDENCIES(${PROJECT_NAME} googlemock)
-
 if (BUILD_COVERAGE)
     SETUP_TARGET_FOR_COVERAGE(
 	    coverage                        # Name for custom target.
