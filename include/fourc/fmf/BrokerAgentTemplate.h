@@ -37,7 +37,7 @@ namespace fmf {
 template<typename AddressT, typename SessionT, typename ReceiverT, typename MessageT, typename DurationT, typename VariantT>
 class BrokerAgentTemplate {
 public:
-  BrokerAgentTemplate(const std::shared_ptr<SessionT>& session) : session(session), correlator(0) {
+  BrokerAgentTemplate(SessionT& session) : session(session), correlator(0) {
   }
 
   /**
@@ -45,7 +45,7 @@ public:
    * Not to be confused with getSession(sessionName).
    * @return
    */
-  const std::shared_ptr<SessionT>& getConnectionSession() const {
+  const SessionT& getConnectionSession() const {
     return session;
   }
 
@@ -435,7 +435,7 @@ protected:
   static const std::string TARGET_ADDRESS;
   static const std::string TARGET_SUBJECT;
 
-  std::shared_ptr<SessionT> session;
+  SessionT session;
   int correlator; // Maybe use atomic int?
 
   /**
@@ -445,7 +445,7 @@ protected:
    * @return the correlation id of the sent message
    */
   int sendMessage(MessageT &message, const AddressT &replyAddress) {
-    auto sender = session->createSender(TARGET_ADDRESS + "/" + TARGET_SUBJECT);
+    auto sender = session.createSender(TARGET_ADDRESS + "/" + TARGET_SUBJECT);
 
     message.setReplyTo(replyAddress);
 
@@ -509,7 +509,7 @@ protected:
 
     const std::string queue_address = boost::lexical_cast<std::string>(uuid) + RECEIVER_NODE_ARGS;
 
-    return session->createReceiver(queue_address);
+    return session.createReceiver(queue_address);
   }
 
   template <typename ObjectT, typename MapT>

@@ -32,7 +32,7 @@ using ::testing::_;
  */
 class BrokerAgentMockProtectedAccessor : public BrokerAgentMock {
 public:
-  BrokerAgentMockProtectedAccessor(const std::shared_ptr<subsystem::mocks::Session>& session) : BrokerAgentMock(session) {}
+  BrokerAgentMockProtectedAccessor(subsystem::mocks::Session& session) : BrokerAgentMock(session) {}
 
   int sendMessage(subsystem::mocks::Message& message, subsystem::mocks::Address& replyAddress) {
     return BrokerAgentMock::sendMessage(message, replyAddress);
@@ -40,7 +40,7 @@ public:
 };
 
 TEST(BrokerAgentTests, ctor) {
-  auto session = std::make_shared<subsystem::mocks::Session>();
+  subsystem::mocks::Session session;
   auto instance = new BrokerAgentMock(session);
 
   EXPECT_NE(nullptr, instance);
@@ -55,10 +55,9 @@ TEST(BrokerAgentTests, sendMessageSetsCorrelationId) {
 
   subsystem::mocks::Address ss_address;
   subsystem::mocks::Session ss_session;
-  auto ss_session_ptr = std::shared_ptr<subsystem::mocks::Session>(&ss_session, [](subsystem::mocks::Session*&){});
   EXPECT_CALL(ss_session, createSender(A<const std::string&>())).Times(Exactly(1)).WillOnce(Return(ss_sender));
 
-  BrokerAgentMockProtectedAccessor brokerAgent(ss_session_ptr);
+  BrokerAgentMockProtectedAccessor brokerAgent(ss_session);
 
   subsystem::mocks::Message ss_message;
   EXPECT_CALL(ss_message, setCorrelationId(EXPECTED_CORRELATION_ID)).Times(Exactly(1));
@@ -74,11 +73,9 @@ TEST(BrokerAgentTests, sendMessageIncrementsCorrelationId) {
 
   subsystem::mocks::Address ss_address;
   subsystem::mocks::Session ss_session;
-  auto ss_session_ptr = std::shared_ptr<subsystem::mocks::Session>(&ss_session, [](subsystem::mocks::Session*&){});
   EXPECT_CALL(ss_session, createSender(A<const std::string&>())).Times(Exactly(iterations)).WillRepeatedly(Return(ss_sender));
 
-  BrokerAgentMockProtectedAccessor brokerAgent(ss_session_ptr);
-  ss_session_ptr.reset();
+  BrokerAgentMockProtectedAccessor brokerAgent(ss_session);
 
   subsystem::mocks::Message ss_message;
   EXPECT_CALL(ss_message, setCorrelationId(A<const std::string&>())).Times(Exactly(iterations));
@@ -96,11 +93,9 @@ TEST(BrokerAgentTests, sendMessageSetsSubject) {
 
   subsystem::mocks::Address ss_address;
   subsystem::mocks::Session ss_session;
-  auto ss_session_ptr = std::shared_ptr<subsystem::mocks::Session>(&ss_session, [](subsystem::mocks::Session*&){});
   EXPECT_CALL(ss_session, createSender(A<const std::string&>())).Times(Exactly(1)).WillOnce(Return(ss_sender));
 
-  BrokerAgentMockProtectedAccessor brokerAgent(ss_session_ptr);
-  ss_session_ptr.reset();
+  BrokerAgentMockProtectedAccessor brokerAgent(ss_session);
 
   subsystem::mocks::Message ss_message;
   EXPECT_CALL(ss_message, setCorrelationId(A<const std::string&>())).Times(Exactly(1));
@@ -115,11 +110,9 @@ TEST(BrokerAgentTests, sendMessageSetsReplyAddress) {
   subsystem::mocks::Address ss_address;
 
   subsystem::mocks::Session ss_session;
-  auto ss_session_ptr = std::shared_ptr<subsystem::mocks::Session>(&ss_session, [](subsystem::mocks::Session*&){});
   EXPECT_CALL(ss_session, createSender(A<const std::string&>())).Times(Exactly(1)).WillOnce(Return(ss_sender));
 
-  BrokerAgentMockProtectedAccessor brokerAgent(ss_session_ptr);
-  ss_session_ptr.reset();
+  BrokerAgentMockProtectedAccessor brokerAgent(ss_session);
 
   subsystem::mocks::Message ss_message;
   EXPECT_CALL(ss_message, setCorrelationId(A<const std::string&>())).Times(Exactly(1));

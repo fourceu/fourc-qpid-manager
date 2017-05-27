@@ -32,7 +32,7 @@
 namespace fourc {
 namespace fmf {
 
-typedef BrokerAgentTemplate<subsystem::mocks::Address, subsystem::mocks::Session, subsystem::mocks::Receiver,
+typedef BrokerAgentTemplate<subsystem::mocks::Address, subsystem::mocks::Session&, subsystem::mocks::Receiver,
     subsystem::mocks::Message, subsystem::mocks::Duration, subsystem::mocks::Variant> BrokerAgentMock;
 
 }}

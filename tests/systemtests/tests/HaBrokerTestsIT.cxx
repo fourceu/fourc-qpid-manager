@@ -30,15 +30,14 @@ using namespace fourc::testing;
 
 class HaBrokerTestsIT : public ::testing::Test {
 public:
-  HaBrokerTestsIT() : brokerAgent(std::shared_ptr<qpid::messaging::Session>()) {
+  HaBrokerTestsIT() : brokerAgent(session) {
     connection = qpid::messaging::Connection(SystemTestConfiguration::buildUrl(), SystemTestConfiguration::getConnectionOptions());
     connection.open();
     session = connection.createSession();
-    session_ptr = std::shared_ptr<qpid::messaging::Session>(&session, [](qpid::messaging::Session*&){});
   }
 protected:
   virtual void SetUp() {
-    brokerAgent = BrokerAgent(session_ptr);
+    brokerAgent = BrokerAgent(session);
   }
   // Tears down the test fixture.
   virtual void TearDown() {
@@ -46,7 +45,6 @@ protected:
 
   qpid::messaging::Connection connection;
   qpid::messaging::Session session;
-  std::shared_ptr<qpid::messaging::Session> session_ptr;
   BrokerAgent brokerAgent;
 };
 
