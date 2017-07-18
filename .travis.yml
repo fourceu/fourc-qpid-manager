@@ -13,10 +13,10 @@ compiler:
 cache: apt
 
 before_install:
-  - sudo add-apt-repository -y --allow-unauthenticated ppa:qpid/testing
+  - sudo add-apt-repository -y --allow-unauthenticated ppa:qpid/released
   - sudo apt-get update -qq
 install:
-  - sudo apt-get install libqmf2-dev libqpidbroker-dev libqpidclient-dev libqpidcommon-dev libqpidmessaging-dev libqpidtypes-dev libboost-log-dev
+  - sudo apt-get install qpidd libqmf2-dev libqpidbroker-dev libqpidclient-dev libqpidcommon-dev libqpidmessaging-dev libqpidtypes-dev libboost-log-dev
 
 before_script:
   - mkdir build
