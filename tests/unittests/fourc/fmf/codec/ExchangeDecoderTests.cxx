@@ -68,7 +68,7 @@ TEST(ExchangeDecoderTests, dynamicCast) {
 
 TEST(ExchangeDecoderTests, decodeExchangeTypeDesc) {
   const std::string expected_str = "test type";
-  const subsystem::mocks::Variant value;
+  subsystem::mocks::Variant value;
   subsystem::mocks::Variant::Map values;
   values.emplace(TestExchangeDecoder::PROPERTY_NAME_EXCHANGE_TYPE, value);
 
@@ -82,7 +82,7 @@ TEST(ExchangeDecoderTests, decodeExchangeTypeDesc) {
 TEST(ExchangeDecoderTests, decodeExchangeType_Direct) {
   Exchange::ExchangeType expected = Exchange::ExchangeType::DIRECT;
   const std::string expected_str = "direct";
-  const subsystem::mocks::Variant value;
+  subsystem::mocks::Variant value;
   subsystem::mocks::Variant::Map values;
   values.emplace(TestExchangeDecoder::PROPERTY_NAME_EXCHANGE_TYPE, value);
 
@@ -97,7 +97,7 @@ TEST(ExchangeDecoderTests, decodeExchangeType_Direct) {
 TEST(ExchangeDecoderTests, decodeExchangeType_Topic) {
   Exchange::ExchangeType expected = Exchange::ExchangeType::TOPIC;
   const std::string expected_str = "topic";
-  const subsystem::mocks::Variant value;
+  subsystem::mocks::Variant value;
   subsystem::mocks::Variant::Map values;
   values.emplace(TestExchangeDecoder::PROPERTY_NAME_EXCHANGE_TYPE, value);
 
@@ -113,7 +113,7 @@ TEST(ExchangeDecoderTests, decodeExchangeType_Topic) {
 TEST(ExchangeDecoderTests, decodeExchangeType_Fanout) {
   Exchange::ExchangeType expected = Exchange::ExchangeType::FANOUT;
   const std::string expected_str = "fanout";
-  const subsystem::mocks::Variant value;
+  subsystem::mocks::Variant value;
   subsystem::mocks::Variant::Map values;
   values.emplace(TestExchangeDecoder::PROPERTY_NAME_EXCHANGE_TYPE, value);
 
@@ -129,7 +129,7 @@ TEST(ExchangeDecoderTests, decodeExchangeType_Fanout) {
 TEST(ExchangeDecoderTests, decodeExchangeType_Header) {
   Exchange::ExchangeType expected = Exchange::ExchangeType::HEADERS;
   const std::string expected_str = "headers";
-  const subsystem::mocks::Variant value;
+  subsystem::mocks::Variant value;
   subsystem::mocks::Variant::Map values;
   values.emplace(TestExchangeDecoder::PROPERTY_NAME_EXCHANGE_TYPE, value);
 
@@ -145,7 +145,7 @@ TEST(ExchangeDecoderTests, decodeExchangeType_Header) {
 TEST(ExchangeDecoderTests, decodeExchangeType_Xml) {
   Exchange::ExchangeType expected = Exchange::ExchangeType::XML;
   const std::string expected_str = "xml";
-  const subsystem::mocks::Variant value;
+  subsystem::mocks::Variant value;
   subsystem::mocks::Variant::Map values;
   values.emplace(TestExchangeDecoder::PROPERTY_NAME_EXCHANGE_TYPE, value);
 
@@ -161,7 +161,7 @@ TEST(ExchangeDecoderTests, decodeExchangeType_Xml) {
 TEST(ExchangeDecoderTests, decodeExchangeType_Other) {
   Exchange::ExchangeType expected = Exchange::ExchangeType::OTHER;
   const std::string expected_str = "spangly exchange type parade";
-  const subsystem::mocks::Variant value;
+  subsystem::mocks::Variant value;
   subsystem::mocks::Variant::Map values;
   values.emplace(TestExchangeDecoder::PROPERTY_NAME_EXCHANGE_TYPE, value);
 
