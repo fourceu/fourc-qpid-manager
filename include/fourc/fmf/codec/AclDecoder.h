@@ -46,30 +46,30 @@ public:
   static const std::string PROPERTY_NAME_BROKER_REF;
   static const std::string PROPERTY_NAME_POLICY_FILE;
   static const std::string PROPERTY_NAME_LAST_ACL_LOAD;
-  
+
   typedef typename VariantT::Map MapT;
-  
+
   virtual ~AclDecoder() = default;
 
   std::shared_ptr<Acl> decode(const MapT &objectProperties) const {
     auto decoded = this->createObject(objectProperties);
 
-    auto values = this->getMapProperty(objectProperties, RPNs::VALUES, true).asMap();
+    auto values = ValueReader::get(objectProperties, RPNs::VALUES, true).asMap();
 
-    auto broker_ref_map = this->getMapProperty(values, PROPERTY_NAME_BROKER_REF).asMap();
-    std::string broker_ref = this->getMapProperty(broker_ref_map, ResponsePropertyNames::OBJECT_NAME);
+    auto broker_ref_map = ValueReader::get(values, PROPERTY_NAME_BROKER_REF).asMap();
+    std::string broker_ref = ValueReader::get(broker_ref_map, ResponsePropertyNames::OBJECT_NAME);
 
-    decoded->setAclDenyCount(this->getMapProperty(values, PROPERTY_NAME_ACL_DENY_COUNT))
-        .setConnectionDenyCount(this->getMapProperty(values, PROPERTY_NAME_CONNECTION_DENY_COUNT))
-        .setQueueQuotaDenyCount(this->getMapProperty(values, PROPERTY_NAME_QUEUE_QUOTA_DENY_COUNT))
-        .setMaxConnections(this->getMapProperty(values, PROPERTY_NAME_MAX_CONNECTIONS))
-        .setMaxConnectionsPerIp(this->getMapProperty(values, PROPERTY_NAME_MAX_CONNECTIONS_IP))
-        .setMaxConnectionsPerUser(this->getMapProperty(values, PROPERTY_NAME_MAX_CONNECTIONS_USER))
-        .setMaxQueuesPerUser(this->getMapProperty(values, PROPERTY_NAME_MAX_QUEUES_USER))
-        .setIsEnforcingAcl(this->getMapProperty(values, PROPERTY_NAME_ENFORCING_ACL))
-        .setIsTransferAcl(this->getMapProperty(values, PROPERTY_NAME_TRANSFER_ACL))
-        .setLastAclLoad(std::chrono::system_clock::time_point(std::chrono::nanoseconds(this->getMapProperty(values, PROPERTY_NAME_LAST_ACL_LOAD))))
-        .setPolicyFile(this->getMapProperty(values, PROPERTY_NAME_POLICY_FILE))
+    decoded->setAclDenyCount(ValueReader::get(values, PROPERTY_NAME_ACL_DENY_COUNT))
+        .setConnectionDenyCount(ValueReader::get(values, PROPERTY_NAME_CONNECTION_DENY_COUNT))
+        .setQueueQuotaDenyCount(ValueReader::get(values, PROPERTY_NAME_QUEUE_QUOTA_DENY_COUNT))
+        .setMaxConnections(ValueReader::get(values, PROPERTY_NAME_MAX_CONNECTIONS))
+        .setMaxConnectionsPerIp(ValueReader::get(values, PROPERTY_NAME_MAX_CONNECTIONS_IP))
+        .setMaxConnectionsPerUser(ValueReader::get(values, PROPERTY_NAME_MAX_CONNECTIONS_USER))
+        .setMaxQueuesPerUser(ValueReader::get(values, PROPERTY_NAME_MAX_QUEUES_USER))
+        .setIsEnforcingAcl(ValueReader::get(values, PROPERTY_NAME_ENFORCING_ACL))
+        .setIsTransferAcl(ValueReader::get(values, PROPERTY_NAME_TRANSFER_ACL))
+        .setLastAclLoad(std::chrono::system_clock::time_point(std::chrono::nanoseconds(ValueReader::get(values, PROPERTY_NAME_LAST_ACL_LOAD))))
+        .setPolicyFile(ValueReader::get(values, PROPERTY_NAME_POLICY_FILE))
         .setBrokerRef(broker_ref);
 
     return decoded;

@@ -31,8 +31,10 @@ public:
   static const std::string UPDATED;
   static const std::string VALUES;
   static const std::string NAME;
+  static const std::string ARGUMENTS;
   static const std::string OBJECT_ID;
   static const std::string OBJECT_NAME;
+  static const std::string METHOD_NAME;
   static const std::string OBJECT_AGENT_EPOCH;
   static const std::string DURABLE;
   static const std::string SCHEMA_ID;
@@ -40,6 +42,19 @@ public:
   static const std::string SCHEMA_HASH;
   static const std::string SCHEMA_PACKAGE_NAME;
   static const std::string SCHEMA_TYPE;
+  static const std::string QMF_OPCODE;
+  static const std::string EXCEPTION;
+  static const std::string METHOD;
+  static const std::string REQUEST;
+  static const std::string WHAT;
+  static const std::string OBJECT;
+  static const std::string QUERY_REQUEST;
+  static const std::string METHOD_REQUEST;
+  static const std::string QUERY_RESPONSE;
+  static const std::string METHOD_RESPONSE;
+  static const std::string AMQP_0_10_APP_ID;
+  static const std::string QMF2;
+  static const std::string PARTIAL;
   static const std::string VHOST_REF;
 };
 

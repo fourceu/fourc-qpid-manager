@@ -42,19 +42,19 @@ public:
   std::shared_ptr<Link> decode(const MapT &objectProperties) const {
     auto decoded = this->createObject(objectProperties);
 
-    auto values = this->getMapProperty(objectProperties, RPNs::VALUES, true).asMap();
+    auto values = ValueReader::get(objectProperties, RPNs::VALUES, true).asMap();
 
-    auto connection_ref_map = this->getMapProperty(values, PROPERTY_NAME_CONNECTION_REF, true).asMap();
+    auto connection_ref_map = ValueReader::get(values, PROPERTY_NAME_CONNECTION_REF, true).asMap();
 
-    decoded->setConnectionEpoch(this->getMapProperty(connection_ref_map, RPNs::OBJECT_AGENT_EPOCH))
-          .setConnectionName(this->getMapProperty(connection_ref_map, RPNs::OBJECT_NAME))
-          .setDurable(this->getMapProperty(values, RPNs::DURABLE))
-          .setHost(this->getMapProperty(values, PROPERTY_NAME_HOST))
-          .setPort(this->getMapProperty(values, PROPERTY_NAME_PORT))
-          .setLastError(this->getMapProperty(values, PROPERTY_NAME_LAST_ERROR))
-          .setName(this->getMapProperty(values, RPNs::NAME))
-          .setState(this->getMapProperty(values, PROPERTY_NAME_STATE))
-          .setTransport(this->getMapProperty(values, PROPERTY_NAME_TRANSPORT))
+    decoded->setConnectionEpoch(ValueReader::get(connection_ref_map, RPNs::OBJECT_AGENT_EPOCH))
+          .setConnectionName(ValueReader::get(connection_ref_map, RPNs::OBJECT_NAME))
+          .setDurable(ValueReader::get(values, RPNs::DURABLE))
+          .setHost(ValueReader::get(values, PROPERTY_NAME_HOST))
+          .setPort(ValueReader::get(values, PROPERTY_NAME_PORT))
+          .setLastError(ValueReader::get(values, PROPERTY_NAME_LAST_ERROR))
+          .setName(ValueReader::get(values, RPNs::NAME))
+          .setState(ValueReader::get(values, PROPERTY_NAME_STATE))
+          .setTransport(ValueReader::get(values, PROPERTY_NAME_TRANSPORT))
           .setVhostRef(this->decodeVhostRef(values));
 
     return decoded;

@@ -15,33 +15,10 @@
  * along with fourc-qpid-manager.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FOURC_FMF_ACLLOOKUPDECODER_H
-#define FOURC_FMF_ACLLOOKUPDECODER_H
-
-#include "Decoder.h"
-#include "DecodeException.h"
-
-#include <map>
+#include "fourc/fmf/RouteManager.h"
 
 namespace fourc {
 namespace fmf {
 
-typedef const std::string AclLookupType;
 
-namespace codec {
-
-template<typename VariantT>
-class AclLookupDecoder : public Decoder<AclLookupType, VariantT> {
-public:
-  typedef typename VariantT::Map MapT;
-  virtual ~AclLookupDecoder() = default;
-
-  std::shared_ptr<AclLookupType> decode(const MapT &objectProperties) const {
-    auto args = ValueReader::get(objectProperties, "_arguments").asMap();
-    return std::make_shared<AclLookupType>(ValueReader::get(args, "result").asString());
-  }
-};
-
-}}} // Namespaces
-
-#endif //FOURC_FMF_ECHODECODER_H
+}} // Namespaces

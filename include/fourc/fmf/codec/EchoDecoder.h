@@ -39,9 +39,9 @@ public:
   virtual ~EchoDecoder() = default;
 
   std::shared_ptr<EchoType> decode(const MapT &objectProperties) const {
-    auto args = this->getMapProperty(objectProperties, "_arguments").asMap();
-    int seq = this->getMapProperty(args, "sequence").asInt64();
-    std::string body = this->getMapProperty(args, "body").asString();
+    auto args = ValueReader::get(objectProperties, "_arguments").asMap();
+    int seq = ValueReader::get(args, "sequence").asInt64();
+    std::string body = ValueReader::get(args, "body").asString();
 
     auto decoded = std::make_shared<EchoType>(seq, body);
 

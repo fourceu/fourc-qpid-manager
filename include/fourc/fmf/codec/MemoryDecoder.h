@@ -43,16 +43,16 @@ public:
   std::shared_ptr<Memory> decode(const MapT &objectProperties) const {
     auto decoded = this->createObject(objectProperties);
 
-    auto values = this->getMapProperty(objectProperties, RPNs::VALUES, true).asMap();
+    auto values = ValueReader::get(objectProperties, RPNs::VALUES, true).asMap();
 
-    decoded->setMallocArena(this->getMapProperty(values, PROPERTY_NAME_MALLOC_ARENA))
-        .setMallocFordblks(this->getMapProperty(values, PROPERTY_NAME_MALLOC_FORDBLKS))
-        .setMallocHblkhd(this->getMapProperty(values, PROPERTY_NAME_MALLOC_HBLKHD))
-        .setMallocHblks(this->getMapProperty(values, PROPERTY_NAME_MALLOC_HBLKS))
-        .setMallocKeepcost(this->getMapProperty(values, PROPERTY_NAME_MALLOC_KEEPCOST))
-        .setMallocOrdblks(this->getMapProperty(values, PROPERTY_NAME_MALLOC_ORDBLKS))
-        .setMallocUordblks(this->getMapProperty(values, PROPERTY_NAME_MALLOC_UORDBLKS))
-        .setName(this->getMapProperty(values, RPNs::NAME));
+    decoded->setMallocArena(ValueReader::get(values, PROPERTY_NAME_MALLOC_ARENA))
+        .setMallocFordblks(ValueReader::get(values, PROPERTY_NAME_MALLOC_FORDBLKS))
+        .setMallocHblkhd(ValueReader::get(values, PROPERTY_NAME_MALLOC_HBLKHD))
+        .setMallocHblks(ValueReader::get(values, PROPERTY_NAME_MALLOC_HBLKS))
+        .setMallocKeepcost(ValueReader::get(values, PROPERTY_NAME_MALLOC_KEEPCOST))
+        .setMallocOrdblks(ValueReader::get(values, PROPERTY_NAME_MALLOC_ORDBLKS))
+        .setMallocUordblks(ValueReader::get(values, PROPERTY_NAME_MALLOC_UORDBLKS))
+        .setName(ValueReader::get(values, RPNs::NAME));
 
     return decoded;
   }

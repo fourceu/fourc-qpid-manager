@@ -20,6 +20,7 @@
 
 #include "../Binding.h"
 #include "Decoder.h"
+#include "ValueReader.h"
 
 #include <qpid/types/Variant.h> // InvalidConversion exception
 
@@ -42,17 +43,17 @@ public:
   std::shared_ptr<Binding> decode(const MapT &objectProperties) const {
     auto decoded = this->createObject(objectProperties);
 
-    auto values = this->getMapProperty(objectProperties, RPNs::VALUES, true).asMap();
+    auto values = ValueReader::get(objectProperties, RPNs::VALUES, true).asMap();
 
-    auto exchange_ref = this->getMapProperty(values, PROPERTY_NAME_EXCHANGE_REF);
-    auto queue_ref = this->getMapProperty(values, PROPERTY_NAME_QUEUE_REF);
+    auto exchange_ref = ValueReader::get(values, PROPERTY_NAME_EXCHANGE_REF);
+    auto queue_ref = ValueReader::get(values, PROPERTY_NAME_QUEUE_REF);
 
     decoded->setExchangeName(getObjectRefName(values, PROPERTY_NAME_EXCHANGE_REF))
         .setQueueName(getObjectRefName(values, PROPERTY_NAME_QUEUE_REF))
-        .setBindingKey(this->getMapProperty(values, PROPERTY_NAME_BINDING_KEY))
+        .setBindingKey(ValueReader::get(values, PROPERTY_NAME_BINDING_KEY))
         .setExchangeEpoch(getObjectRefEpoc(values, PROPERTY_NAME_EXCHANGE_REF))
         .setQueueEpoch(getObjectRefEpoc(values, PROPERTY_NAME_QUEUE_REF))
-        .setMsgMatched(this->getMapProperty(values, PROPERTY_NAME_MSG_MATCHED));
+        .setMsgMatched(ValueReader::get(values, PROPERTY_NAME_MSG_MATCHED));
 
     return decoded;
   }
@@ -67,11 +68,11 @@ protected:
    * @return
    */
   std::string getObjectRefName(const MapT& values, const std::string& ref_key) const {
-    auto ref_map = this->getMapProperty(values, ref_key);
+    auto ref_map = ValueReader::get(values, ref_key);
 
     std::string ref;
     try {
-       ref = this->getMapProperty(ref_map.asMap(), RPNs::OBJECT_NAME).asString();
+       ref = ValueReader::get(ref_map.asMap(), RPNs::OBJECT_NAME).asString();
 
       auto itr = ref.rfind(':');
       if (itr != std::string::npos) {
@@ -91,9 +92,9 @@ protected:
    * @return
    */
   uint64_t getObjectRefEpoc(const MapT& values, const std::string& ref_key) const {
-    auto ref_map = this->getMapProperty(values, ref_key);
+    auto ref_map = ValueReader::get(values, ref_key);
 
-    return this->getMapProperty(ref_map.asMap(), RPNs::OBJECT_AGENT_EPOCH);
+    return ValueReader::get(ref_map.asMap(), RPNs::OBJECT_AGENT_EPOCH);
   }
 };
 

@@ -48,6 +48,8 @@ public:
   Variant() = default;
   Variant(const Variant &other) : VariantTemplate<std::list<Variant>, std::map<std::string, Variant>>(other){}
   Variant(const std::string &) {}
+  Variant(const char*) {};
+  Variant(const Map&) {};
   virtual ~Variant() = default;
   Variant &operator=(const Variant &) { return *this; }
   Variant &operator=(const Map &) { return *this; };
@@ -71,6 +73,8 @@ public:
   MOCK_CONST_METHOD0(asDouble, double());
   MOCK_CONST_METHOD0(asString, std::string());
   //MOCK_CONST_METHOD0(asUuid, Uuid());
+
+  operator std::string() const { return asString(); };
 
   MOCK_CONST_METHOD0(asMap, const Map&());
   MOCK_METHOD0(asMap, Map&());
@@ -109,6 +113,8 @@ public:
   MOCK_CONST_METHOD0(asDouble, double());
   MOCK_CONST_METHOD0(asString, std::string());
   //MOCK_CONST_METHOD0(asUuid, Uuid());
+
+  operator std::string() const { return asString(); };
 
   MOCK_CONST_METHOD0(asMap, const Map&());
 

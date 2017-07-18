@@ -41,11 +41,6 @@ public:
     throw std::runtime_error("This method doesn't need testing (it's a test method)");
   }
 
-  qpid::types::Variant getMapProperty(qpid::types::Variant::Map& v, const std::string& key, bool mandatory = false) const
-  throw(DecodeException) {
-    return Decoder<BrokerObject, qpid::types::Variant>::getMapProperty(v, key, mandatory);
-  }
-
   void decodeTimestamps(std::shared_ptr<BrokerObject>& object, const MapT& objectProperties) const {
     return Decoder<BrokerObject, qpid::types::Variant>::decodeTimestamps(object, objectProperties);
   }
@@ -57,33 +52,6 @@ TEST(DecoderTests, ctor) {
   EXPECT_NE(nullptr, instance);
 
   delete instance;
-}
-
-TEST(DecoderTests, getMapProperty) {
-  qpid::types::Variant expected;
-  qpid::types::Variant::Map objectProperties = {
-      {ResponsePropertyNames::VALUES, expected}
-  };
-
-  TestDecoder decoder;
-
-  EXPECT_EQ(expected, decoder.getMapProperty(objectProperties, ResponsePropertyNames::VALUES));
-}
-
-TEST(DecoderTests, getMapProperty_MissingOptionalValueThrowsDecodeException) {
-  qpid::types::Variant::Map objectProperties;
-
-  TestDecoder decoder;
-
-  decoder.getMapProperty(objectProperties, "test key");
-}
-
-TEST(DecoderTests, getMapProperty_MissingMandatoryValueThrowsDecodeException) {
-  qpid::types::Variant::Map objectProperties;
-
-  TestDecoder decoder;
-
-  EXPECT_THROW(decoder.getMapProperty(objectProperties, "test key", true), DecodeException);
 }
 
 TEST(DecoderTests, decodeTimestamps) {

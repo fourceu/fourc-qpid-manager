@@ -20,6 +20,7 @@
 
 #include "Decoder.h"
 #include "DecodeException.h"
+#include "ValueReader.h"
 #include "../ExchangeTypeDesc.h"
 #include "../Exchange.h"
 
@@ -57,23 +58,23 @@ public:
   std::shared_ptr<Exchange> decode(const MapT &objectProperties) const {
     auto decoded = this->createObject(objectProperties);
 
-    auto values = this->getMapProperty(objectProperties, RPNs::VALUES, true).asMap();
+    auto values = ValueReader::get(objectProperties, RPNs::VALUES, true).asMap();
 
-    decoded->setIsAutoDelete(this->getMapProperty(values, PROPERTY_NAME_AUTODELETE))
-      .setBindingCount(this->getMapProperty(values, PROPERTY_NAME_BINDING_COUNT))
-      .setBindingCountHigh(this->getMapProperty(values, PROPERTY_NAME_BINDING_COUNT_HIGH))
-      .setBindingCountLow(this->getMapProperty(values, PROPERTY_NAME_BINDING_COUNT_LOW))
-      .setByteDrops(this->getMapProperty(values, PROPERTY_NAME_BYTE_DROPS))
-      .setByteReceives(this->getMapProperty(values, PROPERTY_NAME_BYTE_RECEIVES))
-      .setByteRoutes(this->getMapProperty(values, PROPERTY_NAME_BYTE_ROUTES))
-      .setDurable(this->getMapProperty(values, RPNs::DURABLE))
-      .setMsgDrops(this->getMapProperty(values, PROPERTY_NAME_MSG_DROPS))
-      .setMsgReceives(this->getMapProperty(values, PROPERTY_NAME_MSG_RECEIVES))
-      .setMsgRoutes(this->getMapProperty(values, PROPERTY_NAME_MSG_ROUTES))
-      .setName(this->getMapProperty(values, RPNs::NAME))
-      .setProducerCount(this->getMapProperty(values, PROPERTY_NAME_PRODUCER_COUNT))
-      .setProducerCountHigh(this->getMapProperty(values, PROPERTY_NAME_PRODUCER_COUNT_HIGH))
-      .setProducerCountLow(this->getMapProperty(values, PROPERTY_NAME_PRODUCER_COUNT_LOW))
+    decoded->setIsAutoDelete(ValueReader::get(values, PROPERTY_NAME_AUTODELETE))
+      .setBindingCount(ValueReader::get(values, PROPERTY_NAME_BINDING_COUNT))
+      .setBindingCountHigh(ValueReader::get(values, PROPERTY_NAME_BINDING_COUNT_HIGH))
+      .setBindingCountLow(ValueReader::get(values, PROPERTY_NAME_BINDING_COUNT_LOW))
+      .setByteDrops(ValueReader::get(values, PROPERTY_NAME_BYTE_DROPS))
+      .setByteReceives(ValueReader::get(values, PROPERTY_NAME_BYTE_RECEIVES))
+      .setByteRoutes(ValueReader::get(values, PROPERTY_NAME_BYTE_ROUTES))
+      .setDurable(ValueReader::get(values, RPNs::DURABLE))
+      .setMsgDrops(ValueReader::get(values, PROPERTY_NAME_MSG_DROPS))
+      .setMsgReceives(ValueReader::get(values, PROPERTY_NAME_MSG_RECEIVES))
+      .setMsgRoutes(ValueReader::get(values, PROPERTY_NAME_MSG_ROUTES))
+      .setName(ValueReader::get(values, RPNs::NAME))
+      .setProducerCount(ValueReader::get(values, PROPERTY_NAME_PRODUCER_COUNT))
+      .setProducerCountHigh(ValueReader::get(values, PROPERTY_NAME_PRODUCER_COUNT_HIGH))
+      .setProducerCountLow(ValueReader::get(values, PROPERTY_NAME_PRODUCER_COUNT_LOW))
       .setExchangeType(getExchangeType(values))
       .setVhostRef(this->decodeVhostRef(values));
 
@@ -88,9 +89,7 @@ protected:
    * @return
    */
   virtual std::string getExchangeTypeDesc(const MapT& values) const {
-    auto value = values.at(PROPERTY_NAME_EXCHANGE_TYPE).asString();
-
-    return value;
+    return ValueReader::get(values, PROPERTY_NAME_EXCHANGE_TYPE);
   }
 
   Exchange::ExchangeType getExchangeType(const MapT& values) const {

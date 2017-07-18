@@ -49,13 +49,6 @@ public:
   }
 };
 
-class TestExchangeDecoder_VariantReferenceMap : public ExchangeDecoder<subsystem::mocks::ReferenceVariant> {
-public:
-  Exchange::ExchangeType getExchangeType(const subsystem::mocks::ReferenceVariant::Map& values) const {
-    return ExchangeDecoder::getExchangeType(values);
-  }
-};
-
 TEST(ExchangeDecoderTests, ctor) {
   auto instance = new ExchangeDecoder<subsystem::mocks::Variant>();
 

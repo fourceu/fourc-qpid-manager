@@ -38,6 +38,7 @@ set(test_SRCS
         fourc/fmf/codec/ResponseDecoderTests.cxx
         fourc/fmf/codec/SessionDecoderTests.cxx
         fourc/fmf/codec/SubscriptionDecoderTests.cxx
+        fourc/fmf/codec/ValueReaderTests.cxx
         fourc/fmf/AclTests.cxx
         fourc/fmf/BrokerObjectTests.cxx
         fourc/fmf/BrokerTests.cxx
@@ -64,12 +65,12 @@ ADD_DEPENDENCIES(${PROJECT_NAME} googlemock)
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${CMAKE_PROJECT_NAME} ${Boost_LIBRARIES} ${GMOCK_LIBRARY} pthread)
 
 if (BUILD_GTEST_FILTER)
-    SET(GTEST_FILTER --gtest_filter=${BUILD_GTEST_FILTER}) 
+    SET(GTEST_FILTER --gtest_filter=${BUILD_GTEST_FILTER})
 endif ()
 
 SET(UNIT_TEST_BINARY "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}${CMAKE_EXECUTABLE_SUFFIX}")
 
-ADD_CUSTOM_TARGET(test "${UNIT_TEST_BINARY}" 
+ADD_CUSTOM_TARGET(test "${UNIT_TEST_BINARY}"
     --gtest_output=xml
     ${GTEST_FILTER}
     DEPENDS ${PROJECT_NAME}
