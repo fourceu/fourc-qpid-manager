@@ -73,67 +73,67 @@ public:
   static const std::string PROPERTY_NAME_NAME;
   static const std::string PROPERTY_NAME_VERSION;
   static const std::string PROPERTY_NAME_UPTIME;
-  
+
   typedef typename VariantT::Map MapT;
-  
+
   virtual ~BrokerDecoder() = default;
 
   std::shared_ptr<Broker> decode(const MapT &objectProperties) const {
     auto decoded = this->createObject(objectProperties);
 
-    auto values = this->getMapProperty(objectProperties, RPNs::VALUES, true).asMap();
-    
-    auto system_ref_map = this->getMapProperty(values, PROPERTY_NAME_SYSTEM_REF, true).asMap();
+    auto values = ValueReader::get(objectProperties, RPNs::VALUES, true).asMap();
 
-    auto uptime = std::chrono::nanoseconds(this->getMapProperty(values, PROPERTY_NAME_UPTIME).asInt64());
-    
-    decoded->setAbandoned(this->getMapProperty(values, PROPERTY_NAME_ABANDONED))
-      .setAbandonedViaAlt(this->getMapProperty(values, PROPERTY_NAME_ABANDONED_VIA_ALT))
-      .setAcquires(this->getMapProperty(values, PROPERTY_NAME_ACQUIRES))
-      .setByteDepth(this->getMapProperty(values, PROPERTY_NAME_BYTE_DEPTH))
-      .setByteFtdDepth(this->getMapProperty(values, PROPERTY_NAME_BYTE_FTD_DEPTH))
-      .setByteFtdDequeues(this->getMapProperty(values, PROPERTY_NAME_BYTE_FTD_DEQUEUES))
-      .setByteFtdEnqueues(this->getMapProperty(values, PROPERTY_NAME_BYTE_FTD_ENQUEUES))
-      .setBytePersistDequeues(this->getMapProperty(values, PROPERTY_NAME_BYTE_PERSIST_DEQUEUES))
-      .setBytePersistEnqueues(this->getMapProperty(values, PROPERTY_NAME_BYTE_PERSIST_ENQUEUES))
-      .setByteTotalDequeues(this->getMapProperty(values, PROPERTY_NAME_BYTE_TOTAL_DEQUEUES))
-      .setByteTotalEnqueues(this->getMapProperty(values, PROPERTY_NAME_BYTE_TOTAL_ENQUEUES))
-      .setByteTxnDequeues(this->getMapProperty(values, PROPERTY_NAME_BYTE_TXN_DEQUEUES))
-      .setByteTxnEnqueues(this->getMapProperty(values, PROPERTY_NAME_BYTE_TXN_ENQUEUES))
-      .setConnBacklog(this->getMapProperty(values, PROPERTY_NAME_CONN_BACKLOG))
-      .setDataDir(this->getMapProperty(values, PROPERTY_NAME_DATA_DIR))
-      .setDiscardsLvq(this->getMapProperty(values, PROPERTY_NAME_DISCARDS_LVQ))
-      .setDiscardsNoRoute(this->getMapProperty(values, PROPERTY_NAME_DISCARDS_NO_ROUTE))
-      .setDiscardsOverflow(this->getMapProperty(values, PROPERTY_NAME_DISCARDS_OVERFLOW))
-      .setDiscardsPurge(this->getMapProperty(values, PROPERTY_NAME_DISCARDS_PURGE))
-      .setDiscardsRing(this->getMapProperty(values, PROPERTY_NAME_DISCARDS_RING))
-      .setDiscardsSubscriber(this->getMapProperty(values, PROPERTY_NAME_DISCARDS_SUBSCRIBER))
-      .setDiscardsTtl(this->getMapProperty(values, PROPERTY_NAME_DISCARDS_TTL))
-      .setMaxConns(this->getMapProperty(values, PROPERTY_NAME_MAX_CONNS))
-      .setMgmtPubInterval(this->getMapProperty(values, PROPERTY_NAME_MGMT_PUB_INTERVAL))
-      .setMgmtPublish(this->getMapProperty(values, PROPERTY_NAME_MGMT_PUBLISH))
-      .setMsgDepth(this->getMapProperty(values, PROPERTY_NAME_MSG_DEPTH))
-      .setMsgFtdDepth(this->getMapProperty(values, PROPERTY_NAME_MSG_FTD_DEPTH))
-      .setMsgFtdDequeues(this->getMapProperty(values, PROPERTY_NAME_MSG_FTD_DEQUEUES))
-      .setMsgFtdEnqueues(this->getMapProperty(values, PROPERTY_NAME_MSG_FTD_ENQUEUES))
-      .setMsgPersistDequeues(this->getMapProperty(values, PROPERTY_NAME_MSG_PERSIST_DEQUEUES))
-      .setMsgPersistEnqueues(this->getMapProperty(values, PROPERTY_NAME_MSG_PERSIST_ENQUEUES))
-      .setMsgTotalDequeues(this->getMapProperty(values, PROPERTY_NAME_MSG_TOTAL_DEQUEUES))
-      .setMsgTotalEnqueues(this->getMapProperty(values, PROPERTY_NAME_MSG_TOTAL_ENQUEUES))
-      .setMsgTxnDequeues(this->getMapProperty(values, PROPERTY_NAME_MSG_TXN_DEQUEUES))
-      .setMsgTxnEnqueues(this->getMapProperty(values, PROPERTY_NAME_MSG_TXN_ENQUEUES))
-      .setQueueCount(this->getMapProperty(values, PROPERTY_NAME_QUEUE_COUNT))
-      .setReleases(this->getMapProperty(values, PROPERTY_NAME_RELEASES))
-      .setReroutes(this->getMapProperty(values, PROPERTY_NAME_REROUTES))
-      .setStagingThreshold(this->getMapProperty(values, PROPERTY_NAME_STAGING_THRESHOLD))
-      .setPort(this->getMapProperty(values, PROPERTY_NAME_PORT))
-      .setWorkerThreads(this->getMapProperty(values, PROPERTY_NAME_WORKER_THREADS))
-      .setDataDir(this->getMapProperty(values, PROPERTY_NAME_DATA_DIR))
-      .setName(this->getMapProperty(values, PROPERTY_NAME_NAME))
-      .setSystemRef(this->getMapProperty(system_ref_map, RPNs::OBJECT_NAME))
-      .setVersion(this->getMapProperty(values, PROPERTY_NAME_VERSION))
+    auto system_ref_map = ValueReader::get(values, PROPERTY_NAME_SYSTEM_REF, true).asMap();
+
+    auto uptime = std::chrono::nanoseconds(ValueReader::get(values, PROPERTY_NAME_UPTIME).asInt64());
+
+    decoded->setAbandoned(ValueReader::get(values, PROPERTY_NAME_ABANDONED))
+      .setAbandonedViaAlt(ValueReader::get(values, PROPERTY_NAME_ABANDONED_VIA_ALT))
+      .setAcquires(ValueReader::get(values, PROPERTY_NAME_ACQUIRES))
+      .setByteDepth(ValueReader::get(values, PROPERTY_NAME_BYTE_DEPTH))
+      .setByteFtdDepth(ValueReader::get(values, PROPERTY_NAME_BYTE_FTD_DEPTH))
+      .setByteFtdDequeues(ValueReader::get(values, PROPERTY_NAME_BYTE_FTD_DEQUEUES))
+      .setByteFtdEnqueues(ValueReader::get(values, PROPERTY_NAME_BYTE_FTD_ENQUEUES))
+      .setBytePersistDequeues(ValueReader::get(values, PROPERTY_NAME_BYTE_PERSIST_DEQUEUES))
+      .setBytePersistEnqueues(ValueReader::get(values, PROPERTY_NAME_BYTE_PERSIST_ENQUEUES))
+      .setByteTotalDequeues(ValueReader::get(values, PROPERTY_NAME_BYTE_TOTAL_DEQUEUES))
+      .setByteTotalEnqueues(ValueReader::get(values, PROPERTY_NAME_BYTE_TOTAL_ENQUEUES))
+      .setByteTxnDequeues(ValueReader::get(values, PROPERTY_NAME_BYTE_TXN_DEQUEUES))
+      .setByteTxnEnqueues(ValueReader::get(values, PROPERTY_NAME_BYTE_TXN_ENQUEUES))
+      .setConnBacklog(ValueReader::get(values, PROPERTY_NAME_CONN_BACKLOG))
+      .setDataDir(ValueReader::get(values, PROPERTY_NAME_DATA_DIR))
+      .setDiscardsLvq(ValueReader::get(values, PROPERTY_NAME_DISCARDS_LVQ))
+      .setDiscardsNoRoute(ValueReader::get(values, PROPERTY_NAME_DISCARDS_NO_ROUTE))
+      .setDiscardsOverflow(ValueReader::get(values, PROPERTY_NAME_DISCARDS_OVERFLOW))
+      .setDiscardsPurge(ValueReader::get(values, PROPERTY_NAME_DISCARDS_PURGE))
+      .setDiscardsRing(ValueReader::get(values, PROPERTY_NAME_DISCARDS_RING))
+      .setDiscardsSubscriber(ValueReader::get(values, PROPERTY_NAME_DISCARDS_SUBSCRIBER))
+      .setDiscardsTtl(ValueReader::get(values, PROPERTY_NAME_DISCARDS_TTL))
+      .setMaxConns(ValueReader::get(values, PROPERTY_NAME_MAX_CONNS))
+      .setMgmtPubInterval(ValueReader::get(values, PROPERTY_NAME_MGMT_PUB_INTERVAL))
+      .setMgmtPublish(ValueReader::get(values, PROPERTY_NAME_MGMT_PUBLISH))
+      .setMsgDepth(ValueReader::get(values, PROPERTY_NAME_MSG_DEPTH))
+      .setMsgFtdDepth(ValueReader::get(values, PROPERTY_NAME_MSG_FTD_DEPTH))
+      .setMsgFtdDequeues(ValueReader::get(values, PROPERTY_NAME_MSG_FTD_DEQUEUES))
+      .setMsgFtdEnqueues(ValueReader::get(values, PROPERTY_NAME_MSG_FTD_ENQUEUES))
+      .setMsgPersistDequeues(ValueReader::get(values, PROPERTY_NAME_MSG_PERSIST_DEQUEUES))
+      .setMsgPersistEnqueues(ValueReader::get(values, PROPERTY_NAME_MSG_PERSIST_ENQUEUES))
+      .setMsgTotalDequeues(ValueReader::get(values, PROPERTY_NAME_MSG_TOTAL_DEQUEUES))
+      .setMsgTotalEnqueues(ValueReader::get(values, PROPERTY_NAME_MSG_TOTAL_ENQUEUES))
+      .setMsgTxnDequeues(ValueReader::get(values, PROPERTY_NAME_MSG_TXN_DEQUEUES))
+      .setMsgTxnEnqueues(ValueReader::get(values, PROPERTY_NAME_MSG_TXN_ENQUEUES))
+      .setQueueCount(ValueReader::get(values, PROPERTY_NAME_QUEUE_COUNT))
+      .setReleases(ValueReader::get(values, PROPERTY_NAME_RELEASES))
+      .setReroutes(ValueReader::get(values, PROPERTY_NAME_REROUTES))
+      .setStagingThreshold(ValueReader::get(values, PROPERTY_NAME_STAGING_THRESHOLD))
+      .setPort(ValueReader::get(values, PROPERTY_NAME_PORT))
+      .setWorkerThreads(ValueReader::get(values, PROPERTY_NAME_WORKER_THREADS))
+      .setDataDir(ValueReader::get(values, PROPERTY_NAME_DATA_DIR))
+      .setName(ValueReader::get(values, PROPERTY_NAME_NAME))
+      .setSystemRef(ValueReader::get(system_ref_map, RPNs::OBJECT_NAME))
+      .setVersion(ValueReader::get(values, PROPERTY_NAME_VERSION))
       .setUptime(uptime);
-          
+
     return decoded;
   }
 };

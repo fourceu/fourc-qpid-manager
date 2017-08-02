@@ -15,40 +15,39 @@
  * along with fourc-qpid-manager.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FOURC_FMF_ECHODECODER_H
-#define FOURC_FMF_ECHODECODER_H
-
 #include "Decoder.h"
-#include "DecodeException.h"
 
-#include <boost/assign/list_of.hpp>
 
-#include <map>
+#ifndef FOURC_QPID_MANAGER_METHODRESULTDECODER_H
+#define FOURC_QPID_MANAGER_METHODRESULTDECODER_H
 
 namespace fourc {
 namespace fmf {
-
-typedef std::tuple<int, const std::string> EchoType;
-
 namespace codec {
 
 template<typename VariantT>
-class EchoDecoder : public Decoder<EchoType, VariantT> {
+class MethodResultDecoder : public Decoder<Link, VariantT> {
 public:
   typedef typename VariantT::Map MapT;
-  virtual ~EchoDecoder() = default;
 
-  std::shared_ptr<EchoType> decode(const MapT &objectProperties) const {
-    auto args = ValueReader::get(objectProperties, "_arguments").asMap();
-    int seq = ValueReader::get(args, "sequence").asInt64();
-    std::string body = ValueReader::get(args, "body").asString();
+  static const std::string PROPERTY_NAME_ARGUMENTS;
 
-    auto decoded = std::make_shared<EchoType>(seq, body);
+  virtual ~MethodResultDecoder() = default;
 
-    return decoded;
+  std::shared_ptr<MethodResult> decode(const MapT &objectProperties) const {
+    auto args = ValueReader::get(objectProperties, PROPERTY_NAME_ARGUMENTS, true).asMap();
+
+//    if (args.empty()) {
+//      std::cout << "Empty" << std::endl;
+//    }
+//    std::for_each (args.begin(), args.end(), [](const typename MapT::value_type& pair) { std::cout << pair.first << std::endl;});
+
+    return std::make_shared<MethodResult>();
   }
 };
 
+template <typename VariantT> const std::string MethodResultDecoder<VariantT>::PROPERTY_NAME_ARGUMENTS = "_arguments";
+
 }}} // Namespaces
 
-#endif //FOURC_FMF_ECHODECODER_H
+#endif //FOURC_QPID_MANAGER_METHODRESULTDECODER_H

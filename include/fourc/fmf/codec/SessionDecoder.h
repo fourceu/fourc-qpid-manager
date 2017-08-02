@@ -48,25 +48,25 @@ public:
   std::shared_ptr<Session> decode(const MapT &objectProperties) const {
     auto decoded = this->createObject(objectProperties);
 
-    auto values = this->getMapProperty(objectProperties, RPNs::VALUES, true).asMap();
+    auto values = ValueReader::get(objectProperties, RPNs::VALUES, true).asMap();
 
     // connection_ref_map used for setting connectionRefEpoch and connectionRefName on the decoded session
-    auto connection_ref_map = this->getMapProperty(values, PROPERTY_NAME_CONNECTION_REF, true).asMap();
-    
-    decoded->setTxnCommmits(this->getMapProperty(values, PROPERTY_NAME_TXN_COMMITS))
-        .setTxnCount(this->getMapProperty(values, PROPERTY_NAME_TXN_COUNT))
-        .setTxnRejects(this->getMapProperty(values, PROPERTY_NAME_TXN_REJECTS))
-        .setTxnStarts(this->getMapProperty(values, PROPERTY_NAME_TXN_STARTS))
-        .setAttached(this->getMapProperty(values, PROPERTY_NAME_ATTACHED))
-        .setChannelId(this->getMapProperty(values, PROPERTY_NAME_CHANNEL_ID))
-        .setClientCredit(this->getMapProperty(values, PROPERTY_NAME_CLIENT_CREDIT))
-        .setConnectionEpoch(this->getMapProperty(connection_ref_map, RPNs::OBJECT_AGENT_EPOCH))
-        .setConnectionName(this->getMapProperty(connection_ref_map, RPNs::OBJECT_NAME))
-        .setDetachedLifespan(this->getMapProperty(values, PROPERTY_NAME_DETACHED_LIFESPAN))
-        .setFramesOutstanding(this->getMapProperty(values, PROPERTY_NAME_FRAMES_OUTSTANDING))
-        .setFullName(this->getMapProperty(values, PROPERTY_NAME_FULL_NAME))
-        .setName(this->getMapProperty(values, RPNs::NAME))
-        .setUnackedMessages(this->getMapProperty(values, PROPERTY_NAME_UNACKED_MESSAGES))
+    auto connection_ref_map = ValueReader::get(values, PROPERTY_NAME_CONNECTION_REF, true).asMap();
+
+    decoded->setTxnCommmits(ValueReader::get(values, PROPERTY_NAME_TXN_COMMITS))
+        .setTxnCount(ValueReader::get(values, PROPERTY_NAME_TXN_COUNT))
+        .setTxnRejects(ValueReader::get(values, PROPERTY_NAME_TXN_REJECTS))
+        .setTxnStarts(ValueReader::get(values, PROPERTY_NAME_TXN_STARTS))
+        .setAttached(ValueReader::get(values, PROPERTY_NAME_ATTACHED))
+        .setChannelId(ValueReader::get(values, PROPERTY_NAME_CHANNEL_ID))
+        .setClientCredit(ValueReader::get(values, PROPERTY_NAME_CLIENT_CREDIT))
+        .setConnectionEpoch(ValueReader::get(connection_ref_map, RPNs::OBJECT_AGENT_EPOCH))
+        .setConnectionName(ValueReader::get(connection_ref_map, RPNs::OBJECT_NAME))
+        .setDetachedLifespan(ValueReader::get(values, PROPERTY_NAME_DETACHED_LIFESPAN))
+        .setFramesOutstanding(ValueReader::get(values, PROPERTY_NAME_FRAMES_OUTSTANDING))
+        .setFullName(ValueReader::get(values, PROPERTY_NAME_FULL_NAME))
+        .setName(ValueReader::get(values, RPNs::NAME))
+        .setUnackedMessages(ValueReader::get(values, PROPERTY_NAME_UNACKED_MESSAGES))
         .setVhostRef(this->decodeVhostRef(values));
 
     return decoded;

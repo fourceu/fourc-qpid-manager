@@ -71,11 +71,12 @@ protected:
 
   std::shared_ptr<ObjectType> decodeObject(const VariantT &object) const {
     const auto &object_map = object.asMap();
-    const auto &schema = object_map.at("_schema_id");
-    const auto &type = schema.asMap().at("_class_name");
+
+    const auto &schema = ValueReader::get(object_map, ResponsePropertyNames::SCHEMA_ID);
+    const auto &type = ValueReader::get(schema.asMap(), ResponsePropertyNames::SCHEMA_CLASS_NAME);
 
     // Verify that the data being decoded declares its type to be the same as our decoder
-    verifyDecoderType(type.asString());
+    verifyDecoderType(type);
 
     return typename DecoderTraits::DecoderType().decode(object_map);
   }
@@ -92,14 +93,16 @@ protected:
   }
 
   const std::vector<std::shared_ptr<ObjectType>> decodeResponseMessage(const MessageT &message) const {
+    using RPNs = ResponsePropertyNames;
+
     std::vector<std::shared_ptr<ObjectType>> objects;
 
-    std::string opcode = message.getProperties().at("qmf.opcode");
-    if (opcode == "_exception") {
+    const std::string opcode = ValueReader::get(message.getProperties(), RPNs::QMF_OPCODE);
+    if (opcode == RPNs::EXCEPTION) {
       throw ExceptionDecoder<MessageT>().decodeException(message);
-    } else if (opcode == "_query_response") {
+    } else if (opcode == RPNs::QUERY_RESPONSE) {
       objects = decodeQueryResponse(message);
-    } else if (opcode == "_method_response") {
+    } else if (opcode == RPNs::METHOD_RESPONSE) {
       throw DecodeException("Don't use ResponseDecoder to decode method responses - use decoder_traits directly instead");
     } else {
       throw DecodeException(boost::str(boost::format("Failed to decode response: %s") % message.getContent()));

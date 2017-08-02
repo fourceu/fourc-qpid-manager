@@ -18,8 +18,9 @@
 #ifndef FOURC_FMF_DECODER_H
 #define FOURC_FMF_DECODER_H
 
-#include <fourc/fmf/codec/DecodeException.h>
-#include <fourc/fmf/codec/ResponsePropertyNames.h>
+#include "DecodeException.h"
+#include "ResponsePropertyNames.h"
+#include "ValueReader.h"
 #include <fourc/fmf/ObjectId.h>
 #include <fourc/fmf/SchemaId.h>
 
@@ -44,27 +45,6 @@ public:
   virtual ~Decoder() = default;
 
 protected:
-  /**
-   * \brief Finds the requested value in the map
-   * @param map
-   * @param key
-   * @param mandatory If true, will throw an exception if the key is not found in the map
-   * @return
-   */
-  const VariantT getMapProperty(const MapT &map, const std::string& key, bool mandatory = false) const
-                                                                         throw(codec::DecodeException) {
-
-    auto itr = map.find(key);
-    if (itr != map.end()) {
-      return itr->second;
-    } else {
-      if (mandatory) {
-        throw codec::DecodeException(boost::str(boost::format("Key '%s' not found in map") % key));
-      }
-      return VariantT();
-    }
-  }
-
   /**
    * \brief Creates a new decoded object with basic properties set
    * @param objectProperties
@@ -97,9 +77,9 @@ protected:
    * @param objectProperties
    */
   void decodeTimestamps(std::shared_ptr<ObjectT>& object, const MapT& objectProperties) const {
-    auto created = decodeTimestamp(getMapProperty(objectProperties, RPNs::CREATED));
-    auto deleted = decodeTimestamp(getMapProperty(objectProperties, RPNs::DELETED));
-    auto updated = decodeTimestamp(getMapProperty(objectProperties, RPNs::UPDATED));
+    auto created = decodeTimestamp(ValueReader::get(objectProperties, RPNs::CREATED));
+    auto deleted = decodeTimestamp(ValueReader::get(objectProperties, RPNs::DELETED));
+    auto updated = decodeTimestamp(ValueReader::get(objectProperties, RPNs::UPDATED));
 
     object->setTimeCreated(created)
         .setTimeDeleted(deleted)
@@ -112,10 +92,10 @@ protected:
    * @param objectProperties
    */
   void decodeObjectId(std::shared_ptr<ObjectT>& object, const MapT& objectProperties) const {
-    auto object_id_map = getMapProperty(objectProperties, RPNs::OBJECT_ID).asMap();
-    
-    std::string oid = getMapProperty(object_id_map, RPNs::OBJECT_NAME);
-    int agentEpoch = getMapProperty(object_id_map, RPNs::OBJECT_AGENT_EPOCH).asInt32();
+    auto object_id_map = ValueReader::get(objectProperties, RPNs::OBJECT_ID).asMap();
+
+    std::string oid = ValueReader::get(object_id_map, RPNs::OBJECT_NAME);
+    int agentEpoch = ValueReader::get(object_id_map, RPNs::OBJECT_AGENT_EPOCH).asInt32();
 
     ObjectId objectId;
     objectId.setName(oid)
@@ -130,12 +110,12 @@ protected:
    * @param objectProperties
    */
   void decodeSchemaId(std::shared_ptr<ObjectT>& object, const MapT& objectProperties) const {
-    auto schema_id_map = getMapProperty(objectProperties, RPNs::SCHEMA_ID).asMap();
+    auto schema_id_map = ValueReader::get(objectProperties, RPNs::SCHEMA_ID).asMap();
 
-    std::string class_name = getMapProperty(schema_id_map, ResponsePropertyNames::SCHEMA_CLASS_NAME);
-    std::string package = getMapProperty(schema_id_map, ResponsePropertyNames::SCHEMA_PACKAGE_NAME);
-    std::string hash = getMapProperty(schema_id_map, ResponsePropertyNames::SCHEMA_HASH);
-    std::string type = getMapProperty(schema_id_map, ResponsePropertyNames::SCHEMA_TYPE);
+    std::string class_name = ValueReader::get(schema_id_map, ResponsePropertyNames::SCHEMA_CLASS_NAME);
+    std::string package = ValueReader::get(schema_id_map, ResponsePropertyNames::SCHEMA_PACKAGE_NAME);
+    std::string hash = ValueReader::get(schema_id_map, ResponsePropertyNames::SCHEMA_HASH);
+    std::string type = ValueReader::get(schema_id_map, ResponsePropertyNames::SCHEMA_TYPE);
 
     SchemaId schema_id;
     schema_id.setClassName(class_name)
@@ -152,9 +132,9 @@ protected:
    * @return
    */
   std::string decodeVhostRef(const MapT& values) const {
-    auto vhost_ref_map = this->getMapProperty(values, RPNs::VHOST_REF, true).asMap();
+    auto vhost_ref_map = ValueReader::get(values, RPNs::VHOST_REF, true).asMap();
 
-    return this->getMapProperty(vhost_ref_map, RPNs::OBJECT_NAME);
+    return ValueReader::get(vhost_ref_map, RPNs::OBJECT_NAME);
   }
 };
 

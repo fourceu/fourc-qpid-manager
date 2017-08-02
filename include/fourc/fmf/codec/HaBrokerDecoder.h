@@ -34,7 +34,7 @@ public:
   std::shared_ptr<HaBroker> decode(const MapT &objectProperties) const {
     auto decoded = this->createObject(objectProperties);
 
-    auto &values = this->getMapProperty(objectProperties, RPNs::VALUES, true).asMap();
+    auto &values = ValueReader::get(objectProperties, RPNs::VALUES, true).asMap();
     // Lots more properties we could apply here
 
     int i = values.size();

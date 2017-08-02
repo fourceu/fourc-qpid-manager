@@ -21,6 +21,7 @@
 #include "AclDecoder.h"
 #include "AclLookupDecoder.h"
 #include "BindingDecoder.h"
+#include "BridgeDecoder.h"
 #include "BrokerDecoder.h"
 #include "ClusterDecoder.h"
 #include "ConnectionDecoder.h"
@@ -32,6 +33,7 @@
 #include "QueueDecoder.h"
 #include "SessionDecoder.h"
 #include "SubscriptionDecoder.h"
+#include "MethodResultDecoder.h"
 #include "TrivialDecoder.h"
 
 namespace fourc {
@@ -58,6 +60,12 @@ template<typename VariantT>
 class decoder_traits<fourc::fmf::Binding, VariantT> {
 public:
   typedef BindingDecoder<VariantT> DecoderType;
+};
+
+template<typename VariantT>
+class decoder_traits<fourc::fmf::Bridge, VariantT> {
+public:
+  typedef BridgeDecoder<VariantT> DecoderType;
 };
 
 template<typename VariantT>
@@ -124,6 +132,12 @@ template<typename VariantT>
 class decoder_traits<fourc::fmf::Subscription, VariantT> {
 public:
   typedef SubscriptionDecoder<VariantT> DecoderType;
+};
+
+template<typename VariantT>
+class decoder_traits<fourc::fmf::MethodResult, VariantT> {
+public:
+  typedef MethodResultDecoder<VariantT> DecoderType;
 };
 
 template<typename VariantT>

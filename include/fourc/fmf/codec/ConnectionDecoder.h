@@ -48,7 +48,7 @@ public:
   static const std::string PROPERTY_NAME_SASL_SSF;
   static const std::string PROPERTY_NAME_SHADOW;
   static const std::string PROPERTY_NAME_USER_PROXY_AUTH;
-  
+
   typedef typename VariantT::Map MapT;
 
   virtual ~ConnectionDecoder() = default;
@@ -56,28 +56,28 @@ public:
   std::shared_ptr<Connection> decode(const MapT &objectProperties) const {
     auto decoded = this->createObject(objectProperties);
 
-    auto values = this->getMapProperty(objectProperties, RPNs::VALUES, true).asMap();
+    auto values = ValueReader::get(objectProperties, RPNs::VALUES, true).asMap();
 
-    decoded->setSystemConnection(this->getMapProperty(values, PROPERTY_NAME_SYSTEM_CONNECTION))
-      .setAddress(this->getMapProperty(values, PROPERTY_NAME_ADDRESS))
-      .setAuthIdentity(this->getMapProperty(values, PROPERTY_NAME_AUTH_IDENTITY))
-      .setBytesFromClient(this->getMapProperty(values, PROPERTY_NAME_BYTES_FROM_CLIENT))
-      .setBytesToClient(this->getMapProperty(values, PROPERTY_NAME_BYTES_TO_CLIENT))
-      .setIsClosing(this->getMapProperty(values, PROPERTY_NAME_CLOSING))
-      .setIsFederationLink(this->getMapProperty(values, PROPERTY_NAME_FEDERATION_LINK))
-      .setFramesFromClient(this->getMapProperty(values, PROPERTY_NAME_FRAMES_FROM_CLIENT))
-      .setFramesToClient(this->getMapProperty(values, PROPERTY_NAME_FRAMES_TO_CLIENT))
-      .setIsIncoming(this->getMapProperty(values, PROPERTY_NAME_INCOMING))
-      .setMsgsFromClient(this->getMapProperty(values, PROPERTY_NAME_MSGS_FROM_CLIENT))
-      .setMsgsToClient(this->getMapProperty(values, PROPERTY_NAME_MSGS_TO_CLIENT))
-      .setProtocol(this->getMapProperty(values, PROPERTY_NAME_PROTOCOL))
-      .setRemoteParentPid(this->getMapProperty(values, PROPERTY_NAME_REMOTE_PARENT_PID))
-      .setRemotePid(this->getMapProperty(values, PROPERTY_NAME_REMOTE_PID))
-      .setRemoteProcessName(this->getMapProperty(values, PROPERTY_NAME_REMOTE_PROCESS_NAME))
-      .setSaslMechanism(this->getMapProperty(values, PROPERTY_NAME_SASL_MECHANISM))
-      .setSaslSsf(this->getMapProperty(values, PROPERTY_NAME_SASL_SSF))
-      .setIsShadow(this->getMapProperty(values, PROPERTY_NAME_SHADOW))
-      .setIsUserProxyAuth(this->getMapProperty(values, PROPERTY_NAME_USER_PROXY_AUTH))
+    decoded->setSystemConnection(ValueReader::get(values, PROPERTY_NAME_SYSTEM_CONNECTION))
+      .setAddress(ValueReader::get(values, PROPERTY_NAME_ADDRESS))
+      .setAuthIdentity(ValueReader::get(values, PROPERTY_NAME_AUTH_IDENTITY))
+      .setBytesFromClient(ValueReader::get(values, PROPERTY_NAME_BYTES_FROM_CLIENT))
+      .setBytesToClient(ValueReader::get(values, PROPERTY_NAME_BYTES_TO_CLIENT))
+      .setIsClosing(ValueReader::get(values, PROPERTY_NAME_CLOSING))
+      .setIsFederationLink(ValueReader::get(values, PROPERTY_NAME_FEDERATION_LINK))
+      .setFramesFromClient(ValueReader::get(values, PROPERTY_NAME_FRAMES_FROM_CLIENT))
+      .setFramesToClient(ValueReader::get(values, PROPERTY_NAME_FRAMES_TO_CLIENT))
+      .setIsIncoming(ValueReader::get(values, PROPERTY_NAME_INCOMING))
+      .setMsgsFromClient(ValueReader::get(values, PROPERTY_NAME_MSGS_FROM_CLIENT))
+      .setMsgsToClient(ValueReader::get(values, PROPERTY_NAME_MSGS_TO_CLIENT))
+      .setProtocol(ValueReader::get(values, PROPERTY_NAME_PROTOCOL))
+      .setRemoteParentPid(ValueReader::get(values, PROPERTY_NAME_REMOTE_PARENT_PID))
+      .setRemotePid(ValueReader::get(values, PROPERTY_NAME_REMOTE_PID))
+      .setRemoteProcessName(ValueReader::get(values, PROPERTY_NAME_REMOTE_PROCESS_NAME))
+      .setSaslMechanism(ValueReader::get(values, PROPERTY_NAME_SASL_MECHANISM))
+      .setSaslSsf(ValueReader::get(values, PROPERTY_NAME_SASL_SSF))
+      .setIsShadow(ValueReader::get(values, PROPERTY_NAME_SHADOW))
+      .setIsUserProxyAuth(ValueReader::get(values, PROPERTY_NAME_USER_PROXY_AUTH))
       .setVhostRef(this->decodeVhostRef(values));
 
     return decoded;

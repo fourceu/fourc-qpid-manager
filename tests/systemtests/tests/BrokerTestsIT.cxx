@@ -55,3 +55,15 @@ TEST_F(BrokerTestsIT, testGetBroker) {
 
   EXPECT_GT(broker->getUptime(), std::chrono::milliseconds(1)); // This should be a fair assumption
 }
+
+TEST_F(BrokerTestsIT, testConnect) {
+  std::string host = SystemTestConfiguration::getHost();
+  int port = 5673;
+  bool durable = false;
+  std::string mech = "EXTERNAL";
+  std::string transport = "ssl";
+
+  auto broker = brokerAgent.getBroker();
+
+  broker->connect(brokerAgent, host, port, durable, mech, transport);
+}
