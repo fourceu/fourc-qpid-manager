@@ -27,6 +27,7 @@ set(test_SRCS
         main.cxx
         fourc/fmf/codec/AclDecoderTests.cxx
         fourc/fmf/codec/BindingDecoderTests.cxx
+        fourc/fmf/codec/BridgeDecoderTests.cxx
         fourc/fmf/codec/BrokerDecoderTests.cxx
         fourc/fmf/codec/ConnectionDecoderTests.cxx
         fourc/fmf/codec/DecodeExceptionTests.cxx
@@ -40,9 +41,10 @@ set(test_SRCS
         fourc/fmf/codec/SubscriptionDecoderTests.cxx
         fourc/fmf/codec/ValueReaderTests.cxx
         fourc/fmf/AclTests.cxx
+        fourc/fmf/BindingTests.cxx
+        fourc/fmf/BridgeTests.cxx
         fourc/fmf/BrokerObjectTests.cxx
         fourc/fmf/BrokerTests.cxx
-        fourc/fmf/BindingTests.cxx
         fourc/fmf/BrokerAgentExceptionTests.cxx
         fourc/fmf/BrokerAgentTests.cxx
         fourc/fmf/ClusterTests.cxx

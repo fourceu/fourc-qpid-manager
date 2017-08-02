@@ -15,7 +15,7 @@
  * along with fourc-qpid-manager.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "fourc/fmf/RouteManager.h"
+#include "fourc/fmf/MethodResult.h"
 
 namespace fourc {
 namespace fmf {

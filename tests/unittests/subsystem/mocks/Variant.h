@@ -49,6 +49,7 @@ public:
   Variant(const Variant &other) : VariantTemplate<std::list<Variant>, std::map<std::string, Variant>>(other){}
   Variant(const std::string &) {}
   Variant(const char*) {};
+  Variant(const int) {};
   Variant(const Map&) {};
   virtual ~Variant() = default;
   Variant &operator=(const Variant &) { return *this; }

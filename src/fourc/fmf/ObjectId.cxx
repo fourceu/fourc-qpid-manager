@@ -16,6 +16,8 @@
  */
 
 #include <fourc/fmf/ObjectId.h>
+#include <boost/format.hpp>
+#include <fourc/fmf/codec/ResponsePropertyNames.h>
 
 namespace fourc {
 namespace fmf {
@@ -46,6 +48,11 @@ ObjectId& ObjectId::setAgentEpoch(uint64_t value) {
 
 bool ObjectId::operator==(const ObjectId& other) const {
   return agentEpoch == other.agentEpoch && name == other.name;
+}
+
+ObjectId::operator std::string() const {
+  using RPNs = codec::ResponsePropertyNames;
+  return boost::str(boost::format("{%s:%d, %s:%s}") % RPNs::OBJECT_AGENT_EPOCH % agentEpoch % RPNs::OBJECT_NAME % name);
 }
 
 }} // Namespaces

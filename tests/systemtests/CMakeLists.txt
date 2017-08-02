@@ -22,6 +22,7 @@ SET(test_SRCS
         SystemTestConfiguration.cxx
         tests/AclTestsIT.cxx
         tests/BindingTestsIT.cxx
+        tests/BridgeTestsIT.cxx
         tests/BrokerAgentTests.cxx
         tests/BrokerTestsIT.cxx
         tests/ClusterTestsIT.cxx
@@ -31,6 +32,7 @@ SET(test_SRCS
         tests/LinkTestsIT.cxx
         tests/MemoryTestsIT.cxx
         tests/QueueTestsIT.cxx
+        tests/RouteManagerTestsIT.cxx
         tests/SessionTestsIT.cxx
         tests/SubscriptionTestsIT.cxx
 )
@@ -65,7 +67,7 @@ ADD_CUSTOM_TARGET(cxxsystemtest "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}${CM
 ADD_DEPENDENCIES(${PROJECT_NAME} googlemock)
 
 ADD_CUSTOM_TARGET(bashsystemtest COMMAND ${CMAKE_CURRENT_BINARY_DIR}/scripts/bash-system-tests
-	DEPENDS ${PROJECT_NAME} 
+	DEPENDS ${PROJECT_NAME}
     COMMENT "Executing bash system tests...")
 
 ADD_CUSTOM_TARGET(systemtest

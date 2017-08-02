@@ -28,9 +28,9 @@
 using namespace fourc::fmf;
 using namespace fourc::testing;
 
-class LinkTestsIT : public ::testing::Test {
+class BridgeTestsIT : public ::testing::Test {
 public:
-  LinkTestsIT() : brokerAgent(session) {
+  BridgeTestsIT() : brokerAgent(session) {
     connection = qpid::messaging::Connection(SystemTestConfiguration::buildUrl(), SystemTestConfiguration::getConnectionOptions());
     connection.open();
     session = connection.createSession();
@@ -48,48 +48,7 @@ protected:
   BrokerAgent brokerAgent;
 };
 
-TEST_F(LinkTestsIT, testGetLinks) {
-  auto links = brokerAgent.getLinks();
-
-  //EXPECT_FALSE(links.empty()); // Probably no links on test broker
-}
-
-TEST_F(LinkTestsIT, testBridge) {
-  auto links = brokerAgent.getLinks();
-  if (links.empty()) {
-    // Create a link
-    std::string host = SystemTestConfiguration::getHost();
-    int port = 5673;
-    bool durable = false;
-    std::string mech = "EXTERNAL";
-    std::string transport = "ssl";
-
-    auto broker = brokerAgent.getBroker();
-
-    broker->connect(brokerAgent, host, port, durable, mech, transport);
-
-    links = brokerAgent.getLinks();
-  }
-  ASSERT_FALSE(links.empty());
-
-  auto link = links.front();
-
-  std::string src;
-  std::string dest;
-  std::string key;
-  std::string tag;
-  std::string excludes;
-  bool srcQueue = false;
-  bool srcLocal = false;
-  bool durable = false;
-  bool dynamic = false;
-  uint16_t sync = 0;
-  uint32_t credit = 0;
-
-  link->bridge(brokerAgent, src, dest, key, tag, excludes, srcQueue, srcLocal, durable, dynamic, sync, credit);
-}
-
-TEST_F(LinkTestsIT, testClose) {
+TEST_F(BridgeTestsIT, testClose) {
   // Before we can close a connection, we need to open one!
   std::string host = SystemTestConfiguration::getHost();
   int port = 5673;
@@ -116,8 +75,21 @@ TEST_F(LinkTestsIT, testClose) {
   auto link = links.front();
   link->bridge(brokerAgent, source, dest, key, tag, excludes, src_queue, src_local, durable, dynamic, sync);
 
-  link->closeOn(brokerAgent);
+  // Now we should have a bridge to close
+  auto bridge = brokerAgent.getSingleObject<Bridge>([&source, &dest, &key, src_local](const std::shared_ptr<Bridge>& bridge) {
+      return bridge->getSrc() == source
+             && bridge->getDest() == dest
+             && bridge->getKey() == key
+             && bridge->isSrcLocal() == src_local; });
+  ASSERT_TRUE(bridge) << "Bridge creation failed.";
+  bridge->closeOn(brokerAgent);
 
-  links = brokerAgent.getLinks();
-  ASSERT_TRUE(links.empty()) << links.size() << " unexpected link(s) found on broker.";
+  // If we get the bridges again, the one we closed should not be present
+  if (brokerAgent.getSingleObject<Bridge>([&source, &dest, &key, src_local](const std::shared_ptr<Bridge>& bridge) {
+      return bridge->getSrc() == source
+             && bridge->getDest() == dest
+             && bridge->getKey() == key
+             && bridge->isSrcLocal() == src_local; })) {
+      FAIL() << "Bridge was not closed.";
+  }
 }

@@ -22,7 +22,6 @@ namespace fmf {
 
 const std::string Link::OBJECT_TYPE_NAME = "link";
 
-
 Link::Link() :
   connectionEpoch(0),
   durable(false),

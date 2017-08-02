@@ -22,6 +22,9 @@ public:
   ObjectId& setAgentEpoch(uint64_t);
 
   bool operator==(const ObjectId&) const;
+
+  operator std::string() const;
+
 private:
   std::string name;
   uint64_t agentEpoch;

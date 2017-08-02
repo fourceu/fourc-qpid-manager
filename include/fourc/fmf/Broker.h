@@ -7,6 +7,11 @@
 #define FOURC_FMF_BROKER_H
 
 #include "BrokerObject.h"
+#include "MethodResult.h"
+
+#include <boost/lexical_cast.hpp>
+
+#include <memory>
 
 namespace fourc {
 namespace fmf {
@@ -151,6 +156,36 @@ public:
 
   const std::chrono::nanoseconds getUptime() const;
   Broker& setUptime(const std::chrono::nanoseconds&);
+
+  template <typename BrokerAgentT>
+  std::shared_ptr<MethodResult> connect(BrokerAgentT& brokerAgent,
+              const std::string& host, const int port, const bool durable, const std::string& interbroker_mechanism,
+              const std::string transport, const std::string& user = "", const std::string& pwd = "") {
+    std::string method_name = "connect";
+    typename BrokerAgentT::VariantType::Map args;
+    args.emplace("host", host);
+    args.emplace("port", port);
+    args.emplace("durable", boost::lexical_cast<std::string>(durable));
+    args.emplace("authMechanism", interbroker_mechanism);
+    args.emplace("transport", transport);
+    args.emplace("username", user);
+    args.emplace("password", pwd);
+
+    return brokerAgent.template method<MethodResult, typename BrokerAgentT::VariantType::Map>(method_name, args);
+  }
+
+  template <typename BrokerAgentT>
+  std::shared_ptr<MethodResult> create(BrokerAgentT& brokerAgent, const std::string& type, const std::string& name,
+                                        typename BrokerAgentT::VariantType::Map properties, bool strict = false) const {
+    std::string method_name = "create";
+    typename BrokerAgentT::VariantType::Map args;
+    args.emplace("type", type);
+    args.emplace("name", name);
+    args.emplace("properties", properties);
+    args.emplace("strict", strict);
+
+    return brokerAgent.template method<MethodResult, typename BrokerAgentT::VariantType::Map>(method_name, args);
+  }
 
 private:
   uint64_t abandoned;

@@ -75,8 +75,9 @@ SET(${APP_NAME_UPPER}_SRCS
         src/fourc/fmf/codec/DecodeException.cxx
         src/fourc/fmf/codec/ResponsePropertyNames.cxx
         src/fourc/fmf/Acl.cxx
-        src/fourc/fmf/Broker.cxx
+        src/fourc/fmf/Bridge.cxx
         src/fourc/fmf/Binding.cxx
+        src/fourc/fmf/Broker.cxx
         src/fourc/fmf/BrokerAgentException.cxx
         src/fourc/fmf/BrokerObject.cxx
         src/fourc/fmf/Cluster.cxx

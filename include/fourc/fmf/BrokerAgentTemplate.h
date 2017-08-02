@@ -41,6 +41,8 @@ class BrokerAgentTemplate {
   using RPNs = codec::ResponsePropertyNames;
 
 public:
+  typedef VariantT VariantType;
+
   BrokerAgentTemplate(SessionT& session) : session(session), correlator(0) {
   }
 
@@ -188,6 +190,14 @@ public:
  */
   std::vector<std::shared_ptr<Binding>> getBindings() {
     return classQuery<Binding>();
+  }
+
+  /**
+ * \brief Gets a list of all bridges on the broker
+ * @return
+ */
+  std::vector<std::shared_ptr<Bridge>> getBridges() {
+    return classQuery<Bridge>();
   }
 
   /**
@@ -437,6 +447,49 @@ public:
     return method<EchoType>("echo", args);
   }
 
+  template <typename ObjectT, typename MapT>
+  std::shared_ptr<ObjectT> method(const std::string& method_name, const MapT& arguments) {
+    return method<ObjectT, MapT>(method_name, arguments, "org.apache.qpid.broker:broker:amqp-broker");
+  }
+
+  template <typename ObjectT, typename MapT>
+  std::shared_ptr<ObjectT> method(const std::string& method_name, const MapT& arguments, const std::string& address) {
+    auto receiver = createTemporaryReceiver();
+
+    typename VariantT::Map object_id_map;
+    object_id_map.emplace(RPNs::OBJECT_NAME, address);
+    object_id_map.emplace("_agent_name", "0");
+    object_id_map.emplace("_agent_epoch", 6);
+
+    typename VariantT::Map query;
+    query.emplace(RPNs::OBJECT_ID, object_id_map);
+    query.emplace(RPNs::ARGUMENTS, arguments);
+    query.emplace(RPNs::METHOD_NAME, method_name);
+
+    MessageT request;
+    request.setProperty(RPNs::AMQP_0_10_APP_ID, RPNs::QMF2);
+    request.setProperty(RPNs::QMF_OPCODE, RPNs::METHOD_REQUEST);
+    request.setProperty(RPNs::METHOD, RPNs::REQUEST);
+
+    request.setContentObject(query);
+
+    auto reply_to = receiver.getAddress();
+    int correlation_id = sendMessage(request, reply_to);
+
+    auto response = awaitResponse(receiver, correlation_id, std::chrono::seconds(10));
+    return decodeMethodResponse<ObjectT>(response);
+  }
+
+  template <typename ObjectType, typename PredicateType = std::function<bool(const std::shared_ptr<ObjectType>&)>>
+  const std::shared_ptr<ObjectType> getSingleObject(const PredicateType& predicate = std::function<bool(const std::shared_ptr<ObjectType>&)>([](const std::shared_ptr<ObjectType>&){ return true; })) {
+    for (auto object : classQuery<ObjectType>()) {
+      if (predicate(object)) {
+        return object;
+      }
+    }
+    return std::shared_ptr<ObjectType>();
+  }
+
 protected:
   static const std::string TARGET_ADDRESS;
   static const std::string TARGET_SUBJECT;
@@ -518,37 +571,6 @@ protected:
     return session.createReceiver(queue_address);
   }
 
-  template <typename ObjectT, typename MapT>
-  std::shared_ptr<ObjectT> method(const std::string& method_name, const MapT& arguments) {
-    return method<ObjectT, MapT>(method_name, arguments, "org.apache.qpid.broker:broker:amqp-broker");
-  }
-
-  template <typename ObjectT, typename MapT>
-  std::shared_ptr<ObjectT> method(const std::string& method_name, const MapT& arguments, const std::string& address) {
-    auto receiver = createTemporaryReceiver();
-
-    typename VariantT::Map object_id_map;
-    object_id_map.emplace(RPNs::OBJECT_NAME, address);
-
-    typename VariantT::Map query;
-    query.emplace(RPNs::OBJECT_ID, object_id_map);
-    query.emplace(RPNs::ARGUMENTS, arguments);
-    query.emplace(RPNs::METHOD_NAME, method_name);
-
-    MessageT request;
-    request.setProperty(RPNs::AMQP_0_10_APP_ID, RPNs::QMF2);
-    request.setProperty(RPNs::QMF_OPCODE, RPNs::METHOD_REQUEST);
-    request.setProperty(RPNs::METHOD, RPNs::REQUEST);
-
-    request.setContentObject(query);
-
-    auto reply_to = receiver.getAddress();
-    int correlation_id = sendMessage(request, reply_to);
-
-    auto response = awaitResponse(receiver, correlation_id, std::chrono::seconds(10));
-    return decodeMethodResponse<ObjectT>(response);
-  }
-
   template <typename ObjectT>
   std::shared_ptr<ObjectT> decodeMethodResponse(const std::vector<MessageT>& response) {
 
@@ -610,12 +632,6 @@ protected:
   template <typename ObjectType>
   std::vector<std::shared_ptr<ObjectType>> nameQuery(const std::string& objectId) {
     return objectQuery<ObjectType>(RPNs::OBJECT_ID, RPNs::OBJECT_NAME, objectId);
-  }
-
-  template <typename ObjectType>
-  const std::shared_ptr<ObjectType> getSingleObject() {
-    auto objects = classQuery<ObjectType>();
-    return objects.empty() ? std::shared_ptr<ObjectType>() : objects.front();
   }
 
   template <typename ObjectType>
