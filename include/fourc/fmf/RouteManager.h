@@ -33,7 +33,7 @@ public:
   virtual ~RouteManager() = default;
 
   /**
-   * \brief Gets this instance's link to the broker
+   * \brief Gets the link from the local broker to a remote broker
    * \note Could return a link on any transport but this should be OK in practice
    * @return
    */
@@ -79,7 +79,8 @@ public:
       }
     }
 
-    std::string name = boost::str(boost::format("%s:%s:%s:%s") % dest % (key.empty() ? src : key) % src_queue % src_local);
+    std::string name = boost::str(boost::format("%s:%s:%s:%s:%s") % dest % (key.empty() ? src : key) % link->getObjectId()
+                                                               % src_queue % src_local);
 
     typename BrokerAgentT::VariantType::Map properties;
     properties.emplace("link", link->getName()); // NB: Not the same as link->getObjectId().getName() used above

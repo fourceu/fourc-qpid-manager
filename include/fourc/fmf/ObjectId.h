@@ -30,6 +30,8 @@ private:
   uint64_t agentEpoch;
 };
 
+std::ostream& operator <<(std::ostream& stream, const fourc::fmf::ObjectId& object);
+
 }} // Namespaces
 
 #endif //FOURC_QPID_MANAGER_OBJECTID_H
