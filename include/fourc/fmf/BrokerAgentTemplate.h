@@ -27,6 +27,7 @@
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/log/trivial.hpp>
 
 #include <string>
 #include <memory>
@@ -44,6 +45,28 @@ public:
   typedef VariantT VariantType;
 
   BrokerAgentTemplate(SessionT& session) : session(session), correlator(0) {
+    // "user" is used to prefix temporary receiving queue names with something that can be
+    // identified in an ACL. Ideally this would be the name of the authenticated user, but due to the
+    // variety of connection options this may not be practical.
+    // In the absence of a better solution, use:
+    // * the connection getConnection().getAuthenticatedUsername (if set and not "dummy")
+    // * the value of QPID_SSL_CERT_NAME (if set)
+    // * "fourc.fmf.brokeragent" otherwise.
+    auto connection_user(session ? session.getConnection().getAuthenticatedUsername() : "");
+    if (!connection_user.empty() && connection_user != "dummy") {
+      user = connection_user;
+      BOOST_LOG_TRIVIAL(trace) << "BrokerAgent using temporary queue prefix '" << user << "' (from connection properties)";
+    } else {
+      const char* ssl_cert_name(getenv("QPID_SSL_CERT_NAME"));
+      if (ssl_cert_name != nullptr && std::char_traits<char>::length(ssl_cert_name) > 0) {
+        user = ssl_cert_name;
+        BOOST_LOG_TRIVIAL(trace) << "BrokerAgent using temporary queue prefix '" << user << "' (from QPID_SSL_CERT_NAME)";
+      } else {
+        // All other attempts to determine the connection user have failed - use this default
+        user = "fourc.fmf.BrokerAgent";
+        BOOST_LOG_TRIVIAL(trace) << "BrokerAgent using temporary queue prefix '" << user << "' (default)";
+      }
+    }
   }
 
   virtual ~BrokerAgentTemplate() = default;
@@ -495,6 +518,7 @@ protected:
   static const std::string TARGET_SUBJECT;
 
   SessionT session;
+  std::string user;
   int correlator; // Maybe use atomic int?
 
   /**
@@ -504,15 +528,16 @@ protected:
    * @return the correlation id of the sent message
    */
   int sendMessage(MessageT &message, const AddressT &replyAddress) {
-    auto sender = session.createSender(TARGET_ADDRESS + "/" + TARGET_SUBJECT);
+    const std::string SENDER_NODE_ARGS = "{ node: { type: topic }}";
+
+    auto sender_address(boost::format("%s/%s;%s") % TARGET_ADDRESS % TARGET_SUBJECT % SENDER_NODE_ARGS);
+
+    auto sender = session.createSender(boost::str(sender_address));
 
     message.setReplyTo(replyAddress);
 
     auto local_correlator = ++correlator;
     message.setCorrelationId(std::to_string(local_correlator));
-
-    // Routing key
-    message.setSubject(TARGET_SUBJECT);
 
     sender.send(message, true);
 
@@ -562,13 +587,13 @@ protected:
   }
 
   ReceiverT createTemporaryReceiver() {
-    const std::string RECEIVER_NODE_ARGS = ";{ create: always, node: { x-declare: { auto-delete: true }}}";
+    const std::string RECEIVER_NODE_ARGS = "{ create: always, node: { type: queue, x-declare: { auto-delete: true }}}";
 
     boost::uuids::uuid uuid = boost::uuids::random_generator()();
 
-    const std::string queue_address = boost::lexical_cast<std::string>(uuid) + RECEIVER_NODE_ARGS;
+    auto queue_address(boost::format("%s_%s;%s") % user % boost::lexical_cast<std::string>(uuid) % RECEIVER_NODE_ARGS);
 
-    return session.createReceiver(queue_address);
+    return session.createReceiver(boost::str(queue_address));
   }
 
   template <typename ObjectT>

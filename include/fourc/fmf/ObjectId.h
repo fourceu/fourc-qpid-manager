@@ -25,12 +25,15 @@ public:
 
   operator std::string() const;
 
+  friend std::ostream& operator <<(std::ostream& stream, const ObjectId& object) {
+    stream << object.operator std::string();
+    return stream;
+  }
+
 private:
   std::string name;
   uint64_t agentEpoch;
 };
-
-std::ostream& operator <<(std::ostream& stream, const fourc::fmf::ObjectId& object);
 
 }} // Namespaces
 

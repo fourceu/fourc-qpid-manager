@@ -55,9 +55,4 @@ ObjectId::operator std::string() const {
   return boost::str(boost::format("{%s:%d, %s:%s}") % RPNs::OBJECT_AGENT_EPOCH % agentEpoch % RPNs::OBJECT_NAME % name);
 }
 
-std::ostream& operator <<(std::ostream& stream, const fourc::fmf::ObjectId& object) {
-  stream << static_cast<std::string>(object);
-  return stream;
-}
-
 }} // Namespaces
