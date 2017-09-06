@@ -34,6 +34,8 @@ public:
   Session(const Session&) {}
   Session(Session&&) {}
 
+  operator bool() {return false;}
+
   MOCK_METHOD0(close, void());
 
   MOCK_METHOD0(commit, void());
