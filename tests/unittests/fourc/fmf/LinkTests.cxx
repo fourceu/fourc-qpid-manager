@@ -30,7 +30,7 @@ TEST(LinkTests, ctor) {
 
 TEST(LinkTests, ctorSetsConnectionEpoch) {
   Link link;
-  
+
   EXPECT_EQ(0u, link.getConnectionEpoch());
 }
 
@@ -92,7 +92,7 @@ TEST(LinkTests, ctorSetsVhostRef) {
 
 
 TEST(LinkTests, setConnectionEpoch) {
-  uint64_t expected;
+  uint64_t expected = 4;
   Link link;
   link.setConnectionEpoch(expected);
 
