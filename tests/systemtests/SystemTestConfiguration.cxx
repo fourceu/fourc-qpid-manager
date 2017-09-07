@@ -59,7 +59,7 @@ std::string SystemTestConfiguration::buildUrl() {
 std::string SystemTestConfiguration::getConnectionOptions() {
   char *opts = getenv(ENV_BROKER_CONNECTION_OPTIONS.c_str());
 
-  std::string options = "{transport:ssl, protocol:amqp0-10}";
+  std::string options = "{transport:tcp, protocol:amqp0-10}";
   if (opts != nullptr) {
     options = opts;
   }

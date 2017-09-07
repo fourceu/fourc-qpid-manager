@@ -61,7 +61,6 @@ TEST(BrokerAgentTests, sendMessageSetsCorrelationId) {
 
   subsystem::mocks::Message ss_message;
   EXPECT_CALL(ss_message, setCorrelationId(EXPECTED_CORRELATION_ID)).Times(Exactly(1));
-  EXPECT_CALL(ss_message, setSubject(A<const std::string&>())).Times(Exactly(1));
   EXPECT_CALL(ss_message, setReplyTo(A<const subsystem::mocks::Address&>())).Times(Exactly(1));
 
   brokerAgent.sendMessage(ss_message, ss_address);
@@ -79,7 +78,6 @@ TEST(BrokerAgentTests, sendMessageIncrementsCorrelationId) {
 
   subsystem::mocks::Message ss_message;
   EXPECT_CALL(ss_message, setCorrelationId(A<const std::string&>())).Times(Exactly(iterations));
-  EXPECT_CALL(ss_message, setSubject(A<const std::string&>())).Times(Exactly(iterations));
   EXPECT_CALL(ss_message, setReplyTo(A<const subsystem::mocks::Address&>())).Times(Exactly(iterations));
 
   for (int i = 1; i <= iterations; ++i) {
@@ -99,7 +97,6 @@ TEST(BrokerAgentTests, sendMessageSetsSubject) {
 
   subsystem::mocks::Message ss_message;
   EXPECT_CALL(ss_message, setCorrelationId(A<const std::string&>())).Times(Exactly(1));
-  EXPECT_CALL(ss_message, setSubject(EXPECTED_SUBJECT)).Times(Exactly(1));
   EXPECT_CALL(ss_message, setReplyTo(A<const subsystem::mocks::Address&>())).Times(Exactly(1));
 
   brokerAgent.sendMessage(ss_message, ss_address);
@@ -116,7 +113,6 @@ TEST(BrokerAgentTests, sendMessageSetsReplyAddress) {
 
   subsystem::mocks::Message ss_message;
   EXPECT_CALL(ss_message, setCorrelationId(A<const std::string&>())).Times(Exactly(1));
-  EXPECT_CALL(ss_message, setSubject(A<const std::string&>())).Times(Exactly(1));
   EXPECT_CALL(ss_message, setReplyTo(ss_address)).Times(Exactly(1));
 
   brokerAgent.sendMessage(ss_message, ss_address);
