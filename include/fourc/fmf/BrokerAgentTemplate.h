@@ -602,7 +602,7 @@ protected:
     if (!response.empty()) {
       // Read the opcode off the first message
       const auto &message = response.front();
-      const std::string &opcode = codec::ValueReader::get(message.getProperties(), RPNs::QMF_OPCODE);
+      const std::string &opcode = codec::ValueReader::get(message.getProperties(), RPNs::QMF_OPCODE).asString();
       if (opcode == RPNs::EXCEPTION) {
         throw codec::ExceptionDecoder<MessageT>().decodeException(message);
 

@@ -73,7 +73,7 @@ protected:
     const auto &object_map = object.asMap();
 
     const auto &schema = ValueReader::get(object_map, ResponsePropertyNames::SCHEMA_ID);
-    const auto &type = ValueReader::get(schema.asMap(), ResponsePropertyNames::SCHEMA_CLASS_NAME);
+    const auto &type = ValueReader::get(schema.asMap(), ResponsePropertyNames::SCHEMA_CLASS_NAME).asString();
 
     // Verify that the data being decoded declares its type to be the same as our decoder
     verifyDecoderType(type);
@@ -97,7 +97,7 @@ protected:
 
     std::vector<std::shared_ptr<ObjectType>> objects;
 
-    const std::string opcode = ValueReader::get(message.getProperties(), RPNs::QMF_OPCODE);
+    const std::string &opcode = ValueReader::get(message.getProperties(), RPNs::QMF_OPCODE).asString();
     if (opcode == RPNs::EXCEPTION) {
       throw ExceptionDecoder<MessageT>().decodeException(message);
     } else if (opcode == RPNs::QUERY_RESPONSE) {
