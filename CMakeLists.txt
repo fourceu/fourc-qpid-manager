@@ -42,7 +42,7 @@ set(BUILD_GTEST_FILTER "" CACHE STRING "Filter GTest test names to be executed (
 LIST(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/Modules")
 
 IF (UNIX)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pedantic -Wall -Wextra -Winit-self -Woverloaded-virtual -Wuninitialized -Wmissing-declarations -Wold-style-cast -DBOOST_ALL_DYN_LINK")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -pedantic -Wall -Wextra -Winit-self -Woverloaded-virtual -Wuninitialized -Wmissing-declarations -Wold-style-cast -DBOOST_ALL_DYN_LINK")
     if (CMAKE_COMPILER_IS_GNUCC AND BUILD_QA_COMPILER_FLAGS)
         SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror")
     endif()
