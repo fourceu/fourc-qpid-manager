@@ -41,8 +41,7 @@ public:
    */
 
   template<typename MapT>
-  static const typename MapT::mapped_type get(const MapT &map, const typename MapT::key_type& key, bool mandatory = false)
-                            throw(DecodeException) {
+  static const typename MapT::mapped_type get(const MapT &map, const typename MapT::key_type& key, bool mandatory = false) {
     auto itr = map.find(key);
     if (itr != map.end()) {
       return itr->second;

@@ -478,6 +478,8 @@ public:
   template <typename ObjectT, typename MapT>
   std::shared_ptr<ObjectT> method(const std::string& method_name, const MapT& arguments, const std::string& address) {
     auto receiver = createTemporaryReceiver();
+    // Close the receiver when it drops out of scope
+    auto receiver_ptr = std::shared_ptr<decltype(receiver)>(&receiver, [&receiver](const decltype(&receiver) rec) {rec->close();});
 
     typename VariantT::Map object_id_map;
     object_id_map.emplace(RPNs::OBJECT_NAME, address);
@@ -602,7 +604,7 @@ protected:
     if (!response.empty()) {
       // Read the opcode off the first message
       const auto &message = response.front();
-      const std::string &opcode = codec::ValueReader::get(message.getProperties(), RPNs::QMF_OPCODE);
+      const std::string &opcode = codec::ValueReader::get(message.getProperties(), RPNs::QMF_OPCODE).asString();
       if (opcode == RPNs::EXCEPTION) {
         throw codec::ExceptionDecoder<MessageT>().decodeException(message);
 
@@ -636,6 +638,8 @@ protected:
   template <typename ObjectType>
   std::vector<std::shared_ptr<ObjectType>> objectQuery(const std::string& schemaMetaId, const std::string& objectMetaId, const std::string& objectId) {
     auto receiver = createTemporaryReceiver();
+    // Close the receiver when it drops out of scope
+    auto receiver_ptr = std::shared_ptr<decltype(receiver)>(&receiver, [&receiver](const decltype(&receiver) rec) {rec->close();});
 
     typename VariantT::Map schemaId;
     schemaId.emplace(objectMetaId, objectId);

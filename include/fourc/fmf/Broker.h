@@ -161,7 +161,7 @@ public:
   std::shared_ptr<MethodResult> connect(BrokerAgentT& brokerAgent,
               const std::string& host, const int port, const bool durable, const std::string& interbroker_mechanism,
               const std::string transport, const std::string& user = "", const std::string& pwd = "") {
-    std::string method_name = "connect";
+    const std::string method_name("connect");
     typename BrokerAgentT::VariantType::Map args;
     args.emplace("host", host);
     args.emplace("port", port);
