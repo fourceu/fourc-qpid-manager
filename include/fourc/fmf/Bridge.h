@@ -79,7 +79,7 @@ public:
 
   template <typename BrokerAgentT>
   std::shared_ptr<MethodResult> closeOn(BrokerAgentT& brokerAgent) const {
-    std::string method_name = "close";
+    const std::string method_name("close");
     typename BrokerAgentT::VariantType::Map args;
 
     const auto& address = getObjectId().getName();
