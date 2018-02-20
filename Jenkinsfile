@@ -1,60 +1,52 @@
-timestamps {
+def compilers = ['g++', 'clang++']
+def create_unittest_build(String compiler, CMakeBuildSupport buildSupport, String buildSubdir, int scmRetries) {
+  return {
+    node ('ubuntu64') {
+      stage("Unit Tests (${compiler})") {
+        checkout scm
 
-parallel 'unit-tests' : {
-  node ('remote') {
-    stage('SCM (tests)') {
-      checkout scm
-    }
-
-    stage('Build (tests)') {
-      dir ('build') {
-        sh "cmake .."
-        sh "make -j\$((2*\$(getconf _NPROCESSORS_ONLN)))"
-      }
-    }
-
-    stage('Unit tests') {
-      dir ('build') {
-        sh "make test"
-        junit 'tests/unittests/test_detail.xml'
+        dir (buildSubdir) {
+          sh "cmake -DCMAKE_CXX_COMPILER=${compiler} .."
+          sh "make -j\$((2*\$(getconf _NPROCESSORS_ONLN)))"
+          sh "make test"
+          junit 'tests/unittests/test_detail.xml'
+        }
       }
     }
   }
-}, 'doc' : {
-  node ('local') {
-    stage('SCM (doc)') {
-      checkout scm
-    }
+}
 
-    stage('Docs') {
-      dir ('build')  {
+def executions = [:]
+for(int i = 0; i < compilers.size(); i++) {
+  executions['unittest-' + compilers[i]] = create_unittest_build(compilers[i], cmakeBuildSupport, 'build', scmRetries)
+}
+executions['doc'] = {
+  node {
+    stage('Documentation') {
+      checkout scm
+      dir ('build') {
         sh "cmake -DBUILD_DOCUMENTATION=on .."
         sh "make doc"
         archiveArtifacts artifacts: 'doc/', fingerprint: false
       }
     }
   }
-}, 'coverage' : {
-  node ('remote') {
-    stage('SCM (cov)') {
+}
+executions['coverage'] = {
+  node ('ubuntu64') {
+    stage('Coverage') {
       checkout scm
-    }
 
-    stage('Build (cov)') {
       dir ('build') {
         sh "cmake -DCMAKE_VERBOSE_MAKEFILE=on -DBUILD_COVERAGE=on .."
         sh "make -j\$((2*\$(getconf _NPROCESSORS_ONLN)))"
-      }
-    }
-
-    stage('Coverage') {
-      dir ('build') {
         sh "make coverage"
-        junit 'tests/unittests/test_detail.xml'
         archiveArtifacts artifacts: 'unit_test_coverage/', fingerprint: false
       }
     }
   }
 }
 
+timestamps {
+  parallel executions
 }
