@@ -1,5 +1,5 @@
 def compilers = ['g++', 'clang++']
-def create_unittest_build(String compiler, CMakeBuildSupport buildSupport, String buildSubdir, int scmRetries) {
+def create_unittest_build(String compiler, String buildSubdir) {
   return {
     node ('ubuntu64') {
       stage("Unit Tests (${compiler})") {
@@ -18,12 +18,13 @@ def create_unittest_build(String compiler, CMakeBuildSupport buildSupport, Strin
 
 def executions = [:]
 for(int i = 0; i < compilers.size(); i++) {
-  executions['unittest-' + compilers[i]] = create_unittest_build(compilers[i], cmakeBuildSupport, 'build', scmRetries)
+  executions['unittest-' + compilers[i]] = create_unittest_build(compilers[i], 'build')
 }
 executions['doc'] = {
   node {
     stage('Documentation') {
       checkout scm
+
       dir ('build') {
         sh "cmake -DBUILD_DOCUMENTATION=on .."
         sh "make doc"
@@ -38,7 +39,7 @@ executions['coverage'] = {
       checkout scm
 
       dir ('build') {
-        sh "cmake -DCMAKE_VERBOSE_MAKEFILE=on -DBUILD_COVERAGE=on .."
+        sh "cmake -DBUILD_COVERAGE=on .."
         sh "make -j\$((2*\$(getconf _NPROCESSORS_ONLN)))"
         sh "make coverage"
         archiveArtifacts artifacts: 'unit_test_coverage/', fingerprint: false
