@@ -50,7 +50,6 @@ protected:
   boost::uuids::random_generator uuid_generator;
 };
 
-
 TEST_F(BrokerAgentTests, testEcho) {
   int sequence = 42;
   std::string body = "lies";
@@ -63,6 +62,26 @@ TEST_F(BrokerAgentTests, testEcho) {
 
   EXPECT_EQ(sequence, seq_resp);
   EXPECT_EQ(body, body_resp);
+}
+
+TEST_F(BrokerAgentTests, getLogLevel) {
+  auto level = brokerAgent.getLogLevel();
+
+  EXPECT_FALSE(level.empty());
+}
+
+TEST_F(BrokerAgentTests, setLogLevel) {
+  std::string level_trace("trace+");
+  std::string level_notice("notice+");
+
+  brokerAgent.setLogLevel(level_notice);
+  EXPECT_EQ(level_notice, brokerAgent.getLogLevel());
+
+  brokerAgent.setLogLevel(level_trace);
+  EXPECT_EQ(level_trace, brokerAgent.getLogLevel());
+
+  brokerAgent.setLogLevel(level_notice);
+  EXPECT_EQ(level_notice, brokerAgent.getLogLevel());
 }
 
 TEST_F(BrokerAgentTests, testPartialResponses) {

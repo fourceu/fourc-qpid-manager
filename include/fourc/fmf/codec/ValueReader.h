@@ -28,7 +28,7 @@ namespace fmf {
 namespace codec {
 
 /**
- * \brief Reads variants from a an associative list
+ * \brief Reads variants from an associative list
  */
 class ValueReader {
 public:

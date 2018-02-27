@@ -15,39 +15,35 @@
  * along with fourc-qpid-manager.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef FOURC_QPID_MANAGER_LOGLEVELDECODER_H
+#define FOURC_QPID_MANAGER_LOGLEVELDECODER_H
+
+#include "../LogLevel.h"
 #include "Decoder.h"
-
-
-#ifndef FOURC_QPID_MANAGER_METHODRESULTDECODER_H
-#define FOURC_QPID_MANAGER_METHODRESULTDECODER_H
 
 namespace fourc {
 namespace fmf {
 namespace codec {
 
 template<typename VariantT>
-class MethodResultDecoder : public Decoder<VariantT, VariantT> {
+class LogLevelDecoder : public Decoder<LogLevel, VariantT> {
 public:
   typedef typename VariantT::Map MapT;
 
-  static const std::string PROPERTY_NAME_ARGUMENTS;
+  static const std::string PROPERTY_NAME_LEVEL;
 
-  virtual ~MethodResultDecoder() = default;
+  virtual ~LogLevelDecoder() = default;
 
-  std::shared_ptr<MethodResult> decode(const MapT &objectProperties) const {
-    auto args = ValueReader::get(objectProperties, PROPERTY_NAME_ARGUMENTS, true).asMap();
+  std::shared_ptr<LogLevel> decode(const MapT &objectProperties) const {
+    auto decoded = std::make_shared<LogLevel>();
+    auto arguments = ValueReader::get(objectProperties, RPNs::ARGUMENTS).asMap();
+    decoded->setLevel(ValueReader::get(arguments, PROPERTY_NAME_LEVEL));
 
-//    if (args.empty()) {
-//      std::cout << "Empty" << std::endl;
-//    }
-//    std::for_each (args.begin(), args.end(), [](const typename MapT::value_type& pair) { std::cout << pair.first << std::endl;});
-
-    return std::make_shared<MethodResult>();
+    return decoded;
   }
 };
-
-template <typename VariantT> const std::string MethodResultDecoder<VariantT>::PROPERTY_NAME_ARGUMENTS = "_arguments";
+template<typename VariantT> const std::string LogLevelDecoder<VariantT>::PROPERTY_NAME_LEVEL = "level";
 
 }}} // Namespaces
 
-#endif //FOURC_QPID_MANAGER_METHODRESULTDECODER_H
+#endif //FOURC_QPID_MANAGER_LOGLEVELDECODER_H

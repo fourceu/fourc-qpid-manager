@@ -409,12 +409,15 @@ public:
     typename VariantT::Map args;
     args.emplace("level", level);
 
-    method("setLogLevel", args);
+    method<TrivialResponseType>("setLogLevel", args);
   }
 
   std::string getLogLevel() {
     typename VariantT::Map args;
-    return method("getLogLevel", args);
+
+    auto result = method<LogLevel>("getLogLevel", args);
+
+    return result->getLevel();
   }
 
   /**

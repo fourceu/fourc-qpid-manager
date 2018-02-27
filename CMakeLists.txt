@@ -43,7 +43,8 @@ LIST(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/Modules")
 
 IF (UNIX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -pedantic -Wall -Wextra -Winit-self -Woverloaded-virtual -Wuninitialized -Wmissing-declarations -Wold-style-cast -DBOOST_ALL_DYN_LINK")
-    if (CMAKE_COMPILER_IS_GNUCC AND BUILD_QA_COMPILER_FLAGS)
+    if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang" AND BUILD_QA_COMPILER_FLAGS)
+        message(STATUS "Setting -Werror for compiler: ${CMAKE_CXX_COMPILER_ID}")
         SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror")
     endif()
     if (BUILD_COVERAGE)
@@ -86,6 +87,7 @@ SET(${APP_NAME_UPPER}_SRCS
         src/fourc/fmf/ExchangeTypeDesc.cxx
         src/fourc/fmf/HaBroker.cxx
         src/fourc/fmf/Link.cxx
+        src/fourc/fmf/LogLevel.cxx
         src/fourc/fmf/Memory.cxx
         src/fourc/fmf/ObjectId.cxx
         src/fourc/fmf/Queue.cxx
