@@ -64,7 +64,6 @@ ADD_CUSTOM_TARGET(cxxsystemtest "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}${CM
     DEPENDS ${PROJECT_NAME}
     COMMENT "Executing cxx system tests..."
     VERBATIM SOURCES ${test_SRCS})
-ADD_DEPENDENCIES(${PROJECT_NAME} googlemock)
 
 ADD_CUSTOM_TARGET(bashsystemtest COMMAND ${CMAKE_CURRENT_BINARY_DIR}/scripts/bash-system-tests
 	DEPENDS ${PROJECT_NAME}

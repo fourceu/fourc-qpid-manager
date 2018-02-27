@@ -29,6 +29,7 @@
 #include "ExchangeDecoder.h"
 #include "HaBrokerDecoder.h"
 #include "LinkDecoder.h"
+#include "LogLevelDecoder.h"
 #include "MemoryDecoder.h"
 #include "QueueDecoder.h"
 #include "SessionDecoder.h"
@@ -108,6 +109,12 @@ template<typename VariantT>
 class decoder_traits<fourc::fmf::Link, VariantT> {
 public:
   typedef LinkDecoder<VariantT> DecoderType;
+};
+
+template<typename VariantT>
+class decoder_traits<fourc::fmf::LogLevel, VariantT> {
+public:
+  typedef LogLevelDecoder<VariantT> DecoderType;
 };
 
 template<typename VariantT>

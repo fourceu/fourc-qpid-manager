@@ -87,6 +87,7 @@ SET(${APP_NAME_UPPER}_SRCS
         src/fourc/fmf/ExchangeTypeDesc.cxx
         src/fourc/fmf/HaBroker.cxx
         src/fourc/fmf/Link.cxx
+        src/fourc/fmf/LogLevel.cxx
         src/fourc/fmf/Memory.cxx
         src/fourc/fmf/ObjectId.cxx
         src/fourc/fmf/Queue.cxx
