@@ -482,7 +482,7 @@ public:
   std::shared_ptr<ObjectT> method(const std::string& method_name, const MapT& arguments, const std::string& address) {
     auto receiver = createTemporaryReceiver();
     // Close the receiver when it drops out of scope
-    auto receiver_ptr = std::shared_ptr<decltype(receiver)>(&receiver, [&receiver](const decltype(&receiver) rec) {rec->close();});
+    auto receiver_ptr = std::shared_ptr<decltype(receiver)>(&receiver, [](const decltype(&receiver) rec) {rec->close();});
 
     typename VariantT::Map object_id_map;
     object_id_map.emplace(RPNs::OBJECT_NAME, address);
@@ -509,7 +509,9 @@ public:
   }
 
   template <typename ObjectType, typename PredicateType = std::function<bool(const std::shared_ptr<ObjectType>&)>>
-  const std::shared_ptr<ObjectType> getSingleObject(const PredicateType& predicate = std::function<bool(const std::shared_ptr<ObjectType>&)>([](const std::shared_ptr<ObjectType>&){ return true; })) {
+  const std::shared_ptr<ObjectType> getSingleObject(const PredicateType& predicate =
+                          std::function<bool(const std::shared_ptr<ObjectType>&)>(
+                                  [](const std::shared_ptr<ObjectType>&){ return true; })) {
     for (auto object : classQuery<ObjectType>()) {
       if (predicate(object)) {
         return object;
@@ -642,7 +644,7 @@ protected:
   std::vector<std::shared_ptr<ObjectType>> objectQuery(const std::string& schemaMetaId, const std::string& objectMetaId, const std::string& objectId) {
     auto receiver = createTemporaryReceiver();
     // Close the receiver when it drops out of scope
-    auto receiver_ptr = std::shared_ptr<decltype(receiver)>(&receiver, [&receiver](const decltype(&receiver) rec) {rec->close();});
+    auto receiver_ptr = std::shared_ptr<decltype(receiver)>(&receiver, [](const decltype(&receiver) rec) {rec->close();});
 
     typename VariantT::Map schemaId;
     schemaId.emplace(objectMetaId, objectId);
