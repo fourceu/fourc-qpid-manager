@@ -14,7 +14,7 @@
 # along with fourc-qpid-manager.  If not, see <http://www.gnu.org/licenses/>.
 
 SET(APPLICATION_VERSION_MAJOR 0)
-SET(APPLICATION_VERSION_MINOR 3)
+SET(APPLICATION_VERSION_MINOR 4)
 SET(APPLICATION_VERSION_PATCH 0)
 
 # Generate header file in build directory
