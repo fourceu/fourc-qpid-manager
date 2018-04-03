@@ -13,17 +13,12 @@
 # You should have received a copy of the GNU Lesser Public License
 # along with fourc-qpid-manager.  If not, see <http://www.gnu.org/licenses/>.
 
-INSTALL(TARGETS ${PROJECT_NAME}
-        EXPORT ${APPLICATION_NAME}Targets
-        LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
-        )
-INSTALL(DIRECTORY ${CMAKE_SOURCE_DIR}/include/fourc DESTINATION include)
-
 # Offer the user the choice of overriding the installation directories
-set(INSTALL_LIB_DIR lib CACHE PATH "Installation directory for libraries")
+set(LIBDIR_SUFFIX "" CACHE STRING "Suffix of library directory name (empty/32/64)")
+set(INSTALL_LIB_DIR lib${LIBDIR_SUFFIX} CACHE PATH "Installation directory for libraries")
 set(INSTALL_BIN_DIR bin CACHE PATH "Installation directory for executables")
 set(INSTALL_INCLUDE_DIR include CACHE PATH "Installation directory for header files")
-set(INSTALL_CMAKE_DIR lib/cmake/${APPLICATION_NAME} CACHE PATH "Installation directory for CMake files")
+set(INSTALL_CMAKE_DIR lib${LIBDIR_SUFFIX}/cmake/${APPLICATION_NAME} CACHE PATH "Installation directory for CMake files")
 
 # Make relative paths absolute
 foreach(p LIB BIN INCLUDE CMAKE)
@@ -32,6 +27,12 @@ foreach(p LIB BIN INCLUDE CMAKE)
         set(${var} "${CMAKE_INSTALL_PREFIX}/${${var}}")
     endif()
 endforeach()
+
+INSTALL(TARGETS ${PROJECT_NAME}
+        EXPORT ${APPLICATION_NAME}Targets
+        LIBRARY DESTINATION ${INSTALL_LIB_DIR}
+        )
+INSTALL(DIRECTORY ${CMAKE_SOURCE_DIR}/include/fourc DESTINATION ${INSTALL_INCLUDE_DIR})
 
 # Add all targets to the build-tree export set
 export(TARGETS ${PROJECT_NAME} FILE "${PROJECT_BINARY_DIR}/${APPLICATION_NAME}Targets.cmake")
