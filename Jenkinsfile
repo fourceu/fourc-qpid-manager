@@ -1,3 +1,12 @@
+#!/usr/bin/env groovy
+
+properties([
+        [$class: 'ParametersDefinitionProperty', parameterDefinitions: [
+                [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Build Integration Tests', name: 'integrationTests']
+        ]]
+])
+def integrationTests = (env.integrationTests == "true")
+
 def compilers = ['g++', 'clang++']
 def create_unittest_build(String compiler, String buildSubdir) {
   return {
@@ -43,6 +52,26 @@ executions['coverage'] = {
         sh "make -j\$((2*\$(getconf _NPROCESSORS_ONLN)))"
         sh "make coverage"
         archiveArtifacts artifacts: 'unit_test_coverage/', fingerprint: false
+      }
+    }
+  }
+}
+if (integrationTests) {
+  executions['integration'] = {
+    node {
+      stage('Integration Tests') {
+        checkout scm
+
+        dir ('build') {
+          try {
+            sh "qpidd -q"
+            sh "cmake -DBUILD_SYSTEM_TESTS=on .."
+            sh "make -j12 test cxxsystemtest"
+          } finally {
+            junit "tests/systemtests/test_detail.xml"
+            sh "qpidd -q"
+          }
+        }
       }
     }
   }
