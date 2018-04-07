@@ -58,7 +58,7 @@ executions['coverage'] = {
 }
 if (integrationTests) {
   executions['integration'] = {
-    node {
+    node ('ubuntu64') {
       stage('Integration Tests') {
         checkout scm
 
