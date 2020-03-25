@@ -1,7 +1,7 @@
 def compilers = ['g++', 'clang++']
 def create_unittest_build(String compiler, String buildSubdir) {
   return {
-    node ('ubuntu64') {
+    node ('ubuntu64' && 'gcc9' && 'clang9') {
       stage("Unit Tests (${compiler})") {
         checkout scm
 
@@ -21,7 +21,7 @@ for(int i = 0; i < compilers.size(); i++) {
   executions['unittest-' + compilers[i]] = create_unittest_build(compilers[i], 'build')
 }
 executions['doc'] = {
-  node {
+  node ('ubuntu64' && 'gcc9' && 'clang9') {
     stage('Documentation') {
       checkout scm
 
@@ -34,7 +34,7 @@ executions['doc'] = {
   }
 }
 executions['coverage'] = {
-  node ('ubuntu64') {
+  node ('ubuntu64' && 'gcc9' && 'clang9') {
     stage('Coverage') {
       checkout scm
 
