@@ -27,10 +27,6 @@ using namespace fourc::fmf;
 using ::testing::Return;
 using ::testing::ReturnRef;
 
-class TestLinkDecoder_VariantReferenceMap : public LinkDecoder<subsystem::mocks::ReferenceVariant> {
-public:
-};
-
 TEST(LinkDecoderTests, ctor) {
   auto instance = new LinkDecoder<subsystem::mocks::Variant>();
 

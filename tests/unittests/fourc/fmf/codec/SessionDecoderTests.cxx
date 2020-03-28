@@ -27,10 +27,6 @@ using namespace fourc::fmf;
 using ::testing::Return;
 using ::testing::ReturnRef;
 
-class TestSessionDecoder_VariantReferenceMap : public SessionDecoder<subsystem::mocks::ReferenceVariant> {
-public:
-};
-
 TEST(SessionDecoderTests, ctor) {
   auto instance = new SessionDecoder<subsystem::mocks::Variant>();
 

@@ -27,10 +27,6 @@ using namespace fourc::fmf;
 using ::testing::Return;
 using ::testing::ReturnRef;
 
-class TestAclDecoder_VariantReferenceMap : public AclDecoder<subsystem::mocks::ReferenceVariant> {
-public:
-};
-
 TEST(AclDecoderTests, ctor) {
   auto instance = new AclDecoder<subsystem::mocks::Variant>();
 

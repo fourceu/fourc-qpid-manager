@@ -27,10 +27,6 @@ using namespace fourc::fmf;
 using ::testing::Return;
 using ::testing::ReturnRef;
 
-class TestBrokerDecoder_VariantReferenceMap : public BrokerDecoder<subsystem::mocks::ReferenceVariant> {
-public:
-};
-
 TEST(BrokerDecoderTests, ctor) {
   auto instance = new BrokerDecoder<subsystem::mocks::Variant>();
 

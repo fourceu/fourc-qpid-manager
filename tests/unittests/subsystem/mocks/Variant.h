@@ -84,47 +84,7 @@ public:
   MOCK_CONST_METHOD0(getEncoding, const std::string&());
 };
 
-class ReferenceVariant : public VariantTemplate<std::list<const ReferenceVariant&>, std::map<std::string, const ReferenceVariant&>> {
-public:
-  ReferenceVariant() = default;
-  ReferenceVariant(const ReferenceVariant &other) : VariantTemplate<std::list<const ReferenceVariant&>, std::map<std::string, const ReferenceVariant&>>(other){}
-  ReferenceVariant(const std::string &) {}
-  ReferenceVariant(const Map&) {}
-  virtual ~ReferenceVariant() = default;
-  ReferenceVariant &operator=(const ReferenceVariant &) { return *this; }
-  ReferenceVariant &operator=(const Map &) { return *this; };
-  ReferenceVariant &operator=(Map &) { return *this; };
-  ReferenceVariant &operator=(const List &) { return *this; };
-
-  virtual bool operator==(const ReferenceVariant &other) const {
-    return equals(other);
-  }
-  MOCK_CONST_METHOD1(equals, bool(const ReferenceVariant&));
-
-  MOCK_CONST_METHOD0(asBool, bool());
-  MOCK_CONST_METHOD0(asUint8, uint8_t());
-  MOCK_CONST_METHOD0(asUint16, uint16_t());
-  MOCK_CONST_METHOD0(asUint32, uint32_t());
-  MOCK_CONST_METHOD0(asUint64, uint64_t());
-  MOCK_CONST_METHOD0(asInt8, int8_t());
-  MOCK_CONST_METHOD0(asInt16, int16_t());
-  MOCK_CONST_METHOD0(asInt32, int32_t());
-  MOCK_CONST_METHOD0(asInt64, int64_t());
-  MOCK_CONST_METHOD0(asFloat, float());
-  MOCK_CONST_METHOD0(asDouble, double());
-  MOCK_CONST_METHOD0(asString, std::string());
-  //MOCK_CONST_METHOD0(asUuid, Uuid());
-
-  operator std::string() const { return asString(); };
-
-  MOCK_CONST_METHOD0(asMap, const Map&());
-
-  MOCK_METHOD1(setEncoding, void(const std::string&));
-  MOCK_CONST_METHOD0(getEncoding, const std::string&());
-};
-
 static std::ostream& operator<<(std::ostream& out, const Variant& ) { out << "<Variant>"; return out; }
-static std::ostream& operator<<(std::ostream& out, const ReferenceVariant& ) { out << "<ReferenceVariant>"; return out; }
 
 }} // Namespaces
 

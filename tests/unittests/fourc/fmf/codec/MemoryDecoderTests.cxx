@@ -27,10 +27,6 @@ using namespace fourc::fmf;
 using ::testing::Return;
 using ::testing::ReturnRef;
 
-class TestMemoryDecoder_VariantReferenceMap : public MemoryDecoder<subsystem::mocks::ReferenceVariant> {
-public:
-};
-
 TEST(MemoryDecoderTests, ctor) {
   auto instance = new MemoryDecoder<subsystem::mocks::Variant>();
 
