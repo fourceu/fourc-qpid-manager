@@ -27,10 +27,6 @@ using namespace fourc::fmf;
 using ::testing::Return;
 using ::testing::ReturnRef;
 
-class TestConnectionDecoder_VariantReferenceMap : public ConnectionDecoder<subsystem::mocks::ReferenceVariant> {
-public:
-};
-
 TEST(ConnectionDecoderTests, ctor) {
   auto instance = new ConnectionDecoder<subsystem::mocks::Variant>();
 

@@ -27,10 +27,6 @@ using namespace fourc::fmf;
 using ::testing::Return;
 using ::testing::ReturnRef;
 
-class TestQueueDecoder_VariantReferenceMap : public QueueDecoder<subsystem::mocks::ReferenceVariant> {
-public:
-};
-
 TEST(QueueDecoderTests, ctor) {
   auto instance = new QueueDecoder<subsystem::mocks::Variant>();
 
@@ -57,7 +53,7 @@ TEST(QueueDecoderTests, decodeQueue) {
   std::string schema_hash = "12345";
   std::string schema_package_name = "org.apache.qpid.queue";
   std::string schema_type = "_data";
-  
+
   uint64_t acquires = 1;
   bool auto_delete = true;
   uint32_t binding_count = 2;
@@ -263,65 +259,3 @@ TEST(QueueDecoderTests, decodeQueue) {
   EXPECT_EQ(vhost_ref, queue->getVhostRef());
 
 }
-
-
-// Problems with mocking maps
-//TEST(QueueDecoderTests, decodeDurableQueue) {
-//  std::string name = "test name";
-//  const subsystem::mocks::ReferenceVariant name_value;
-//  EXPECT_CALL(name_value, asString()).WillOnce(Return(name));
-//
-//  bool durable = true;
-//  const subsystem::mocks::ReferenceVariant durable_value;
-//  EXPECT_CALL(durable_value, asBool()).WillOnce(Return(durable));
-//
-//  const subsystem::mocks::ReferenceVariant::Map values_map = {
-//      { RPNs::NAME, name_value },
-//      { RPNs::DURABLE, durable_value }
-//  };
-//  const subsystem::mocks::ReferenceVariant values(values_map);
-//  EXPECT_CALL(values, asMap()).WillOnce(ReturnRef(values_map));
-//
-//  const subsystem::mocks::ReferenceVariant::Map objectProperties = {
-//      { RPNs::VALUES, values }
-//  };
-//
-//  // This is what we should get back from the codec
-//  auto expected = std::make_shared<Queue>();
-//
-//  TestQueueDecoder_VariantReferenceMap decoder;
-//
-//  auto actual = decoder.decode(objectProperties);
-//
-//  EXPECT_EQ(*expected, *actual);
-//}
-//
-//TEST(QueueDecoderTests, decodeNondurableQueue) {
-//  std::string name = "test name";
-//  const subsystem::mocks::ReferenceVariant name_value;
-//  EXPECT_CALL(name_value, asString()).WillOnce(Return(name));
-//
-//  bool durable = false;
-//  const subsystem::mocks::ReferenceVariant durable_value;
-//  EXPECT_CALL(durable_value, asBool()).WillOnce(Return(durable));
-//
-//  const subsystem::mocks::ReferenceVariant::Map values_map = {
-//      { RPNs::NAME, name_value },
-//      { RPNs::DURABLE, durable_value }
-//  };
-//  const subsystem::mocks::ReferenceVariant values(values_map);
-//  EXPECT_CALL(values, asMap()).WillOnce(ReturnRef(values_map));
-//
-//  const subsystem::mocks::ReferenceVariant::Map objectProperties = {
-//      { RPNs::VALUES, values }
-//  };
-//
-//  // This is what we should get back from the codec
-//  auto expected = std::make_shared<Queue>();
-//
-//  TestQueueDecoder_VariantReferenceMap decoder;
-//
-//  auto actual = decoder.decode(objectProperties);
-//
-//  EXPECT_EQ(*expected, *actual);
-//}

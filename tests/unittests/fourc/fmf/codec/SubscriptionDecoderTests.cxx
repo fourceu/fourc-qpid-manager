@@ -27,10 +27,6 @@ using namespace fourc::fmf;
 using ::testing::Return;
 using ::testing::ReturnRef;
 
-class TestSubscriptionDecoder_VariantReferenceMap : public SubscriptionDecoder<subsystem::mocks::ReferenceVariant> {
-public:
-};
-
 TEST(SubscriptionDecoderTests, ctor) {
   auto instance = new SubscriptionDecoder<subsystem::mocks::Variant>();
 
@@ -57,7 +53,7 @@ TEST(SubscriptionDecoderTests, decodeSubscription) {
   std::string schema_hash = "12345";
   std::string schema_package_name = "org.apache.qpid.subscription";
   std::string schema_type = "_data";
-  
+
   bool acknowledged = true;
   bool browsing = true;
   std::string credit_mode = "test credit mode";
@@ -85,7 +81,7 @@ TEST(SubscriptionDecoderTests, decodeSubscription) {
       { ResponsePropertyNames::OBJECT_NAME, queue_name },
       { ResponsePropertyNames::OBJECT_AGENT_EPOCH, queue_epoch }
   };
-  
+
   qpid::types::Variant::Map session_ref_map = {
       { ResponsePropertyNames::OBJECT_NAME, session_name },
       { ResponsePropertyNames::OBJECT_AGENT_EPOCH, session_epoch }
