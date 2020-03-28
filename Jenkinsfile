@@ -35,7 +35,7 @@ executions['doc'] = {
       checkout scm
 
       dir ('build') {
-        sh "cmake -DBUILD_DOCUMENTATION=on -DCMAKE_CXX_COMPILER=g++-9 .."
+        sh "cmake -DBUILD_DOCUMENTATION=on -DCMAKE_CXX_COMPILER=g++-9 -DCMAKE_C_COMPILER=gcc-9 .."
         sh "make doc"
         archiveArtifacts artifacts: 'doc/', fingerprint: false
       }
@@ -48,7 +48,7 @@ executions['coverage'] = {
       checkout scm
 
       dir ('build') {
-        sh "cmake -DBUILD_COVERAGE=on -DCMAKE_CXX_COMPILER=g++-9 .."
+        sh "cmake -DBUILD_COVERAGE=on -DCMAKE_CXX_COMPILER=g++-9 -DCMAKE_C_COMPILER=gcc-9 .."
         sh "make -j\$((2*\$(getconf _NPROCESSORS_ONLN)))"
         sh "make coverage"
         archiveArtifacts artifacts: 'unit_test_coverage/', fingerprint: false
@@ -65,7 +65,7 @@ if (integrationTests) {
         dir ('build') {
           try {
             sh "qpidd -q"
-            sh "cmake -DBUILD_SYSTEM_TESTS=on -DCMAKE_CXX_COMPILER=g++-9 .."
+            sh "cmake -DBUILD_SYSTEM_TESTS=on -DCMAKE_CXX_COMPILER=g++-9 -DCMAKE_C_COMPILER=gcc-9 .."
             sh "make -j12 test cxxsystemtest"
           } finally {
             junit "tests/systemtests/test_detail.xml"
