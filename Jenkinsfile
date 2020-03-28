@@ -48,6 +48,8 @@ executions['coverage'] = {
       checkout scm
 
       dir ('build') {
+	deleteDir
+
         sh "cmake -DBUILD_COVERAGE=on -DCMAKE_CXX_COMPILER=g++-9 .."
         sh "make -j\$((2*\$(getconf _NPROCESSORS_ONLN)))"
         sh "make coverage"
